@@ -32,6 +32,16 @@ export default function Home() {
 					scrub: true,
 				},
 			});
+
+			gsap.to(lineScrollRef.current, {
+				opacity: 0,
+				scrollTrigger: {
+					trigger: 'body', // или любой другой блок
+					start: 'top top',
+					end: () => window.innerHeight * 0.5,
+					scrub: true,
+				},
+			});
 		});
 		return () => {
 			ctx.revert();
@@ -117,11 +127,11 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
-			<Brands />
-			<Albums />
-			<Expertise/>
+			{/* <Brands />
+			<Albums /> */}
+			<Expertise />
 
-			<div className='h-[10000px] bg-amber-600'></div>
+			{/* <div className='h-[1000px] bg-amber-600'></div> */}
 		</>
 	);
 }
