@@ -10,6 +10,7 @@ import { useInertialScroll } from './useInertialScroll';
 import { Brands } from '../shared/components/home/Brands';
 import { Albums } from '../shared/components/home/Albums';
 import { Expertise } from '../shared/components/home/Expertise';
+import { Clients } from '../shared/components/home/Clients';
 
 export default function Home() {
 	gsap.registerPlugin(ScrollTrigger);
@@ -129,7 +130,8 @@ export default function Home() {
 			</div>
 			{/* <Brands />
 			<Albums /> */}
-			<Expertise />
+			{/* <Expertise /> */}
+			<Clients />
 
 			{/* <div className='h-[1000px] bg-amber-600'></div> */}
 		</>
