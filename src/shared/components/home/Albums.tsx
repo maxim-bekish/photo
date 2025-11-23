@@ -1,19 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { AlbumCard } from './AlbumCard';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useMemo, useRef } from 'react';
+import { useCustomCursor } from '../../../hooks/useCustomCursor';
+import { AlbumCard } from './AlbumCard';
 
 gsap.registerPlugin(ScrollTrigger);
-interface AlbumItem {
-	id: string;
-	href: string;
-	src: string;
-	alt: string;
-	title: string;
-	badges: string[];
-}
+
 export const Albums = () => {
 	const titleRef = useRef<HTMLHeadingElement>(null);
 	const itemRefs = useRef<HTMLAnchorElement[]>([]);
@@ -24,39 +18,12 @@ export const Albums = () => {
 			itemRefs.current.push(el);
 		}
 	};
+
+	// Используем хук для кастомного курсора
+	const getElements = useMemo(() => () => itemRefs.current, []);
+	useCustomCursor({ elements: getElements, text: 'view' });
+
 	useEffect(() => {
-		const cursor = document.getElementById('cursor-custom');
-		if (!cursor) return;
-
-		let posX = 0;
-		let posY = 0;
-
-		const moveCursor = (e: MouseEvent) => {
-			posX = e.clientX - cursor.offsetWidth / 2;
-			posY = e.clientY - cursor.offsetHeight / 2;
-		};
-
-		// слушаем глобально
-		window.addEventListener('mousemove', moveCursor);
-
-		const animate = () => {
-			gsap.to(cursor, {
-				x: posX,
-				y: posY,
-				duration: 0.4,
-				ease: 'power3.out',
-			});
-			requestAnimationFrame(animate);
-		};
-		animate();
-
-		const showCursor = () => gsap.to(cursor, { opacity: 1, scale: 1, duration: 0.2 });
-		const hideCursor = () => gsap.to(cursor, { opacity: 0, scale: 0.6, duration: 0.2 });
-
-		itemRefs.current.forEach((item) => {
-			item.addEventListener('mouseenter', showCursor);
-			item.addEventListener('mouseleave', hideCursor);
-		});
 		const title = titleRef.current;
 		if (!title && !albumsRef) return;
 		gsap.fromTo(
@@ -70,7 +37,7 @@ export const Albums = () => {
 					end: '+=600', // блюр закончится через 300px
 					scrub: true,
 				},
-			},
+			}
 		);
 		gsap.fromTo(
 			title,
@@ -86,16 +53,8 @@ export const Albums = () => {
 					pinSpacing: false, // страница продолжает скролл поверх
 					scrub: true,
 				},
-			},
+			}
 		);
-		return () => {
-			window.removeEventListener('mousemove', moveCursor);
-
-			itemRefs.current.forEach((item) => {
-				item.removeEventListener('mouseenter', showCursor);
-				item.removeEventListener('mouseleave', hideCursor);
-			});
-		};
 	}, []);
 
 	return (

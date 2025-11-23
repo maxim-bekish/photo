@@ -182,16 +182,19 @@
 	}
 	.body2 {
 		@apply text-[24px] md:text-[30px] xl:text-[40px]
-		leading-normal;
+		leading-normal
+    font-display;
 	}
 	.body3 {
 		@apply text-[20px] md:text-[18px] xl:text-[22px]
 		tracking-[-0.01em]  
-		leading-normal;
+		leading-normal
+    font-display;
 	}
 	.p-l {
 		@apply text-[28px] md:text-[32px] xl:text-[38px]
 		tracking-[-0.03em]  
+    font-satoshi
 		leading-[1.2];
 	}
 	.p-s {
@@ -221,11 +224,15 @@
 	.f-nav {
 		@apply text-[15px]  
 		tracking-[-0.02em]  
+    font-medium
+    font-display
 		leading-normal;
 	}
 	.f-XXL {
 		@apply text-[164px] md:text-[202px] xl:text-[240px]
 		tracking-[-0.04em]
+    text-creamy-white
+    font-medium
 		leading-none;
 	}
 	.link {
@@ -248,4 +255,32 @@
 
 .animate-updown {
 	animation: upDown 1s infinite;
+}
+
+@keyframes marquee {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-25%);
+	}
+}
+
+.animate-marquee {
+	animation: marquee 20s linear infinite;
+	will-change: transform;
+}
+
+@keyframes marquee-infinite {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+.animate-marquee-infinite {
+	animation: marquee-infinite 30s linear infinite;
+	will-change: transform;
 }

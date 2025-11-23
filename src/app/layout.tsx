@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import { Header } from '../shared/components/Header';
+import { Footer } from '../shared/components/Footer';
 import './globals.css';
-import { useInertialScroll } from './useInertialScroll';
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -48,12 +48,11 @@ export default function RootLayout({
 				className={`${clashDisplay.variable} ${satoshi.variable} ${inter.variable}   antialiased`}>
 				<Header />
 				{children}
+				<Footer />
 				<div
 					id='cursor-custom'
 					className='fixed  top-0 left-0 w-14.5 h-14.5 pointer-events-none  opacity-0 z-9999'>
-					<div className='body1 uppercase absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2'>
-						view
-					</div>
+					<div className='custom-text body1 uppercase absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2' />
 					<div className='absolute top-0 left-0'>
 						<span className='block w-2 h-px absolute top-0 left-0 bg-white'></span>
 						<span className='block w-px h-2 absolute top-0 left-0 bg-white'></span>

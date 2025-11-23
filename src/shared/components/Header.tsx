@@ -12,7 +12,7 @@ import { cn } from '../lib/utils';
 export function Header() {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const menuRef = useRef<HTMLDivElement>(null);
-	const navRefs = useRef<HTMLLIElement[]>([]);
+	const navRefs = useRef<HTMLAnchorElement[]>([]);
 
 	useEffect(() => {
 		if (!menuRef.current) return;
@@ -35,7 +35,7 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.1, // чуть позже после появления меню
-				},
+				}
 			);
 		} else {
 			document.body.style.overflow = 'auto';
@@ -56,7 +56,7 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.4, // чуть позже после появления меню
-				},
+				}
 			);
 		}
 	}, [menuOpen]);
@@ -96,21 +96,23 @@ export function Header() {
 			<div
 				ref={menuRef}
 				className='fixed p-10 top-0 left-0 w-full h-full bg-background  backdrop-blur-md z-40 flex flex-col  transform -translate-y-full'>
-				<nav className='flex flex-col gap-1.5 flex-1 justify-center uppercase text-2xl  '>
+				<nav className='flex flex-col gap-1.5 flex-1 justify-center uppercase text-2xl'>
 					{navItems.map((el, i) => {
 						const isActive = el.href === '/' ? pathname === '/' : pathname.startsWith(el.href);
 
 						return (
 							<a
-								ref={(el) => (navRefs.current[i] = el)}
+								ref={el => {
+									if (el) navRefs.current[i] = el;
+								}}
 								key={i}
 								href={el.href}
 								className={cn(
-									'transition-colors   text-7xl leading-14 tracking-[-3.2] font-display nav-menu',
+									'transition-colors w-min text-7xl leading-14 tracking-[-3.2] font-display nav-menu',
 									{
 										'text-deep-orange ': isActive,
 										'hover:text-white/30': !isActive,
-									},
+									}
 								)}>
 								{el.text}
 							</a>
