@@ -1,18 +1,17 @@
 'use client';
 
-import { useRef, useLayoutEffect, use } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { ArrowDown } from 'lucide-react';
-import { Button } from '../ui/button';
+import { useLayoutEffect, useRef } from 'react';
 import { AboutCard } from '../ui/about-card';
+import { Button } from '../ui/button';
+import { ScrollIndicator } from '../ui/ScrollIndicator';
 
 export default function Hero() {
 	gsap.registerPlugin(ScrollTrigger);
 
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const aboutBlockRef = useRef<HTMLDivElement | null>(null);
-	const lineScrollRef = useRef<HTMLDivElement | null>(null);
 
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
@@ -23,16 +22,6 @@ export default function Hero() {
 					start: 'top top',
 					endTrigger: aboutBlockRef.current,
 					end: 'bottom bottom',
-					scrub: true,
-				},
-			});
-
-			gsap.to(lineScrollRef.current, {
-				opacity: 0,
-				scrollTrigger: {
-					trigger: 'body', // или любой другой блок
-					start: 'top top',
-					end: () => window.innerHeight * 0.5,
 					scrub: true,
 				},
 			});
@@ -59,18 +48,7 @@ export default function Hero() {
 							Capturing Life's Best <br /> Moments
 						</h1>
 					</div>
-					<div
-						ref={lineScrollRef}
-						className='uppercase flex justify-between items-center pb-2.5 w-full border-b border-white/50'>
-						<p className='body1'>FINNEGAN MONROE PHOTOGRAPHY</p>
-						<p className='flex gap-1 body1 items-center'>
-							<ArrowDown size={12} className='animate-bounce' />
-							Scroll to Explore
-						</p>
-						<a className='body1 link' href='#'>
-							WORK WITH ME
-						</a>
-					</div>
+					<ScrollIndicator />
 				</div>
 			</div>
 

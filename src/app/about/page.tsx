@@ -1,7 +1,14 @@
-export default function () {
+'use client';
+
+import Hero from '@/src/shared/components/about/Hero';
+import { useInertialScroll } from '../useInertialScroll';
+
+export default function About() {
+	useInertialScroll();
+
 	return (
 		<>
-			<h1 className='h1'>About</h1>
+			<Hero />
 		</>
 	);
 }
