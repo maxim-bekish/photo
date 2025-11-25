@@ -59,13 +59,13 @@ export const Albums = () => {
 
 	return (
 		<div className='flex flex-col flex-nowrap relative items-center wrapper mx-auto'>
-			<div className='flex items-center justify-center h-screen'>
+			<div className='flex items-center justify-center h-[50vh]'>
 				<h2 ref={titleRef} className='h2-l text-deep-orange'>
 					Albums
 				</h2>
 			</div>
-			<div ref={albumsRef} className='flex max-w-[1440px] w-full flex-col gap-[174px] pb-[200px] '>
-				<section className='flex items-center justify-center px-[100px]'>
+			<div ref={albumsRef} className='flex max-w-[1440px] w-full flex-col gap-7.5 md:gap-15 xl:gap-[174px] pb-7.5 pt-7.5 xl:pt-0 xl:pb-[200px] '>
+				<section className='flex items-center justify-center px-3 md:px-10 xl:px-[100px]'>
 					<AlbumCard
 						item={{
 							id: 'hbvhjw',
@@ -75,11 +75,11 @@ export const Albums = () => {
 							title: 'Colorful India',
 							badges: ['Travel', 'Collaboration'],
 						}}
-						className='h-[446px] w-[632px]'
+						className='h-[446px] w-full xl:w-[632px]'
 						ref={setItemRef}
 					/>
 				</section>
-				<section className='flex items-center justify-left px-[100px]'>
+				<section className='flex items-center justify-left px-3 md:px-10 xl:px-[100px]'>
 					<AlbumCard
 						ref={setItemRef}
 						item={{
@@ -90,10 +90,10 @@ export const Albums = () => {
 							title: 'Echoes of Dreams',
 							badges: ['Conceptual', 'Commercial'],
 						}}
-						className='h-[446px] w-[718px]'
+						className='h-[446px] w-full xl:w-[718px]'
 					/>
 				</section>
-				<section className='flex items-center justify-between px-10'>
+				<section className='flex items-center justify-between flex-col md:flex-row px-3 md:px-10 gap-7.5 md:gap-15'>
 					<AlbumCard
 						ref={setItemRef}
 						item={{
@@ -104,7 +104,7 @@ export const Albums = () => {
 							title: 'Wings of Freedom',
 							badges: ['Aerial & Drone', 'Passion Project'],
 						}}
-						className='h-[446px] w-[451px]'
+						className='h-[446px] w-full xl:w-[451px]'
 					/>
 					<AlbumCard
 						ref={setItemRef}
@@ -116,10 +116,10 @@ export const Albums = () => {
 							title: 'Crafted Perfection',
 							badges: ['Product', 'Commercial'],
 						}}
-						className='h-[716px] w-[505px]'
+						className='h-[446px] xl:h-[716px] w-full xl:w-[505px]'
 					/>
 				</section>
-				<section className='flex items-center justify-center px-[100px]'>
+				<section className='flex items-center justify-center px-3 md:px-10 xl:px-[100px]'>
 					<AlbumCard
 						ref={setItemRef}
 						item={{
@@ -130,7 +130,7 @@ export const Albums = () => {
 							title: 'Wild Wonders',
 							badges: ['Wildlife & Nature', 'Passion Project'],
 						}}
-						className='h-[446px] w-[653px]'
+						className='h-[446px] w-full xl:w-[653px]'
 					/>
 				</section>
 			</div>

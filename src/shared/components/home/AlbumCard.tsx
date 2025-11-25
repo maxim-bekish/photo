@@ -33,7 +33,7 @@ export const AlbumCard = forwardRef<HTMLAnchorElement, Props>(({ item, className
 			</div>
 
 			<div className='flex flex-col gap-1 '>
-				<div className='flex gap-2.5'>
+				<div className='flex gap-2.5 flex-wrap'>
 					{item.badges.map((badge, i) => (
 						<Badge key={i}>{badge}</Badge>
 					))}

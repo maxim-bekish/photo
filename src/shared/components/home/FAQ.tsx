@@ -90,11 +90,11 @@ const FAQItemComponent = memo(({ item, isOpen, onToggle, isLast }: FAQItemCompon
 				<button
 					onClick={onToggle}
 					className='flex-1 flex flex-col cursor-pointer text-left group gap-5'>
-					<div className='flex items-center relative justify-between'>
+					<div className='flex w-full items-center relative justify-between'>
 						<p className='body3 group-hover:text-deep-orange transition-colors w-11/12 text-creamy-white'>
 							{item.question}
 						</p>
-						<div  className='absolute top-1/2 -translate-y-1/2 right-0 transition-colors'>
+						<div className='absolute top-1/2 -translate-y-1/2 right-0 transition-colors'>
 							<X
 								ref={iconRef}
 								strokeWidth={1.5}
@@ -186,12 +186,12 @@ export const FAQ = () => {
 	}, []);
 
 	return (
-		<div className='py-[150px] px-10 flex flex-col items-center'>
-			<div className='wrapper relative flex  gap-24'>
-				<div className='sticky top-[66px] h-min '>
-					<div className='flex flex-col '>
+		<div className=' pt-7.5 px-3 pb-15 md:py-[150px] md:px-10 flex  md:flex-col items-center'>
+			<div className='wrapper relative flex flex-col md:flex-row gap-10 md:gap-24'>
+				<div className='md:sticky md:top-[66px] h-min '>
+					<div className='flex flex-col items-center md:items-start'>
 						<h2 className='h2-l text-deep-orange'>
-							FAQ <br />
+							FAQ <br className='hidden md:block'/>
 							Frenzy:
 						</h2>
 						<h2 className='h2-s'>All your answers here</h2>

@@ -25,10 +25,18 @@ export const useInertialScroll = () => {
 		const momentumBoost = 1; // сила начального толчка
 		const momentumFriction = 0.3; // замедление инерции
 		const keyboardStep = 100; // шаг прокрутки для клавиатуры
-		const touchMomentumMultiplier = 0.5; // множитель для тач-инерции
+		const touchMomentumMultiplier = 2; // множитель для тач-инерции
+
+		// функция для проверки, открыто ли меню
+		const isMenuOpen = () => {
+			return document.body.getAttribute('data-menu-open') === 'true';
+		};
 
 		// общая функция для обновления target
 		const updateTarget = (delta: number, velocity?: number) => {
+			// если меню открыто, блокируем скролл
+			if (isMenuOpen()) return;
+
 			target += delta;
 
 			if (velocity !== undefined) {
@@ -53,11 +61,21 @@ export const useInertialScroll = () => {
 		};
 
 		const handleWheel = (e: WheelEvent) => {
+			if (isMenuOpen()) {
+				e.preventDefault();
+				return;
+			}
 			e.preventDefault();
 			updateTarget(e.deltaY);
 		};
 
 		const handleKeyDown = (e: KeyboardEvent) => {
+			// если меню открыто, блокируем скролл
+			if (isMenuOpen()) {
+				e.preventDefault();
+				return;
+			}
+
 			// проверяем, что не в поле ввода
 			const target = e.target as HTMLElement;
 			if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
@@ -96,6 +114,7 @@ export const useInertialScroll = () => {
 		};
 
 		const handleTouchStart = (e: TouchEvent) => {
+			if (isMenuOpen()) return;
 			if (e.touches.length !== 1) return;
 			touchStartY = e.touches[0].clientY;
 			touchLastY = touchStartY;
@@ -104,6 +123,10 @@ export const useInertialScroll = () => {
 		};
 
 		const handleTouchMove = (e: TouchEvent) => {
+			if (isMenuOpen()) {
+				e.preventDefault();
+				return;
+			}
 			if (e.touches.length !== 1) return;
 			e.preventDefault();
 
@@ -123,6 +146,7 @@ export const useInertialScroll = () => {
 		};
 
 		const handleTouchEnd = (e: TouchEvent) => {
+			if (isMenuOpen()) return;
 			if (e.changedTouches.length !== 1) return;
 
 			// применяем инерцию на основе последней скорости
@@ -134,6 +158,9 @@ export const useInertialScroll = () => {
 
 		// обработка перетаскивания полоски скролла
 		const handleScroll = () => {
+			// если меню открыто, блокируем скролл
+			if (isMenuOpen()) return;
+
 			// если это не наш внутренний скролл, синхронизируем target
 			if (!isInternalScroll) {
 				const scrollY = window.scrollY;
@@ -148,6 +175,7 @@ export const useInertialScroll = () => {
 		};
 
 		const startMomentum = () => {
+			if (isMenuOpen()) return;
 			if (Math.abs(momentumVelocity) < 0.2) return;
 
 			target += momentumVelocity;
@@ -164,6 +192,12 @@ export const useInertialScroll = () => {
 		};
 
 		const smoothScroll = () => {
+			// если меню открыто, не обновляем скролл
+			if (isMenuOpen()) {
+				animFrame = requestAnimationFrame(smoothScroll);
+				return;
+			}
+
 			const prevCurrent = current;
 			current += (target - current) * ease;
 

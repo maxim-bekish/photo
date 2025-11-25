@@ -107,8 +107,8 @@ export const Expertise = () => {
 
 	return (
 		<>
-			<div ref={mainW} className='h-[600vh] flex flex-col justify-between'>
-				<div className='sticky h-screen top-0 flex-col overflow-hidden left-0 flex justify-center items-center cursor-grab select-none'>
+			<div ref={mainW} className='md:h-[600vh]    flex flex-col justify-between'>
+				<div className='sticky h-screen top-0 flex-col overflow-hidden left-0 hidden md:flex justify-center items-center cursor-grab select-none'>
 					<div className='h2-l text-deep-orange'>My Expertise</div>
 					<div className='flex justify-center items-center'>
 						<div
@@ -123,16 +123,14 @@ export const Expertise = () => {
 									key={el.id}
 									data-id={el.id}
 									className={`${faceClasses} ${
-										(i + 1) % 2 ? 'bg-deep-orange text-black' : 'bg-black/85'
+										(i + 1) % 2 ? 'bg-light-orange text-black' : 'bg-black/85'
 									} w-full h-full p-10`}
 									style={{
 										transform: `rotateX(${-i * 90}deg) translateZ(160px) `,
 										transformOrigin: 'center center',
 									}}>
 									<div className='flex w-full h-full flex-col gap-2.5 justify-between'>
-										<h2 className='h3'>
-											{el.id} {el.title}
-										</h2>
+										<h2 className='h3'>{el.title}</h2>
 										<p className='p-s opacity-80 w-4/5 ml-auto'>{el.description}</p>
 									</div>
 								</div>
@@ -184,16 +182,34 @@ export const Expertise = () => {
 						))}
 					</div>
 				</div>
+				<div className='flex md:hidden flex-col gap-7.5 pt-20 pb-[30px] px-3' >
+					<h2 className='h2-l text-deep-orange text-center'>My Expertise</h2>
+					<div className='flex flex-col gap-2.5'>
+						{expertiseList.map((el, i) => (
+							<div
+								key={el.id}
+								className={`${
+									(i + 1) % 2 ? 'bg-light-orange text-black' : 'bg-black/85 border border-white/30'
+								} w-full h-[300px] p-5`}>
+								<div className='flex w-full h-full flex-col gap-2.5 justify-between'>
+									<h2 className='h3'>{el.title}</h2>
+									<p className='p-s opacity-80  '>{el.description}</p>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
 
 				{/* Блок "There's more" */}
-				<div className='h-auto items-center bg-light-orange relative z-50 flex flex-col px-10 gap-10 py-25'>
+				<div className=' md:h-auto items-center bg-light-orange relative z-50 flex flex-col gap-10  pt-15 pb-7.5 px-3 md:px-10 md:py-25'>
+					
 					<h2 className='wrapper h2-l text-black'>
 						Wait…
 						<br />
 						There's more!
 					</h2>
 
-					<div className='wrapper grid auto-rows-min grid-cols-[repeat(2,minmax(200px,1fr))] grid-rows-[repeat(2,min-content)] gap-2.5'>
+					<div className='wrapper grid auto-rows-min grid-cols-[repeat(1,minmax(200px,1fr))] xl:grid-cols-[repeat(2,minmax(200px,1fr))] grid-rows-[repeat(2,min-content)] gap-2.5 '>
 						{[
 							{
 								title: 'Event\nPhotography',
@@ -211,12 +227,12 @@ export const Expertise = () => {
 								title: 'Editorial\nPhotography',
 								description: 'Compelling editorial photography for magazines and publications.',
 							},
-						].map(el => (
-							<div key={el.title} className='flex gap-2.5 h-[346px] p-7.5 bg-matt-black'>
-								<h3 className='text-creamy-white h3-s flex flex-1 whitespace-pre-line'>
+						].map((el) => (
+							<div key={el.title} className='flex flex-col md:flex-row gap-2.5 h-[346px] p-7.5 bg-matt-black'>
+								<h3 className='text-creamy-white h3 flex flex-1 whitespace-pre-line'>
 									{el.title}
 								</h3>
-								<p className='text-creamy-white p-s opacity-70 flex flex-1 items-end'>
+								<p className='text-creamy-white   p-s opacity-70 flex flex-1 items-end'>
 									{el.description}
 								</p>
 							</div>

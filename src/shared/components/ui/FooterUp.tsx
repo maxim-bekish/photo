@@ -1,14 +1,8 @@
 'use client';
-import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+
 import Image from 'next/image';
 import { useState } from 'react';
-
-const socials = [
-	{ id: 'ig', text: 'Instagram', href: 'http://instagram.com', icon: Instagram },
-	{ id: 'fb', text: 'Facebook', href: 'http://facebook.com', icon: Facebook },
-	{ id: 'tw', text: 'Twitter', href: 'http://twitter.com', icon: Twitter },
-	{ id: 'li', text: 'Linkedin', href: 'http://linkedin.com', icon: Linkedin },
-];
+import { socials } from '../../config/social';
 
 const polygonConfigs = [
 	{
@@ -83,7 +77,7 @@ export function FooterUp() {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
-		<div className='px-10'>
+		<div className='p-3 md:py-0 md:px-10'>
 			<div className='bg-light-orange pt-[230px] pb-[150px] relative flex flex-col  items-center gap-12'>
 				<a
 					href='#'
@@ -121,13 +115,13 @@ export function FooterUp() {
 						</div>
 					</div>
 				</a>
-				<div className='flex flex-col gap-2 items-center'>
+				<div className='flex flex-col gap-8 md:gap-2 items-center'>
 					<a
 						href='mailto:photo@gmail.com'
 						className='body2 font-semibold text-matt-black hover:underline'>
 						photo@gmail.com
 					</a>
-					<ul className='flex gap-8'>
+					<ul className='flex gap-3 md:gap-8  flex-col md:flex-row'>
 						{socials.map(el => (
 							<li key={el.id}>
 								<a
@@ -142,19 +136,19 @@ export function FooterUp() {
 						))}
 					</ul>
 				</div>
-				<div className='h-10 w-10 absolute top-10 left-10'>
+				<div className='h-10 w-10 absolute top-5 md:top-10 left-5 md:left-10'>
 					<div className='absolute top-0 left-0 w-0.5 h-10 bg-black'></div>
 					<div className='absolute top-0 left-0 w-10 h-0.5 bg-black'></div>
 				</div>
-				<div className='h-10 w-10 absolute top-10 right-10'>
+				<div className='h-10 w-10 absolute top-5 md:top-10 right-5 md:right-10'>
 					<div className='absolute top-0 right-0 w-0.5 h-10 bg-black'></div>
 					<div className='absolute top-0 right-0 w-10 h-0.5 bg-black'></div>
 				</div>
-				<div className='h-10 w-10 absolute bottom-10 left-10'>
+				<div className='h-10 w-10 absolute bottom-5 md:bottom-10 left-5 md:left-10'>
 					<div className='absolute top-0 left-0 w-0.5 h-10 bg-black'></div>
 					<div className='absolute bottom-0 left-0 w-10 h-0.5 bg-black'></div>
 				</div>
-				<div className='h-10 w-10 absolute bottom-10 right-10'>
+				<div className='h-10 w-10 absolute bottom-5 md:bottom-10 right-5 md:right-10'>
 					<div className='absolute top-0 right-0 w-0.5 h-10 bg-black'></div>
 					<div className='absolute bottom-0 right-0 w-10 h-0.5 bg-black'></div>
 				</div>

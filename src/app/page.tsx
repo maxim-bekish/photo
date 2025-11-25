@@ -1,11 +1,11 @@
 'use client';
 
-import { useInertialScroll } from './useInertialScroll';
-import { Brands } from '../shared/components/home/Brands';
+import { useInertialScroll } from '../hooks/useInertialScroll';
 import { Albums } from '../shared/components/home/Albums';
-import { Expertise } from '../shared/components/home/Expertise';
-import { Clients } from '../shared/components/home/Clients';
 import { Articles } from '../shared/components/home/Articles';
+import { Brands } from '../shared/components/home/Brands';
+import { Clients } from '../shared/components/home/Clients';
+import { Expertise } from '../shared/components/home/Expertise';
 import { FAQ } from '../shared/components/home/FAQ';
 import Hero from '../shared/components/home/Hero';
 

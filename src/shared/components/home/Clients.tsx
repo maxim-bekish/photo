@@ -58,31 +58,49 @@ export const Clients = () => {
 		const container = containerRef.current;
 		if (!container) return;
 
-		// Вычисляем ширину одной карточки (350px + gap 10px = 360px)
-		const cardWidth = 350;
-		const gap = 10;
-		const cardTotalWidth = cardWidth + gap;
-		const totalWidth = clientsList.length * cardTotalWidth;
+		// Функция для вычисления ширины карточки в зависимости от размера экрана
+		const getCardWidth = () => {
+			if (window.innerWidth > 768) {
+				// На мобильных (>768px) используем адаптивную ширину
+				return Math.min(350, window.innerWidth - 40); // 40px для отступов
+			}
+			return 350; // На десктопе фиксированная ширина
+		};
 
-		// Устанавливаем начальную позицию
-		gsap.set(container, { x: 0 });
+		// Функция для инициализации анимации
+		const initAnimation = () => {
+			// Останавливаем предыдущую анимацию, если она есть
+			if (animationRef.current) {
+				animationRef.current.kill();
+			}
 
-		// Создаем бесконечную анимацию
-		// Используем onUpdate для проверки позиции и сброса, когда нужно
-		animationRef.current = gsap.to(container, {
-			x: -totalWidth,
-			duration: 20, // Скорость анимации (можно настроить)
-			ease: 'none',
-			repeat: -1, // Бесконечное повторение
-			onUpdate: function () {
-				const currentX = gsap.getProperty(container, 'x') as number;
-				// Сбрасываем позицию, когда достигли нужного значения
-				// Это создаст бесшовный переход
-				if (currentX <= -totalWidth) {
-					gsap.set(container, { x: 0 });
-				}
-			},
-		});
+			const cardWidth = getCardWidth();
+			const gap = 10;
+			const cardTotalWidth = cardWidth + gap;
+			const totalWidth = clientsList.length * cardTotalWidth;
+
+			// Устанавливаем начальную позицию
+			gsap.set(container, { x: 0, y: 0 });
+
+			// Создаем бесконечную горизонтальную анимацию
+			animationRef.current = gsap.to(container, {
+				x: -totalWidth,
+				duration: 20, // Скорость анимации (можно настроить)
+				ease: 'none',
+				repeat: -1, // Бесконечное повторение
+				onUpdate: function () {
+					const currentX = gsap.getProperty(container, 'x') as number;
+					// Сбрасываем позицию, когда достигли нужного значения
+					// Это создаст бесшовный переход
+					if (currentX <= -totalWidth) {
+						gsap.set(container, { x: 0 });
+					}
+				},
+			});
+		};
+
+		// Инициализируем анимацию
+		initAnimation();
 
 		// Обработчики для замедления при наведении
 		const handleMouseEnter = () => {
@@ -111,19 +129,27 @@ export const Clients = () => {
 		container.addEventListener('mouseenter', handleMouseEnter);
 		container.addEventListener('mouseleave', handleMouseLeave);
 
+		// Обработчик изменения размера окна для пересчета анимации
+		const handleResize = () => {
+			initAnimation();
+		};
+
+		window.addEventListener('resize', handleResize);
+
 		return () => {
 			if (animationRef.current) {
 				animationRef.current.kill();
 			}
 			container.removeEventListener('mouseenter', handleMouseEnter);
 			container.removeEventListener('mouseleave', handleMouseLeave);
+			window.removeEventListener('resize', handleResize);
 		};
 	}, []);
 
 	const renderCard = (el: (typeof clientsList)[0], index: number) => (
 		<div
 			key={`${el.id}-${index}`}
-			className='flex h-[477px] will-change-transform flex-col w-[350px] gap-5 px-5 py-10 shrink-0'>
+			className='flex h-[477px] will-change-transform flex-col w-[350px] md:w-[350px] gap-5 px-5 py-10 shrink-0'>
 			<div className='flex flex-col gap-5'>
 				<div className='w-16 h-16 relative'>
 					<img className='w-16 h-16 rounded-full select-none' src={el.src} alt={el.name} />
@@ -167,14 +193,14 @@ export const Clients = () => {
 	);
 
 	return (
-		<div className='h-screen flex flex-col items-center'>
+		<div className='md:h-screen flex flex-col items-center'>
 			<div className='wrapper bg-white/5 border-white/10 border py-14 flex flex-col items-center gap-7'>
 				<div className='flex flex-col items-center'>
 					<h2 className='h2-s'>Smiles and Stories from</h2>
 					<h2 className='h2-l text-deep-orange'>My Clients</h2>
 				</div>
 				<div className='w-full overflow-hidden'>
-					<div ref={containerRef} className='flex gap-2.5 '>
+					<div ref={containerRef} className='flex flex-row gap-2.5'>
 						{duplicatedList.map((el, index) => renderCard(el, index))}
 					</div>
 				</div>

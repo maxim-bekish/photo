@@ -32,7 +32,7 @@ export const ScrollIndicator = () => {
 	return (
 		<div
 			ref={lineScrollRef}
-			className='uppercase flex justify-between items-center pb-2.5 w-full border-b border-white/50'>
+			className='uppercase hidden md:flex justify-between items-center pb-2.5 w-full border-b border-white/50'>
 			<p className='body1'>FINNEGAN MONROE PHOTOGRAPHY</p>
 			<p className='flex gap-1 body1 items-center'>
 				<ArrowDown size={12} className='animate-bounce' />

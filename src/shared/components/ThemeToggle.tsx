@@ -38,7 +38,7 @@ export function ThemeToggle() {
 			variant={'ghost'}
 			onClick={toggleTheme}
 			size={'icon'}
-			className='relative '
+			className='relative opacity-0'
 			aria-label='Toggle theme'>
 			{isDark ? (
 				<span></span>

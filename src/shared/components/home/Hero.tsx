@@ -34,7 +34,7 @@ export default function Hero() {
 	return (
 		<div className='relative'>
 			{/* Overlay с текстом и кнопками */}
-			<div className='absolute mix-blend-exclusion pt-32.5 pb-12.5 px-10 h-screen w-full flex justify-between z-10 flex-col'>
+			<div className='absolute mix-blend-exclusion py-[100px] px-3 md:pt-32.5 md:pb-12.5 md:px-10 h-screen w-full flex justify-between z-10 flex-col-reverse md:flex-col'>
 				<div className='max-w-[400px] ml-auto flex flex-col items-end gap-5'>
 					<p className='text-right font-satoshi p-s'>
 						HI, FINNEGAN MONROE HERE. I’M A FREELANCE PHOTOGRAPHER IN NY AND THE SHUTTERBUG
@@ -44,7 +44,7 @@ export default function Hero() {
 				</div>
 				<div className='flex flex-col gap-8'>
 					<div>
-						<h1 className='h1'>
+						<h1 className='h1 wrap-break-word'>
 							Capturing Life's Best <br /> Moments
 						</h1>
 					</div>
@@ -57,36 +57,37 @@ export default function Hero() {
 				ref={videoRef}
 				autoPlay
 				muted
+        playsInline
 				loop
 				poster='/assets/poster-home-video.png'
 				style={{
 					filter: 'contrast(1.16) grayscale(1)  ',
 					willChange: 'opacity, filter, transform',
 				}}
-				className='sticky  top-0 left-0 w-full h-screen object-cover'>
+				className='sticky  top-0 left-0 w-full  h-screen object-cover'>
 				<source src='/assets/home-video.mp4' type='video/mp4' />
 			</video>
 
 			{/* Блок About */}
 			<div
 				ref={aboutBlockRef}
-				className='h-min flex flex-col items-center gap-7.5 relative pt-[500px] pb-[150px] px-10'>
-				<div className='p-2.5 wrapper flex flex-col gap-2.5 border border-solid border-white/10'>
-					<div className='flex row-1 flex-nowrap gap-2.5'>
+				className='h-min flex flex-col items-center gap-7.5 relative pt-[500px] pb-7.5 md:pb-[150px] px-3 md:px-10'>
+				<div className='md:p-2.5 wrapper flex flex-col gap-2.5 md:border border-solid border-white/10 overflow-hidden'>
+					<div className='flex row-1 md:flex-nowrap gap-2.5 flex-col md:flex-row'>
 						<AboutCard title='Hours Behind the Lens' value={9000} position='left' />
 						<AboutCard title='Years of Experience' value={15} position='right' />
 					</div>
-					<div className='flex row-2 flex-nowrap gap-2.5'>
+					<div className='flex row-2 md:flex-nowrap gap-2.5 flex-col md:flex-row'>
 						<AboutCard title='Awards and Recognitions' value={13} position='right' />
 						<AboutCard title='Happy Clients Served' value={200} position='left' />
 					</div>
 				</div>
-				<div className='wrapper h-min flex flex-col gap-1 pt-25'>
+				<div className='wrapper h-min flex flex-col gap-8 xl:gap-1 xl:pt-25 py-[30px] px-3'>
 					<div>
 						<h2 className='h2-l text-deep-orange'>I am ...</h2>
 					</div>
 					<div className='ml-auto flex flex-col gap-11'>
-						<p className='p-l font-satoshi font-light text-left w-[700px] text-creamy-white whitespace-pre-wrap leading-normal'>
+						<p className='p-l font-satoshi font-light text-left w-full md:w-[700px] text-creamy-white whitespace-pre-wrap leading-normal'>
 							a passionate photographer dedicated to&nbsp;capturing life's most precious moments.
 							With&nbsp;a keen eye for detail and a{' '}
 							<span className='text-deep-orange font-satoshi'>love for storytelling</span>, I strive
