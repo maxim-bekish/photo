@@ -3,7 +3,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useMemo, useRef } from 'react';
-import { useCustomCursor } from '../../../hooks/useCustomCursor';
+import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import { AlbumCard } from './AlbumCard';
 
 gsap.registerPlugin(ScrollTrigger);

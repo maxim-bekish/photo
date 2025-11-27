@@ -242,7 +242,11 @@
 		max-width: 1680px;
 		width: 100%;
 	}
+	.t-wrap {
+		@apply whitespace-pre-wrap wrap-break-word;
+	}
 }
+
 @keyframes upDown {
 	0%,
 	100% {

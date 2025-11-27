@@ -1,7 +1,7 @@
 'use client';
 
-import { useBreakpoint } from '@/src/hooks/useBreakpoint';
-import { useCustomCursor } from '@/src/hooks/useCustomCursor';
+import { useBreakpoint } from '@/src/shared/hooks/useBreakpoint';
+import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import gsap from 'gsap';
 import { Observer } from 'gsap/Observer';
 import { useMemo, useRef } from 'react';

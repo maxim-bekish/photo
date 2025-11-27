@@ -1,6 +1,6 @@
 'use client';
 
-import { useInertialScroll } from '../hooks/useInertialScroll';
+import { useInertialScroll } from '@/src/shared/hooks/useInertialScroll';
 import { Albums } from '../shared/components/home/Albums';
 import { Articles } from '../shared/components/home/Articles';
 import { Brands } from '../shared/components/home/Brands';
