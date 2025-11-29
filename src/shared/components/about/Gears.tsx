@@ -46,8 +46,8 @@ const GearsList = [
 
 export default function Gears() {
 	return (
-		<section className='px-(--px)  py-[150px]'>
-			<div className='wrapper-small flex flex-col gap-[60px]'>
+		<section className='px-(--px) pt-[30px] pb-[60px] md:py-[150px]'>
+			<div className='wrapper-small flex flex-col gap-10 md:gap-[60px]'>
 				<h2 className='h2-l text-deep-orange text-center'>Gears I own</h2>
 				<div className='flex flex-col gap-[100px] py-[30px] px-(--px) border border-solid border-white/10 bg-white/5'>
 					{GearsList.map((gear, index) => {

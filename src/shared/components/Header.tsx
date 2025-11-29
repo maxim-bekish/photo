@@ -38,7 +38,7 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.1, // чуть позже после появления меню
-				}
+				},
 			);
 		} else {
 			document.body.style.overflow = 'auto';
@@ -60,7 +60,7 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.4, // чуть позже после появления меню
-				}
+				},
 			);
 		}
 	}, [menuOpen]);
@@ -99,7 +99,7 @@ export function Header() {
 
 						return (
 							<a
-								ref={el => {
+								ref={(el) => {
 									if (el) navRefs.current[i] = el;
 								}}
 								key={i}
@@ -109,7 +109,7 @@ export function Header() {
 									{
 										'text-deep-orange ': isActive,
 										'hover:text-white/30': !isActive,
-									}
+									},
 								)}>
 								{el.text}
 							</a>

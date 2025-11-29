@@ -5,6 +5,7 @@ import { Observer } from 'gsap/Observer';
 import { Star } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
+import { CardReviews } from '../ui/CardReviews';
 
 gsap.registerPlugin(Observer);
 
@@ -146,54 +147,8 @@ export const Clients = () => {
 		};
 	}, []);
 
-	const renderCard = (el: (typeof clientsList)[0], index: number) => (
-		<div
-			key={`${el.id}-${index}`}
-			className='flex h-[477px] will-change-transform flex-col w-[350px] md:w-[350px] gap-5 px-5 py-10 shrink-0'>
-			<div className='flex flex-col gap-5'>
-				<div className='w-16 h-16 relative'>
-					<img className='w-16 h-16 rounded-full select-none' src={el.src} alt={el.name} />
-					<div className='absolute top-0 left-0'>
-						<div className='absolute bg-white w-2 h-px top-0 left-0'></div>
-						<div className='absolute bg-white w-px h-2 top-0 right-0'></div>
-					</div>
-					<div className='absolute top-0 right-0'>
-						<div className='absolute bg-white w-2 h-px top-0 right-0'></div>
-						<div className='absolute bg-white w-px h-2 top-0 right-0'></div>
-					</div>
-					<div className='absolute bottom-0 left-0'>
-						<div className='absolute bg-white w-2 h-px bottom-0 left-0'></div>
-						<div className='absolute bg-white w-px h-2 bottom-0 right-0'></div>
-					</div>
-					<div className='absolute bottom-0 right-0'>
-						<div className='absolute bg-white w-2 h-px bottom-0 right-0'></div>
-						<div className='absolute bg-white w-px h-2 bottom-0 right-0'></div>
-					</div>
-				</div>
-				<p className='p-s text-creamy-white text-satoshi select-none'>{el.message}</p>
-			</div>
-			<div className='flex flex-col gap-1 pt-5 mt-auto border-t border-white/10'>
-				<p className='body3 text-creamy-white font-display select-none'>{el.name}</p>
-				<p className='font-satoshi text-creamy-white text-[13px] leading-[150%] tracking-[-0.02em] select-none'>
-					{el.role}
-				</p>
-
-				<div className='flex gap-1'>
-					{Array.from({ length: 5 }).map((_, i) => (
-						<Star
-							key={i}
-							className={`w-4 h-4 ${
-								i < el.rating ? 'text-deep-orange fill-deep-orange' : 'text-white/20'
-							}`}
-						/>
-					))}
-				</div>
-			</div>
-		</div>
-	);
-
 	return (
-		<div className='md:h-screen flex flex-col items-center'>
+		<div className=' flex flex-col items-center md:py-[100px] xl:py-[150px]'>
 			<div className='wrapper bg-white/5 border-white/10 border py-14 flex flex-col items-center gap-7'>
 				<div className='flex flex-col items-center'>
 					<h2 className='h2-s'>Smiles and Stories from</h2>
@@ -201,7 +156,9 @@ export const Clients = () => {
 				</div>
 				<div className='w-full overflow-hidden'>
 					<div ref={containerRef} className='flex flex-row gap-2.5'>
-						{duplicatedList.map((el, index) => renderCard(el, index))}
+						{duplicatedList.map((el, index) => (
+							<CardReviews className='w-[350px] h-[477px]' key={index + el.id} el={el} />
+						))}
 					</div>
 				</div>
 				<div>

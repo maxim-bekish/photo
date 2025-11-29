@@ -33,7 +33,7 @@ export default function Quality() {
 							end: `top center`,
 							scrub: 2, // сглаживание для плавности (1 секунда)
 						},
-					}
+					},
 				);
 			});
 		});
@@ -43,44 +43,45 @@ export default function Quality() {
 		};
 	}, []);
 
+	const text = 'text-[38px] md:text-[67px] xl:text-[80px]';
 	return (
 		<section
-			ref={el => {
+			ref={(el) => {
 				sectionRef.current = el;
 			}}
-			className='flex flex-col gap-[100px] items-center text-creamy-white relative px-(--px) pt-[150px]'>
+			className='flex flex-col gap-[100px] items-center text-creamy-white relative px-(--px) pb-[50px] pt-[30px] md:pb-0 md:pt-[150px]'>
 			<h2 className='h2-s sticky top-[150px]'>What you will find in me</h2>
 			<div
-				ref={el => {
+				ref={(el) => {
 					itemsRef.current[0] = el;
 				}}
 				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className='font-display text-center text-[80px] font-medium leading-none'>
+				<h4 className={`font-display text-center font-medium leading-none ${text}`}>
 					Creative Vision
 				</h4>
 			</div>
 			<div
-				ref={el => {
+				ref={(el) => {
 					itemsRef.current[1] = el;
 				}}
 				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className='font-display text-center text-[80px] font-medium leading-none'>
+				<h4 className={`font-display text-center font-medium leading-none ${text}`}>
 					Professionalism
 				</h4>
 			</div>
 			<div
-				ref={el => {
+				ref={(el) => {
 					itemsRef.current[2] = el;
 				}}
 				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className='font-display text-center text-[80px] font-medium leading-none'>Passion</h4>
+				<h4 className={`font-display text-center font-medium leading-none ${text}`}>Passion</h4>
 			</div>
 			<div
-				ref={el => {
+				ref={(el) => {
 					itemsRef.current[3] = el;
 				}}
 				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className='font-display text-center text-[80px] font-medium leading-none'>
+				<h4 className={`font-display text-center font-medium leading-none ${text}`}>
 					Adaptability
 				</h4>
 			</div>

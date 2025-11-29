@@ -2,8 +2,8 @@ import { ScrollIndicator } from '../ui/ScrollIndicator';
 
 export default function Hero() {
 	return (
-		<div className='relative px-(--px) pt-[130px] h-screen w-full pb-[50px] flex items-end'>
-			<div className='overflow-hidden bottom-[150px] left-1/2 -translate-x-1/2 w-[362px] top-[150px]  absolute'>
+		<section className='relative px-(--px) pt-[130px] h-[70vh] md:h-screen w-full pb-[50px] flex items-end'>
+			<div className='absolute overflow-hidden md:bottom-[150px] left-1/2 -translate-x-1/2 w-[286px] md:w-[362px] top-[90px] md:top-[150px] bottom-20'>
 				<img
 					className='w-full h-full object-cover object-center animate-floatY'
 					src='assets/about/hero.avif'
@@ -17,6 +17,6 @@ export default function Hero() {
 				</div>
 				<ScrollIndicator />
 			</div>
-		</div>
+		</section>
 	);
 }

@@ -34,7 +34,7 @@ export default function About() {
 				start: 'top top',
 				end: 'bottom bottom+=400px',
 				scrub: true,
-				onUpdate: self => {
+				onUpdate: (self) => {
 					if (textRef.current) {
 						const progress = self.progress;
 						gsap.set(textRef.current, {
@@ -75,7 +75,7 @@ export default function About() {
 		'h-full w-full absolute top-0 border-0 left-0 right-0 transition-opacity duration-[3s]';
 
 	return (
-		<section ref={wrapperRef} className='flex flex-col gap-10 px-(--px) pb-[100px]'>
+		<section ref={wrapperRef} className='flex wrapper flex-col gap-10 px-(--px) pb-[30px] md:pb-[100px]'>
 			<div ref={textRef} className=' sticky top-0 h-screen flex items-center justify-center'>
 				<p className='p-l  text-white/50 [&>span]:text-creamy-white t-wrap text-center max-w-[700px]'>
 					Hi there! I’m <span> Finnegan Manroe</span>, a passionate photographer based in the
@@ -84,8 +84,8 @@ export default function About() {
 					intimate portraits and breathtaking landscapes to dynamic product shots and lively events.
 				</p>
 			</div>
-			<div className='flex gap-10 h-screen items-center'>
-				<div className='flex-1 relative h-full '>
+			<div className='flex px-3 md:px-0 gap-10 flex-col md:flex-row   items-center'>
+				<div className='flex-1 relative min-h-[60vh] w-full md:h-full '>
 					<div className={imgClass} style={{ opacity: currentImage === 0 ? 1 : 0 }}>
 						<img className='w-full h-full' src='assets/about/about/img-1.avif' alt='' />
 					</div>
@@ -118,7 +118,7 @@ export default function About() {
 						Feel free to reach out, and let’s make magic happen.
 					</p>
 
-					<Button variant={'outline'} label={'get template'} />
+					<Button variant={'outline'} className='mx-auto' label={'get template'} />
 				</div>
 			</div>
 		</section>
