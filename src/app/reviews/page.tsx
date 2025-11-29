@@ -1,5 +1,7 @@
 import { CardReviews } from '@/src/shared/components/ui/CardReviews';
 
+import LayoutPage from '../layoutPage';
+
 const clientsList = [
 	{
 		id: '1',
@@ -109,23 +111,18 @@ clientsList.forEach((item, index) => {
 
 export default function () {
 	return (
-		<section className=''>
-			<div className='px-(--px) py-10 h-[40vh] xl:h-[50vh] flex items-center justify-center'>
-				<h1 className='h1'>Reviews</h1>
+		<LayoutPage title={'Reviews'}>
+			<div className='wrapper flex flex-col xl:flex-row gap-2.5 relative items-center xl:items-start '>
+				{groupedClients.map((group, index) => (
+					<div
+						key={index}
+						className='flex flex-col w-full md:max-w-[600px] gap-2.5 h-full flex-1 xl:sticky xl:top-0'>
+						{group.map((el, index) => (
+							<CardReviews className='bg-white/5 w-full' key={index + el.id} el={el} />
+						))}
+					</div>
+				))}
 			</div>
-			<div className='px-(--px) md:pb-[100px] pb-[60px]'>
-				<div className='wrapper flex flex-col xl:flex-row gap-2.5 relative items-center xl:items-start '>
-					{groupedClients.map((group, index) => (
-						<div
-							key={index}
-							className='flex flex-col w-full md:max-w-[600px] gap-2.5 h-full flex-1 xl:sticky xl:top-0'>
-							{group.map((el, index) => (
-								<CardReviews className='bg-white/5 w-full' key={index + el.id} el={el} />
-							))}
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
+		</LayoutPage>
 	);
 }

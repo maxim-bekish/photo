@@ -10,6 +10,7 @@ const badgeVariants = cva(
 		variants: {
 			variant: {
 				primary: 'bg-white/20',
+				dark: 'bg-matt-black',
 				secondary: 'bg-white/10',
 			},
 		},
