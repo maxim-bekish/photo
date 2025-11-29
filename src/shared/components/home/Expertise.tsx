@@ -182,7 +182,7 @@ export const Expertise = () => {
 						))}
 					</div>
 				</div>
-				<div className='flex md:hidden flex-col gap-7.5 pt-20 pb-[30px] px-3' >
+				<div className='flex md:hidden flex-col gap-7.5 pt-20 pb-[30px] px-3'>
 					<h2 className='h2-l text-deep-orange text-center'>My Expertise</h2>
 					<div className='flex flex-col gap-2.5'>
 						{expertiseList.map((el, i) => (
@@ -201,8 +201,7 @@ export const Expertise = () => {
 				</div>
 
 				{/* Блок "There's more" */}
-				<div className=' md:h-auto items-center bg-light-orange relative z-50 flex flex-col gap-10  pt-15 pb-7.5 px-3 md:px-10 md:py-25'>
-					
+				<div className=' md:h-auto items-center bg-light-orange relative z-50 flex flex-col gap-10  pt-15 pb-7.5 px-(--px) md:py-25'>
 					<h2 className='wrapper h2-l text-black'>
 						Wait…
 						<br />
@@ -227,11 +226,11 @@ export const Expertise = () => {
 								title: 'Editorial\nPhotography',
 								description: 'Compelling editorial photography for magazines and publications.',
 							},
-						].map((el) => (
-							<div key={el.title} className='flex flex-col md:flex-row gap-2.5 h-[346px] p-7.5 bg-matt-black'>
-								<h3 className='text-creamy-white h3 flex flex-1 whitespace-pre-line'>
-									{el.title}
-								</h3>
+						].map(el => (
+							<div
+								key={el.title}
+								className='flex flex-col md:flex-row gap-2.5 h-[346px] p-7.5 bg-matt-black'>
+								<h3 className='text-creamy-white h3 flex flex-1 whitespace-pre-line'>{el.title}</h3>
 								<p className='text-creamy-white   p-s opacity-70 flex flex-1 items-end'>
 									{el.description}
 								</p>

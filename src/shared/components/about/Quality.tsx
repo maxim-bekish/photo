@@ -48,7 +48,7 @@ export default function Quality() {
 			ref={el => {
 				sectionRef.current = el;
 			}}
-			className='flex flex-col gap-[100px] items-center text-creamy-white relative px-10 pt-[150px]'>
+			className='flex flex-col gap-[100px] items-center text-creamy-white relative px-(--px) pt-[150px]'>
 			<h2 className='h2-s sticky top-[150px]'>What you will find in me</h2>
 			<div
 				ref={el => {

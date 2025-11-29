@@ -1,9 +1,9 @@
 'use client';
 
+import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useMemo, useRef } from 'react';
-import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import { AlbumCard } from './AlbumCard';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -64,8 +64,10 @@ export const Albums = () => {
 					Albums
 				</h2>
 			</div>
-			<div ref={albumsRef} className='flex max-w-[1440px] w-full flex-col gap-7.5 md:gap-15 xl:gap-[174px] pb-7.5 pt-7.5 xl:pt-0 xl:pb-[200px] '>
-				<section className='flex items-center justify-center px-3 md:px-10 xl:px-[100px]'>
+			<div
+				ref={albumsRef}
+				className='flex max-w-[1440px] w-full flex-col gap-7.5 md:gap-15 xl:gap-[174px] pb-7.5 pt-7.5 xl:pt-0 xl:pb-[200px] '>
+				<section className='flex items-center justify-center px-(--px) xl:px-[100px]'>
 					<AlbumCard
 						item={{
 							id: 'hbvhjw',
@@ -79,7 +81,7 @@ export const Albums = () => {
 						ref={setItemRef}
 					/>
 				</section>
-				<section className='flex items-center justify-left px-3 md:px-10 xl:px-[100px]'>
+				<section className='flex items-center justify-left px-(--px) xl:px-[100px]'>
 					<AlbumCard
 						ref={setItemRef}
 						item={{
@@ -93,7 +95,7 @@ export const Albums = () => {
 						className='h-[446px] w-full xl:w-[718px]'
 					/>
 				</section>
-				<section className='flex items-center justify-between flex-col md:flex-row px-3 md:px-10 gap-7.5 md:gap-15'>
+				<section className='flex items-center justify-between flex-col md:flex-row px-(--px) gap-7.5 md:gap-15'>
 					<AlbumCard
 						ref={setItemRef}
 						item={{
@@ -119,7 +121,7 @@ export const Albums = () => {
 						className='h-[446px] xl:h-[716px] w-full xl:w-[505px]'
 					/>
 				</section>
-				<section className='flex items-center justify-center px-3 md:px-10 xl:px-[100px]'>
+				<section className='flex items-center justify-center px-(--px) xl:px-[100px]'>
 					<AlbumCard
 						ref={setItemRef}
 						item={{

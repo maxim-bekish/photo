@@ -75,7 +75,7 @@ export default function About() {
 		'h-full w-full absolute top-0 border-0 left-0 right-0 transition-opacity duration-[3s]';
 
 	return (
-		<section ref={wrapperRef} className='flex flex-col gap-10 px-10 pb-[100px]'>
+		<section ref={wrapperRef} className='flex flex-col gap-10 px-(--px) pb-[100px]'>
 			<div ref={textRef} className=' sticky top-0 h-screen flex items-center justify-center'>
 				<p className='p-l  text-white/50 [&>span]:text-creamy-white t-wrap text-center max-w-[700px]'>
 					Hi there! I’m <span> Finnegan Manroe</span>, a passionate photographer based in the

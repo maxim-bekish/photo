@@ -77,7 +77,7 @@ export function FooterUp() {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
-		<div className='p-3 md:py-0 md:px-10'>
+		<div className='p-3 md:py-0 md:px-(--px)'>
 			<div className='bg-light-orange pt-[230px] pb-[150px] relative flex flex-col  items-center gap-12'>
 				<a
 					href='#'

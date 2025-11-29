@@ -70,7 +70,7 @@ export function Header() {
 	return (
 		<>
 			<header className='mix-blend-exclusion z-60 w-full fixed top-0 [&>.xxx]:z-70 [&>.xxx]:relative '>
-				<div className='flex xxx justify-between items-center h-16   mx-auto px-4 sm:px-6 lg:px-8'>
+				<div className='flex xxx justify-between items-center h-16 mx-auto px-(--px)  '>
 					<Logo />
 					<ThemeToggle />
 
@@ -92,7 +92,7 @@ export function Header() {
 			</header>
 			<div
 				ref={menuRef}
-				className='fixed p-10 top-0 left-0 w-full h-full bg-background  backdrop-blur-md z-55 flex flex-col  transform -translate-y-full'>
+				className='fixed py-10 px-(--px) top-0 left-0 w-full h-full bg-background  backdrop-blur-md z-55 flex flex-col  transform -translate-y-full'>
 				<nav className='flex flex-col gap-1.5 flex-1 justify-center uppercase text-2xl'>
 					{navItems.map((el, i) => {
 						const isActive = el.href === '/' ? pathname === '/' : pathname.startsWith(el.href);

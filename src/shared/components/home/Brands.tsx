@@ -13,7 +13,7 @@ export const Brands = () => {
 	];
 
 	return (
-		<div className='flex gap-15 py-7.5 md:py-[150px] px-3 md:px-10 flex-col items-center wrapper mx-auto'>
+		<div className='flex gap-15 py-7.5 md:py-[150px] px-(--px) flex-col items-center wrapper mx-auto'>
 			<div>
 				<h2 className='h2-s'>Brands I have worked with</h2>
 			</div>

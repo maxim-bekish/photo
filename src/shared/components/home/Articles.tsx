@@ -94,14 +94,16 @@ export const Articles = () => {
 	);
 
 	return (
-		<div className='pt-15 pb-7.5 px-3 md:py-[150px] md:px-10 flex flex-col items-center'>
+		<div className='pt-15 pb-7.5  md:py-[150px] px-(--px) flex flex-col items-center'>
 			<div className='wrapper flex flex-col items-center gap-10 md:gap-15'>
 				<div className='flex flex-col w-full'>
 					<h2 className='h2-s'>Stay inspired with my</h2>
 					<h2 className='h2-l text-deep-orange ml-auto'>Insightful Articles</h2>
 				</div>
 				<div className='w-full overflow-hidden'>
-					<div ref={containerRef} className='grid  grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2.5'>
+					<div
+						ref={containerRef}
+						className='grid  grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2.5'>
 						{articlesList
 							.slice(0, deviceType === 'mob' ? 2 : deviceType === 'tab' ? 2 : 3)
 							.map((el, index) => renderCard(el, index))}

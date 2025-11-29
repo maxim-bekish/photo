@@ -34,7 +34,7 @@ export default function Hero() {
 	return (
 		<div className='relative'>
 			{/* Overlay с текстом и кнопками */}
-			<div className='absolute mix-blend-exclusion py-[100px] px-3 md:pt-32.5 md:pb-12.5 md:px-10 h-screen w-full flex justify-between z-10 flex-col-reverse md:flex-col'>
+			<div className='absolute mix-blend-exclusion py-[100px]  md:pt-32.5 md:pb-12.5 px-(--px) h-screen w-full flex justify-between z-10 flex-col-reverse md:flex-col'>
 				<div className='max-w-[400px] ml-auto flex flex-col items-end gap-5'>
 					<p className='text-right font-satoshi p-s'>
 						HI, FINNEGAN MONROE HERE. I’M A FREELANCE PHOTOGRAPHER IN NY AND THE SHUTTERBUG
@@ -57,7 +57,7 @@ export default function Hero() {
 				ref={videoRef}
 				autoPlay
 				muted
-        playsInline
+				playsInline
 				loop
 				poster='/assets/poster-home-video.png'
 				style={{
@@ -71,7 +71,7 @@ export default function Hero() {
 			{/* Блок About */}
 			<div
 				ref={aboutBlockRef}
-				className='h-min flex flex-col items-center gap-7.5 relative pt-[500px] pb-7.5 md:pb-[150px] px-3 md:px-10'>
+				className='h-min flex flex-col items-center gap-7.5 relative pt-[500px] pb-7.5 md:pb-[150px]  px-(--px)'>
 				<div className='md:p-2.5 wrapper flex flex-col gap-2.5 md:border border-solid border-white/10 overflow-hidden'>
 					<div className='flex row-1 md:flex-nowrap gap-2.5 flex-col md:flex-row'>
 						<AboutCard title='Hours Behind the Lens' value={9000} position='left' />
@@ -82,7 +82,7 @@ export default function Hero() {
 						<AboutCard title='Happy Clients Served' value={200} position='left' />
 					</div>
 				</div>
-				<div className='wrapper h-min flex flex-col gap-8 xl:gap-1 xl:pt-25 py-[30px] px-3'>
+				<div className='wrapper h-min flex flex-col gap-8 xl:gap-1 md:pt-25 md:pb-0 md:px-0 py-[30px] px-3'>
 					<div>
 						<h2 className='h2-l text-deep-orange'>I am ...</h2>
 					</div>

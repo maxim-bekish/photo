@@ -186,12 +186,12 @@ export const FAQ = () => {
 	}, []);
 
 	return (
-		<div className=' pt-7.5 px-3 pb-15 md:py-[150px] md:px-10 flex  md:flex-col items-center'>
+		<div className=' pt-7.5  pb-15 md:py-[150px] px-(--px) flex  md:flex-col items-center'>
 			<div className='wrapper relative flex flex-col md:flex-row gap-10 md:gap-24'>
 				<div className='md:sticky md:top-[66px] h-min '>
 					<div className='flex flex-col items-center md:items-start'>
 						<h2 className='h2-l text-deep-orange'>
-							FAQ <br className='hidden md:block'/>
+							FAQ <br className='hidden md:block' />
 							Frenzy:
 						</h2>
 						<h2 className='h2-s'>All your answers here</h2>

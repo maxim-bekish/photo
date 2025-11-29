@@ -91,8 +91,22 @@
 	--sidebar-accent-foreground: oklch(0.21 0.034 264.665);
 	--sidebar-border: oklch(0.928 0.006 264.531);
 	--sidebar-ring: oklch(0.707 0.022 261.325);
+
+	--px: 12px;
+	/* md: min-width 768px */
+}
+@media (min-width: 768px) {
+	:root {
+		--px: 40px;
+	}
 }
 
+/* xl: min-width 1280px */
+/* @media (min-width: 1280px) {
+	:root {
+		--pl: 40px;
+	}
+} */
 .dark {
 	--background: oklch(0% 0 0);
 	--foreground: oklch(0.985 0.002 247.839);
@@ -241,6 +255,14 @@
 	.wrapper {
 		max-width: 1680px;
 		width: 100%;
+	}
+	.wrapper-small {
+		max-width: 1200px;
+		width: 100%;
+    margin: 0 auto;
+	}
+	.p-wrapper {
+		@apply px-10;
 	}
 	.t-wrap {
 		@apply whitespace-pre-wrap wrap-break-word;
