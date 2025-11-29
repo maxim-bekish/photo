@@ -1,7 +1,10 @@
+import { cn } from '@/src/shared/lib/utils';
+import LayoutPage from '../layoutPage';
+
 export default function () {
 	return (
-		<>
-			<h1 className='h1'>works</h1>
-		</>
+		<LayoutPage title={'Albums'}>
+			<div className='max-w-[600px] w-full mx-auto'></div>
+		</LayoutPage>
 	);
 }

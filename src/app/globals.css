@@ -255,12 +255,12 @@
 	.wrapper {
 		max-width: 1680px;
 		width: 100%;
-    margin: 0 auto;
+		margin: 0 auto;
 	}
 	.wrapper-small {
 		max-width: 1200px;
 		width: 100%;
-    margin: 0 auto;
+		margin: 0 auto;
 	}
 	.p-wrapper {
 		@apply px-10;
@@ -324,4 +324,17 @@
 .animate-marquee-infinite {
 	animation: marquee-infinite 30s linear infinite;
 	will-change: transform;
+}
+
+textarea {
+	overflow-y: scroll;
+}
+
+textarea::-webkit-scrollbar {
+	display: none;
+}
+
+/* Для Firefox */
+textarea {
+	scrollbar-width: none;
 }
