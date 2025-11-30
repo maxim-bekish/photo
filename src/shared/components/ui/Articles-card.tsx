@@ -26,14 +26,14 @@ export const ArticlesCard = ({
 		<div
 			ref={setItemRef}
 			className={cn(
-				'flex cursor-pointer group gap-1 shrink-0 flex-col ',
-				row && 'flex-col md:flex-row',
+				'flex cursor-pointer group gap-1 flex-col ',
+				row && 'flex-col md:flex-row  md:gap-2.5',
 				className
 			)}>
 			<div
 				className={cn(
-					' overflow-hidden relative',
-					row && 'md:flex-1',
+					' overflow-hidden relative ',
+					row && 'basis-1/2',
 					big ? 'h-[250px] md:h-[400px]' : 'h-[250px]'
 				)}>
 				{el.subTitle && (
@@ -50,7 +50,7 @@ export const ArticlesCard = ({
 			<div
 				className={cn(
 					'flex flex-1 flex-col bg-white/10 p-4 gap-2.5',
-					row && 'h-auto justify-between'
+					row && 'h-auto justify-between basis-1/2'
 				)}>
 				<h3
 					className='h3-s text-creamy-white overflow-hidden text-ellipsis'
