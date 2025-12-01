@@ -128,50 +128,51 @@ const FAQItemComponent = memo(({ item, isOpen, onToggle, isLast }: FAQItemCompon
 FAQItemComponent.displayName = 'FAQItemComponent';
 
 const FAQ_LIST: FAQItem[] = [
-	{
-		id: '1',
-		question: 'How do I book a photography session with you?',
-		answer:
-			"You can book a session by filling out the contact form on my website or by emailing me directly at [your email address]. I'll get back to you within 24 hours to discuss the details and schedule your shoot.",
-	},
-	{
-		id: '2',
-		question: 'What are your rates for photography sessions?',
-		answer: [
-			'Portrait sessions start at $200.',
-			'Event photography starts at $500.',
-			'Commercial and product photography pricing is customized based on the project scope.',
-		],
-	},
-	{
-		id: '3',
-		question: 'What does your pricing include?',
-		answer: [
-			'Pre-shoot consultation.',
-			'The photography session.',
-			'Professional editing of selected images.',
-			'A set number of high-resolution digital images.',
-			'Online gallery for viewing and downloading photos.',
-		],
-	},
-	{
-		id: '4',
-		question: 'What types of photography do you specialize in?',
-		answer:
-			'I specialize in a variety of photography services including portrait, travel, commercial, product, event, and landscape photography. Check out my portfolio to see examples of my work.',
-	},
-	{
-		id: '5',
-		question: 'What is included in your photography packages?',
-		answer:
-			'My packages typically include a pre-shoot consultation, the photography session, professional editing, and a set number of high-resolution digital images. I also offer prints and albums as add-ons.',
-	},
-	{
-		id: '6',
-		question: 'How long does a typical photo session last?',
-		answer:
-			'Most sessions last between 1-2 hours, depending on the type of shoot and the number of locations. Larger events will naturally take longer.',
-	},
+  {
+    id: '1',
+    question: 'Как записаться на фотосессию?',
+    answer:
+      'Вы можете записаться, заполнив форму обратной связи на моём сайте или написав мне на электронную почту [ваш email]. Я свяжусь с вами в течение 24 часов, чтобы обсудить детали и назначить съёмку.',
+  },
+  {
+    id: '2',
+    question: 'Какие цены на фотосессии?',
+    answer: [
+      'Портретные съёмки начинаются от $200.',
+      'Съёмка мероприятий — от $500.',
+      'Стоимость коммерческой и предметной съёмки рассчитывается индивидуально, исходя из объёма проекта.',
+    ],
+  },
+  {
+    id: '3',
+    question: 'Что входит в стоимость съёмки?',
+    answer: [
+      'Предварительная консультация.',
+      'Проведение фотосессии.',
+      'Профессиональная обработка выбранных фотографий.',
+      'Определённое количество изображений в высоком разрешении.',
+      'Онлайн-галерея для просмотра и скачивания фотографий.',
+    ],
+  },
+  {
+    id: '4',
+    question: 'На каких видах фотографии вы специализируетесь?',
+    answer:
+      'Я занимаюсь различными видами съёмки, включая портретную, тревел, коммерческую, предметную, событийную и пейзажную фотографию. Примеры моих работ вы можете посмотреть в портфолио.',
+  },
+  {
+    id: '5',
+    question: 'Что включают ваши пакеты фотосъёмки?',
+    answer:
+      'Мои пакеты, как правило, включают предварительную консультацию, саму съёмку, профессиональную обработку и определённое количество изображений в высоком разрешении. Также дополнительно доступны печать и создание фотоальбомов.',
+  },
+  {
+    id: '6',
+    question: 'Сколько обычно длится фотосессия?',
+    answer:
+      'Большинство фотосессий длятся от 1 до 2 часов в зависимости от типа съёмки и количества локаций. Съёмки мероприятий, как правило, занимают больше времени.',
+  },
+  
 ];
 
 export const FAQ = () => {
@@ -194,7 +195,7 @@ export const FAQ = () => {
 							FAQ <br className='hidden md:block' />
 							Frenzy:
 						</h2>
-						<h2 className='h2-s'>All your answers here</h2>
+						<h2 className='h2-s'>Все ответы здесь</h2>
 					</div>
 				</div>
 				<div className='w-full overflow-hidden'>

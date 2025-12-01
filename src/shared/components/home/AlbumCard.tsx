@@ -3,15 +3,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { forwardRef } from 'react';
 import { Badge } from '../ui/badge';
-
-interface AlbumItem {
-	id: string;
-	href: string;
-	src: string;
-	alt: string;
-	title: string;
-	badges: string[];
-}
+import { AlbumItem } from '../../types';
 
 interface Props {
 	item: AlbumItem;
@@ -22,7 +14,7 @@ export const AlbumCard = forwardRef<HTMLAnchorElement, Props>(({ item, className
 	return (
 		<a
 			ref={ref}
-			href={item.href}
+			href={'/albums/' + item.href}
 			className={`album-item relative flex flex-col gap-3 group [--corner-offset:-1.5rem] ${className}`}>
 			<div className='flex-[1_0_0px] relative'>
 				<img
@@ -34,9 +26,11 @@ export const AlbumCard = forwardRef<HTMLAnchorElement, Props>(({ item, className
 
 			<div className='flex flex-col gap-1 '>
 				<div className='flex gap-2.5 flex-wrap'>
-					{item.badges.map((badge, i) => (
-						<Badge key={i}>{badge}</Badge>
-					))}
+					{[...item.characteristics.category, ...item.characteristics.projectType].map(
+						(badge, i) => (
+							<Badge key={i}>{badge}</Badge>
+						)
+					)}
 				</div>
 
 				<div className='flex items-center justify-between'>

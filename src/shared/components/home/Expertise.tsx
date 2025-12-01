@@ -24,30 +24,30 @@ export const Expertise = () => {
 	const expertiseList: ExpertiseItem[] = [
 		{
 			id: '1',
-			title: 'Documentary Photography',
+			title: 'Документальная фотография',
 			src: '/assets/expertise/img-1.avif',
 			description:
-				'Documentary photography serves to inform, educate, and inspire by providing a truthful and insightful representation of the world.',
+				'Документальная фотография предназначена для информирования, обучения и вдохновения, предоставляя правдивое и глубокое отображение мира.',
 		},
 		{
 			id: '2',
-			title: 'Landscape Photography',
+			title: 'Пейзажная фотография',
 			src: '/assets/expertise/img-2.avif',
-			description: 'Explore the beauty of the world through our captivating landscape photography.',
+			description: 'Исследуйте красоту мира через нашу захватывающую пейзажную фотографию.',
 		},
 		{
 			id: '3',
-			title: 'Product Photography',
+			title: 'Продуктовая фотография',
 			src: '/assets/expertise/img-3.avif',
 			description:
-				'Showcase your products in the best possible light with our professional product photography services.',
+				'Продемонстрируйте ваши продукты в наилучшем свете с помощью наших профессиональных услуг продуктовой фотографии.',
 		},
 		{
 			id: '4',
-			title: 'Real Estate Photography',
+			title: 'Фотография недвижимости',
 			src: '/assets/expertise/img-4.avif',
 			description:
-				'Highlight the best features of your property with our real estate photography services.',
+				'Выделите лучшие особенности вашей недвижимости с помощью наших услуг по фотографии недвижимости.',
 		},
 	];
 
@@ -57,7 +57,6 @@ export const Expertise = () => {
 
 		if (!cube || !parent) return;
 
-		const angleStep = 90;
 		const totalHeight = parent.clientHeight;
 		const stepHeight = totalHeight / 6;
 
@@ -109,7 +108,7 @@ export const Expertise = () => {
 		<>
 			<div ref={mainW} className='md:h-[600vh]    flex flex-col justify-between'>
 				<div className='sticky h-screen top-0 flex-col overflow-hidden left-0 hidden md:flex justify-center items-center cursor-grab select-none'>
-					<div className='h2-l text-deep-orange'>My Expertise</div>
+					<div className='h2-l text-deep-orange'>Мои направления</div>
 					<div className='flex justify-center items-center'>
 						<div
 							ref={cubeRef}
@@ -177,7 +176,11 @@ export const Expertise = () => {
 								className={`absolute top-0 left-0 right-0 bottom-0 transition-opacity duration-1000 ${
 									isActiveSide === i ? 'opacity-100' : 'opacity-0'
 								}`}>
-								<img src={el.src} className='w-full h-full' alt={el.title} />
+								<img
+									src={el.src}
+									className='w-full h-full object-cover object-center'
+									alt={el.title}
+								/>
 							</div>
 						))}
 					</div>
@@ -203,28 +206,29 @@ export const Expertise = () => {
 				{/* Блок "There's more" */}
 				<div className=' md:h-auto items-center bg-light-orange relative z-50 flex flex-col gap-10  pt-15 pb-7.5 px-(--px) md:py-25'>
 					<h2 className='wrapper h2-l text-black'>
-						Wait…
-						<br />
-						There's more!
+						Подождите…
+						<br />И это ещё не всё!
 					</h2>
 
 					<div className='wrapper grid auto-rows-min grid-cols-[repeat(1,minmax(200px,1fr))] xl:grid-cols-[repeat(2,minmax(200px,1fr))] grid-rows-[repeat(2,min-content)] gap-2.5 '>
 						{[
 							{
-								title: 'Event\nPhotography',
-								description: 'Tell powerful stories through our event photography.',
+								title: 'Событийная\nФотография',
+								description: 'Рассказывайте впечатляющие истории через нашу событийную фотографию.',
 							},
 							{
-								title: 'Aerial\nPhotography',
-								description: 'Get a bird’s-eye view with stunning aerial photography.',
+								title: 'Воздушная\nФотография',
+								description:
+									'Получите вид с высоты птичьего полёта с помощью потрясающей воздушной фотографии.',
 							},
 							{
-								title: 'Corporate\nPhotography',
-								description: 'Enhance your brand image with professional corporate photography.',
+								title: 'Корпоративная\nФотография',
+								description:
+									'Повышайте имидж вашего бренда с профессиональной корпоративной фотографией.',
 							},
 							{
-								title: 'Editorial\nPhotography',
-								description: 'Compelling editorial photography for magazines and publications.',
+								title: 'Редакционная\nФотография',
+								description: 'Эффектная редакционная фотография для журналов и публикаций.',
 							},
 						].map(el => (
 							<div

@@ -31,26 +31,26 @@ export const Articles = () => {
 		{
 			id: '1',
 			src: '/assets/expertise/img-1.avif',
-			message: 'Elevate your photos with my signature color grading presets',
-			badge: ['Photography', 'Travel', 'Life'],
+			message: 'Сделайте ваши фотографии выразительнее с моими фирменными пресетами цветокоррекции',
+			badge: ['Фотография', 'Путешествия', 'Стиль жизни'],
 		},
 		{
 			id: '2',
 			src: '/assets/expertise/img-2.avif',
-			message: 'The art of candid photography: capturing moments naturally',
-			badge: ['Photography', 'Travel', 'Life', 'Travel', 'Travel'],
+			message: 'Искусство репортажной съёмки: как естественно ловить моменты',
+			badge: ['Фотография', 'Путешествия', 'Стиль жизни', 'Путешествия', 'Путешествия'],
 		},
 		{
 			id: '3',
 			src: '/assets/expertise/img-3.avif',
-			message: "Capturing the magic of golden hour: a photographer's guide",
-			badge: ['Photography', 'Travel', 'Life'],
+			message: 'Магия «золотого часа»: гид для фотографов по идеальному свету',
+			badge: ['Фотография', 'Путешествия', 'Стиль жизни'],
 		},
 		{
 			id: '4',
 			src: '/assets/expertise/img-1.avif',
-			message: 'Elevate your photos with my signature color grading presets',
-			badge: ['Photography', 'Travel', 'Life'],
+			message: 'Улучшите свои снимки с помощью моих авторских пресетов цветокоррекции',
+			badge: ['Фотография', 'Путешествия', 'Стиль жизни'],
 		},
 	];
 
@@ -58,8 +58,8 @@ export const Articles = () => {
 		<div className='pt-15 pb-7.5  md:py-[150px] px-(--px) flex flex-col items-center'>
 			<div className='wrapper flex flex-col items-center gap-10 md:gap-15'>
 				<div className='flex flex-col w-full'>
-					<h2 className='h2-s'>Stay inspired with my</h2>
-					<h2 className='h2-l text-deep-orange ml-auto'>Insightful Articles</h2>
+					<h2 className='h2-s'>Вдохновляйтесь моими </h2>
+					<h2 className='h2-l text-deep-orange ml-auto'>Статьями</h2>
 				</div>
 				<div className='w-full overflow-hidden'>
 					<div

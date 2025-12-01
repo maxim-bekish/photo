@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { navItems } from '../../config/nav';
 
-const title = 'Finnegan Monroe';
+const title = ' Maxa Max : ';
 export function FooterDown() {
 	const marqueeRef = useRef<HTMLDivElement>(null);
 

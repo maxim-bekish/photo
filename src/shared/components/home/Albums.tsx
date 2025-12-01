@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useMemo, useRef } from 'react';
 import { AlbumCard } from './AlbumCard';
+import { albumsList } from '../../config/social';
+import { cn } from '../../lib/utils';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,7 +39,7 @@ export const Albums = () => {
 					end: '+=600', // блюр закончится через 300px
 					scrub: true,
 				},
-			}
+			},
 		);
 		gsap.fromTo(
 			title,
@@ -48,12 +50,12 @@ export const Albums = () => {
 				scrollTrigger: {
 					trigger: title,
 					start: 'top 50%', // когда верх заголовка доходит до середины экрана
-					end: `+=${albumsRef.current?.offsetHeight}`, // сколько он «держится» фиксированным
+					end: `+=${albumsRef.current!.offsetHeight - 200}`, // сколько он «держится» фиксированным
 					pin: true, // фиксируем элемент
 					pinSpacing: false, // страница продолжает скролл поверх
 					scrub: true,
 				},
-			}
+			},
 		);
 	}, []);
 
@@ -61,7 +63,7 @@ export const Albums = () => {
 		<div className='flex flex-col flex-nowrap relative items-center wrapper mx-auto'>
 			<div className='flex items-center justify-center h-[50vh]'>
 				<h2 ref={titleRef} className='h2-l text-deep-orange'>
-					Albums
+					Альбомы
 				</h2>
 			</div>
 			<div
@@ -69,14 +71,7 @@ export const Albums = () => {
 				className='flex max-w-[1440px] w-full flex-col gap-7.5 md:gap-15 xl:gap-[174px] pb-7.5 pt-7.5 xl:pt-0 xl:pb-[200px] '>
 				<section className='flex items-center justify-center px-(--px) xl:px-[100px]'>
 					<AlbumCard
-						item={{
-							id: 'hbvhjw',
-							href: '#',
-							src: '/assets/albums/img-1.avif',
-							alt: 'photo',
-							title: 'Colorful India',
-							badges: ['Travel', 'Collaboration'],
-						}}
+						item={albumsList[0]}
 						className='h-[446px] w-full xl:w-[632px]'
 						ref={setItemRef}
 					/>
@@ -84,57 +79,43 @@ export const Albums = () => {
 				<section className='flex items-center justify-left px-(--px) xl:px-[100px]'>
 					<AlbumCard
 						ref={setItemRef}
-						item={{
-							id: 'hbvhewvcejw',
-							href: '#',
-							src: '/assets/albums/img-2.avif',
-							alt: 'photo',
-							title: 'Echoes of Dreams',
-							badges: ['Conceptual', 'Commercial'],
-						}}
+						item={albumsList[1]}
 						className='h-[446px] w-full xl:w-[718px]'
 					/>
 				</section>
 				<section className='flex items-center justify-between flex-col md:flex-row px-(--px) gap-7.5 md:gap-15'>
 					<AlbumCard
 						ref={setItemRef}
-						item={{
-							id: 'hbvhafajw',
-							href: '#',
-							src: '/assets/albums/img-3.avif',
-							alt: 'photo',
-							title: 'Wings of Freedom',
-							badges: ['Aerial & Drone', 'Passion Project'],
-						}}
+						item={albumsList[2]}
 						className='h-[446px] w-full xl:w-[451px]'
 					/>
 					<AlbumCard
 						ref={setItemRef}
-						item={{
-							id: 'hbvjhymhjw',
-							href: '#',
-							src: '/assets/albums/img-4.avif',
-							alt: 'photo',
-							title: 'Crafted Perfection',
-							badges: ['Product', 'Commercial'],
-						}}
+						item={albumsList[3]}
 						className='h-[446px] xl:h-[716px] w-full xl:w-[505px]'
 					/>
 				</section>
+
 				<section className='flex items-center justify-center px-(--px) xl:px-[100px]'>
 					<AlbumCard
 						ref={setItemRef}
-						item={{
-							id: 'hbvacachjw',
-							href: '#',
-							src: '/assets/albums/img-5.avif',
-							alt: 'photo',
-							title: 'Wild Wonders',
-							badges: ['Wildlife & Nature', 'Passion Project'],
-						}}
-						className='h-[446px] w-full xl:w-[653px]'
+						item={albumsList[4]}
+						className='h-[446px] w-full xl:w-[718px]'
 					/>
 				</section>
+
+				{albumsList.slice(5).map((el, i) => {
+					return (
+						<section
+							key={el.id}
+							className={cn(
+								'flex items-center px-(--px) jus xl:px-[100px]',
+								i % 2 === 0 ? 'justify-start' : 'justify-end',
+							)}>
+							<AlbumCard ref={setItemRef} item={el} className='h-[446px] w-full xl:w-[653px]' />
+						</section>
+					);
+				})}
 			</div>
 		</div>
 	);

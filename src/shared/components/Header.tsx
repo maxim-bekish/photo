@@ -38,7 +38,7 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.1, // чуть позже после появления меню
-				},
+				}
 			);
 		} else {
 			document.body.style.overflow = 'auto';
@@ -60,7 +60,7 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.4, // чуть позже после появления меню
-				},
+				}
 			);
 		}
 	}, [menuOpen]);
@@ -76,15 +76,19 @@ export function Header() {
 
 					<button
 						onClick={() => setMenuOpen(!menuOpen)}
-						className='zoom-in-50 relative w-12 h-12 flex items-center justify-center rounded-full cursor-pointer hover:[&>span]:bg-deep-orange mix-blend-exclusion'>
+						className=' relative w-12 h-12 flex items-center justify-center rounded-full cursor-pointer hover:[&>span]:bg-deep-orange mix-blend-exclusion'>
 						<span
-							className={`absolute w-8 h-0.5 bg-foreground rounded transition-all duration-300 ease-in-out ${
-								menuOpen ? 'rotate-45  ' : ' bg-white -translate-y-1.5'
+							className={`absolute w-12 h-0.5 bg-foreground rounded transition-all duration-300 ease-in-out ${
+								menuOpen ? 'rotate-45' : 'bg-white -translate-y-3'
 							}`}></span>
 
 						<span
-							className={`absolute w-8 h-0.5 bg-foreground rounded transition-all duration-300 ease-in-out ${
-								menuOpen ? '-rotate-45  ' : ' bg-white translate-y-1.5'
+							className={`absolute w-12 h-0.5 bg-foreground rounded transition-all duration-300 ease-in-out ${
+								menuOpen ? '-rotate-45' : 'bg-white translate-y-3'
+							}`}></span>
+						<span
+							className={`absolute w-12 h-0.5 bg-foreground rounded transition-all duration-300 ease-in-out ${
+								menuOpen ? 'opacity-0 -rotate-90' : 'bg-white translate-y-0'
 							}`}></span>
 					</button>
 				</div>
@@ -99,17 +103,17 @@ export function Header() {
 
 						return (
 							<a
-								ref={(el) => {
+								ref={el => {
 									if (el) navRefs.current[i] = el;
 								}}
 								key={i}
 								href={el.href}
 								className={cn(
-									'transition-colors w-min text-7xl leading-14 tracking-[-3.2] font-display nav-menu',
+									'transition-colors w-min text-7xl leading-14 tracking-[-3.2] font-display nav-menu whitespace-nowrap',
 									{
 										'text-deep-orange ': isActive,
 										'hover:text-white/30': !isActive,
-									},
+									}
 								)}>
 								{el.text}
 							</a>

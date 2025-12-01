@@ -37,15 +37,17 @@ export default function Hero() {
 			<div className='absolute mix-blend-exclusion py-[100px]  md:pt-32.5 md:pb-12.5 px-(--px) h-screen w-full flex justify-between z-10 flex-col-reverse md:flex-col'>
 				<div className='max-w-[400px] ml-auto flex flex-col items-end gap-5'>
 					<p className='text-right font-satoshi p-s'>
-						HI, FINNEGAN MONROE HERE. I’M A FREELANCE PHOTOGRAPHER IN NY AND THE SHUTTERBUG
-						CAPTURING LIFE'S MAGICAL MOMENTS ONE CLICK AT A TIME.
+						Привет! Вася пупкин на связи. Я фриланс-фотограф из Шабанов и ловлю магию жизни в каждом
+						кадре, щелчок за щелчком.
 					</p>
 					<Button variant={'outline'} label={'get template'} />
 				</div>
 				<div className='flex flex-col gap-8'>
 					<div>
 						<h1 className='h1 wrap-break-word'>
-							Capturing Life's Best <br /> Moments
+							Ловим Лучшие
+							<br />
+							Моменты Жизни
 						</h1>
 					</div>
 					<ScrollIndicator />
@@ -74,27 +76,27 @@ export default function Hero() {
 				className='h-min flex flex-col items-center gap-7.5 relative pt-[500px] pb-7.5 md:pb-[150px]  px-(--px)'>
 				<div className='md:p-2.5 wrapper flex flex-col gap-2.5 md:border border-solid border-white/10 overflow-hidden'>
 					<div className='flex row-1 md:flex-nowrap gap-2.5 flex-col md:flex-row'>
-						<AboutCard title='Hours Behind the Lens' value={9000} position='left' />
-						<AboutCard title='Years of Experience' value={15} position='right' />
+						<AboutCard title='Часы за объективом' value={9000} position='left' />
+						<AboutCard title='Лет опыта' value={15} position='right' />
 					</div>
 					<div className='flex row-2 md:flex-nowrap gap-2.5 flex-col md:flex-row'>
-						<AboutCard title='Awards and Recognitions' value={13} position='right' />
-						<AboutCard title='Happy Clients Served' value={200} position='left' />
+						<AboutCard title='Награды и признания' value={13} position='right' />
+						<AboutCard title='Счастливых клиентов' value={200} position='left' />
 					</div>
 				</div>
 				<div className='wrapper h-min flex flex-col gap-8 xl:gap-1 md:pt-25 md:pb-0 md:px-0 py-[30px] px-3'>
 					<div>
-						<h2 className='h2-l text-deep-orange'>I am ...</h2>
+						<h2 className='h2-l text-deep-orange'>Обо мне ...</h2>
 					</div>
 					<div className='ml-auto flex flex-col gap-11'>
 						<p className='p-l font-satoshi font-light text-left w-full md:w-[700px] text-creamy-white whitespace-pre-wrap leading-normal'>
-							a passionate photographer dedicated to&nbsp;capturing life's most precious moments.
-							With&nbsp;a keen eye for detail and a{' '}
-							<span className='text-deep-orange font-satoshi'>love for storytelling</span>, I strive
-							to create images that are not just beautiful, but that also evoke emotion and tell a
-							compelling story.
+							Страстный фотограф, посвящающий себя запечатлению самых ценных моментов жизни. С
+							острым вниманием к деталям и
+							<span className='text-deep-orange font-satoshi'> любовью к рассказу историй</span>, я
+							стремлюсь создавать изображения, которые не только красивы, но и вызывают эмоции,
+							рассказывая захватывающую историю.
 						</p>
-						<Button variant={'outline'} label={'More About Me'} />
+						<Button variant={'outline'} label={'Еще обо мне'} />
 					</div>
 				</div>
 			</div>
