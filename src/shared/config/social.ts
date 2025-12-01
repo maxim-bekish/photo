@@ -32,7 +32,7 @@ export const socials = [
 	},
 ];
 
-export const albumsList = [
+export const albumsList: AlbumItem[] = [
 	{
 		href: 'colorful-india',
 		id: 'colorful-india',
@@ -40,14 +40,18 @@ export const albumsList = [
 		alt: 'photo',
 		title: 'Яркая Индия',
 		characteristics: [
-			{ code: 'category', value: ['Путешествия'] },
-			{ code: 'projectType', value: ['Сотрудничество'] },
-			{ code: 'camera', value: ['Fujifilm X-T4'] },
-			{ code: 'lenses', value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'] },
-			{ code: 'otherDevices', value: ['Mavic Air'] },
-			{ code: 'location', value: ['Индия'] },
-			{ code: 'time', value: ['Март 2024'] },
-			{ code: 'client', value: ['India Tourism'] },
+			{ icon: 'focus', code: 'category', value: ['Путешествия'] },
+			{ icon: 'triangle', code: 'projectType', value: ['Сотрудничество'] },
+			{ icon: 'camera', code: 'camera', value: ['Fujifilm X-T4'] },
+			{
+				icon: 'aperture',
+				code: 'lenses',
+				value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'],
+			},
+			{ icon: 'monitor-smartphone', code: 'otherDevices', value: ['Mavic Air'] },
+			{ icon: 'map-pin', code: 'location', value: ['Индия'] },
+			{ icon: 'calendar', code: 'time', value: ['Март 2024'] },
+			{ icon: 'user', code: 'client', value: ['India Tourism'] },
 		],
 		video: {
 			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
@@ -66,14 +70,18 @@ export const albumsList = [
 		title: 'Эхо снов',
 
 		characteristics: [
-			{ code: 'category', value: ['Концептуальная'] },
-			{ code: 'projectType', value: ['Коммерческий'] },
-			{ code: 'camera', value: ['Fujifilm X-T4'] },
-			{ code: 'lenses', value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'] },
-			{ code: 'otherDevices', value: ['Mavic Air'] },
-			{ code: 'location', value: ['Liège', 'Belgium'] },
-			{ code: 'time', value: ['January - April 2024'] },
-			{ code: 'client', value: ['Lenova'] },
+			{ icon: 'focus', code: 'category', value: ['Концептуальная'] },
+			{ icon: 'triangle', code: 'projectType', value: ['Коммерческий'] },
+			{ icon: 'camera', code: 'camera', value: ['Fujifilm X-T4'] },
+			{
+				icon: 'aperture',
+				code: 'lenses',
+				value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'],
+			},
+			{ icon: 'monitor-smartphone', code: 'otherDevices', value: ['Mavic Air'] },
+			{ icon: 'map-pin', code: 'location', value: ['Liège', 'Belgium'] },
+			{ icon: 'calendar', code: 'time', value: ['January - April 2024'] },
+			{ icon: 'user', code: 'client', value: ['Lenova'] },
 		],
 		video: {
 			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
@@ -91,11 +99,11 @@ export const albumsList = [
 		alt: 'photo',
 		title: 'Крылья свободы',
 		characteristics: [
-			{ code: 'category', value: ['Воздушная и дрон-фотография'] },
-			{ code: 'projectType', value: ['Проект по вдохновению'] },
-			{ code: 'camera', value: ['Mavic Pro 3', 'Mavic Mini'] },
-			{ code: 'location', value: ['Liège', 'Belgium'] },
-			{ code: 'time', value: ['January - April 2024'] },
+			{ icon: 'focus', code: 'category', value: ['Воздушная и дрон-фотография'] },
+			{ icon: 'triangle', code: 'projectType', value: ['Проект по вдохновению'] },
+			{ icon: 'camera', code: 'camera', value: ['Mavic Pro 3', 'Mavic Mini'] },
+			{ icon: 'map-pin', code: 'location', value: ['Liège', 'Belgium'] },
+			{ icon: 'calendar', code: 'time', value: ['January - April 2024'] },
 		],
 		video: {
 			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
@@ -113,14 +121,18 @@ export const albumsList = [
 		alt: 'photo',
 		title: 'Совершенство в деталях',
 		characteristics: [
-			{ code: 'category', value: ['Продуктовая'] },
-			{ code: 'projectType', value: ['Коммерческий'] },
-			{ code: 'camera', value: ['Fujifilm X-T4'] },
-			{ code: 'lenses', value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'] },
-			{ code: 'otherDevices', value: ['Mavic Air'] },
-			{ code: 'location', value: ['Liège', 'Belgium'] },
-			{ code: 'time', value: ['March 2024'] },
-			{ code: 'client', value: ['Blissed Co.'] },
+			{ icon: 'focus', code: 'category', value: ['Продуктовая'] },
+			{ icon: 'triangle', code: 'projectType', value: ['Коммерческий'] },
+			{ icon: 'camera', code: 'camera', value: ['Fujifilm X-T4'] },
+			{
+				icon: 'aperture',
+				code: 'lenses',
+				value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'],
+			},
+			{ icon: 'monitor-smartphone', code: 'otherDevices', value: ['Mavic Air'] },
+			{ icon: 'map-pin', code: 'location', value: ['Liège', 'Belgium'] },
+			{ icon: 'calendar', code: 'time', value: ['March 2024'] },
+			{ icon: 'user', code: 'client', value: ['Blissed Co.'] },
 		],
 		video: {
 			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
@@ -138,13 +150,17 @@ export const albumsList = [
 		alt: 'photo',
 		title: 'Дикие чудеса',
 		characteristics: [
-			{ code: 'category', value: ['Животные и природа'] },
-			{ code: 'projectType', value: ['Проект по вдохновению'] },
-			{ code: 'camera', value: ['Fujifilm X-T4'] },
-			{ code: 'lenses', value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'] },
-			{ code: 'otherDevices', value: ['Mavic Air'] },
-			{ code: 'location', value: ['Europe', 'Africa'] },
-			{ code: 'time', value: ['2020-2024'] },
+			{ icon: 'focus', code: 'category', value: ['Животные и природа'] },
+			{ icon: 'triangle', code: 'projectType', value: ['Проект по вдохновению'] },
+			{ icon: 'camera', code: 'camera', value: ['Fujifilm X-T4'] },
+			{
+				icon: 'aperture',
+				code: 'lenses',
+				value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'],
+			},
+			{ icon: 'monitor-smartphone', code: 'otherDevices', value: ['Mavic Air'] },
+			{ icon: 'map-pin', code: 'location', value: ['Europe', 'Africa'] },
+			{ icon: 'calendar', code: 'time', value: ['2020-2024'] },
 		],
 		video: {
 			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
