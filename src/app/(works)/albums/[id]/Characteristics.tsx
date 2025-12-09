@@ -12,7 +12,7 @@ export const Characteristics = ({
 	characteristics: CharacteristicsType[];
 }) => {
 	return (
-		<section className='px-(--px) xl:py-[120px] gap-15 flex-col flex items-center '>
+		<section className='px-(--px) py-[50px] xl:py-[120px] gap-15 flex-col flex items-center '>
 			<div className='max-w-[800px] w-full'>
 				<p className='p-l text-creamy-white text-center'>{description}</p>
 			</div>
@@ -35,7 +35,7 @@ export const Characteristics = ({
 					})}
 				</ul>
 				<div className='flex justify-center'>
-					<Button variant={'outline'} label={'get template'} />
+					<Button variant={'outline'} label={'Buy Prints'} />
 				</div>
 			</div>
 		</section>

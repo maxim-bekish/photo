@@ -54,8 +54,10 @@ export const albumsList: AlbumItem[] = [
 			{ icon: 'user', code: 'client', value: ['India Tourism'] },
 		],
 		video: {
-			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
+			src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
 			preview: '/assets/albums/img-1.avif',
+			alt: 'video',
+			id: 'video-colorful-india',
 		},
 		description:
 			'Запечатлеть яркую жизнь, культуру и разнообразие улиц Индии через совместный проект по тревел-фотографии. Цель состояла в том, чтобы документировать повседневные моменты, уникальные уличные сцены и культурные события, передавая суть жизни на индийских улицах.',
@@ -84,8 +86,10 @@ export const albumsList: AlbumItem[] = [
 			{ icon: 'user', code: 'client', value: ['Lenova'] },
 		],
 		video: {
-			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
+			src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
 			preview: '/assets/albums/img-1.avif',
+      alt: 'video',
+      id: 'video-echoes-of-dreams',
 		},
 		description:
 			'To create a series of conceptual art photographs that explore the themes of dreams, subconscious, and human emotion. The series aimed to provoke thought and evoke deep emotions, ultimately being showcased in an art gallery and various online platforms.',
@@ -106,8 +110,10 @@ export const albumsList: AlbumItem[] = [
 			{ icon: 'calendar', code: 'time', value: ['January - April 2024'] },
 		],
 		video: {
-			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
+			src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
 			preview: '/assets/albums/img-1.avif',
+      alt: 'video',
+      id: 'video-wings-of-freedom',
 		},
 		description:
 			'To capture breathtaking aerial images of Belgium’s diverse landscapes, showcasing the country’s natural beauty and architectural marvels from a bird’s-eye view. This project aimed to push creative boundaries and explore new perspectives in aerial photography.',
@@ -135,8 +141,10 @@ export const albumsList: AlbumItem[] = [
 			{ icon: 'user', code: 'client', value: ['Blissed Co.'] },
 		],
 		video: {
-			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
+			src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
 			preview: '/assets/albums/img-1.avif',
+      alt: 'video',
+      id: 'video-crafted-perfection',
 		},
 		description:
 			"To create a visually stunning collection of product photographs that highlight the craftsmanship and detail of Artisan Crafts & Co.'s handmade products. The images were intended for use in their online store, social media, print catalogs, and marketing campaigns.",
@@ -163,8 +171,10 @@ export const albumsList: AlbumItem[] = [
 			{ icon: 'calendar', code: 'time', value: ['2020-2024'] },
 		],
 		video: {
-			href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
+			src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
 			preview: '/assets/albums/img-1.avif',
+      alt: 'video',
+      id: 'video-wild-wonders',
 		},
 		description:
 			"To capture the diverse flora and fauna of Europe and Africa's natural landscapes, with a focus on honing skills in wildlife photography, understanding animal behavior, and improving technical proficiency in various lighting conditions.",

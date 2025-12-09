@@ -2,7 +2,10 @@
 
 import { Title } from './Title';
 import { Characteristics } from './Characteristics';
+import { Gallery } from './Gallery';
 import { AlbumItem } from '@/src/shared/types';
+import { albumsList } from '@/src/shared/config/social';
+import { MoreAlbums } from './MoreAlbums';
 
 const album: AlbumItem = {
 	href: 'colorful-india',
@@ -11,18 +14,24 @@ const album: AlbumItem = {
 	alt: 'photo',
 	title: 'Colorful India',
 	characteristics: [
-		{ icon:"focus", code: 'Category', value: ['Travel'] },
-		{ icon:"triangle", code: 'ProjectType', value: ['Collaboration'] },
-		{ icon:"camera", code: 'Camera', value: ['Fujifilm X-T4'] },
-		{ icon:"aperture", code: 'Lenses', value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'] },
-		{ icon:"monitor-smartphone", code: 'OtherDevices', value: ['Mavic Air'] },
-		{ icon:"map-pin", code: 'Location', value: ['India'] },
-		{ icon:"calendar", code: 'Time', value: ['March 2024'] },
-		{ icon:"user", code: 'Client', value: ['India Tourism'] },
+		{ icon: 'focus', code: 'Category', value: ['Travel'] },
+		{ icon: 'triangle', code: 'ProjectType', value: ['Collaboration'] },
+		{ icon: 'camera', code: 'Camera', value: ['Fujifilm X-T4'] },
+		{
+			icon: 'aperture',
+			code: 'Lenses',
+			value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'],
+		},
+		{ icon: 'monitor-smartphone', code: 'OtherDevices', value: ['Mavic Air'] },
+		{ icon: 'map-pin', code: 'Location', value: ['India'] },
+		{ icon: 'calendar', code: 'Time', value: ['March 2024'] },
+		{ icon: 'user', code: 'Client', value: ['India Tourism'] },
 	],
 	video: {
-		href: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
+		src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
 		preview: '/assets/albums/img-1.avif',
+		alt: 'video',
+		id: 'video-colorful-india',
 	},
 	description:
 		"To capture the vibrant life, culture, and diversity of India's streets through a collaborative travel photography project. The aim was to document everyday moments, unique street scenes, and cultural events, showcasing the essence of Indian street life.",
@@ -35,6 +44,9 @@ export default function () {
 		<main>
 			<Title title={album.title} src={album.src} />
 			<Characteristics characteristics={album.characteristics} description={album.description} />
+
+			<Gallery album={album.albums} video={album.video} />
+			<MoreAlbums albums={albumsList} />
 		</main>
 	);
 }

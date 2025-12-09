@@ -21,8 +21,10 @@ export interface AlbumItem {
 	title: string;
 	characteristics: Characteristics[];
 	video?: {
-		href: string;
+		src: string;
 		preview: string;
+    alt: string;
+    id: string;
 	};
 	description?: string;
 	albums: string[];
