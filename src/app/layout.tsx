@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
 import localFont from 'next/font/local';
-import { Header } from '../shared/components/Header';
-import { Footer } from '../shared/components/Footer';
+import { SiteLayout } from '../shared/components/SiteLayout';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,7 +20,6 @@ const montserrat = Montserrat({
 	variable: '--font-montserrat',
 	weight: ['200', '300', '400', '500', '700'],
 	display: 'swap',
- 
 });
 
 const clashDisplay = localFont({
@@ -61,30 +59,7 @@ export default function RootLayout({
 		<html lang='en' className='dark'>
 			<body
 				className={`${clashDisplay.variable} ${satoshi.variable} ${inter.variable} ${montserrat.variable} scrollBar  antialiased`}>
-				<Header />
-				{children}
-				<Footer />
-				<div
-					id='cursor-custom'
-					className='fixed  top-0 left-0 w-14.5 h-14.5 pointer-events-none  opacity-0 z-9999'>
-					<div className='custom-text body1 uppercase absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2' />
-					<div className='absolute top-0 left-0'>
-						<span className='block w-2 h-px absolute top-0 left-0 bg-white'></span>
-						<span className='block w-px h-2 absolute top-0 left-0 bg-white'></span>
-					</div>
-					<div className='absolute bottom-0 left-0'>
-						<span className='block w-px h-2 absolute bottom-0 left-0 bg-white'></span>
-						<span className='block w-2 h-px absolute bottom-0 left-0 bg-white'></span>
-					</div>
-					<div className='absolute bottom-0 right-0'>
-						<span className='block w-px h-2 absolute bg-white bottom-0 right-0'></span>
-						<span className='block w-2 h-px absolute bg-white bottom-0 right-0'></span>
-					</div>
-					<div className='absolute top-0 right-0'>
-						<span className='block w-px h-2 absolute top-0 right-0 bg-white'></span>
-						<span className='block w-2 h-px absolute top-0 right-0 bg-white'></span>
-					</div>
-				</div>
+				<SiteLayout>{children}</SiteLayout>
 			</body>
 		</html>
 	);

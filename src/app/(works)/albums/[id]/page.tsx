@@ -4,42 +4,46 @@ import { Title } from './Title';
 import { Characteristics } from './Characteristics';
 import { Gallery } from './Gallery';
 import { AlbumItem } from '@/src/shared/types';
-import { albumsList } from '@/src/shared/config/social';
 import { MoreAlbums } from './MoreAlbums';
-
-const album: AlbumItem = {
-	href: 'colorful-india',
-	id: 'colorful-india',
-	src: '/assets/albums/img-1.avif',
-	alt: 'photo',
-	title: 'Colorful India',
-	characteristics: [
-		{ icon: 'focus', code: 'Category', value: ['Travel'] },
-		{ icon: 'triangle', code: 'ProjectType', value: ['Collaboration'] },
-		{ icon: 'camera', code: 'Camera', value: ['Fujifilm X-T4'] },
-		{
-			icon: 'aperture',
-			code: 'Lenses',
-			value: ['Fujinon XF 23mm f/1.4 R', 'Fujinon XF 35mm f/2 R WR'],
-		},
-		{ icon: 'monitor-smartphone', code: 'OtherDevices', value: ['Mavic Air'] },
-		{ icon: 'map-pin', code: 'Location', value: ['India'] },
-		{ icon: 'calendar', code: 'Time', value: ['March 2024'] },
-		{ icon: 'user', code: 'Client', value: ['India Tourism'] },
-	],
-	video: {
-		src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
-		preview: '/assets/albums/img-1.avif',
-		alt: 'video',
-		id: 'video-colorful-india',
-	},
-	description:
-		"To capture the vibrant life, culture, and diversity of India's streets through a collaborative travel photography project. The aim was to document everyday moments, unique street scenes, and cultural events, showcasing the essence of Indian street life.",
-
-	albums: ['/assets/albums/img-1.avif', '/assets/albums/img-2.avif', '/assets/albums/img-3.avif'],
-};
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function () {
+	const params = useParams();
+	const id = params.id as string;
+	const [album, setAlbum] = useState<AlbumItem | null>(null);
+	const [albumsList, setAlbumsList] = useState<AlbumItem[]>([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		Promise.all([
+			fetch(`/api/albums/${id}`).then((res) => res.json()),
+			fetch('/api/albums').then((res) => res.json()),
+		])
+			.then(([albumData, albumsData]) => {
+				setAlbum(albumData);
+				setAlbumsList(albumsData);
+				setLoading(false);
+			})
+			.catch(() => setLoading(false));
+	}, [id]);
+
+	if (loading) {
+		return (
+			<main>
+				<div className='text-creamy-white text-center py-20'>Загрузка...</div>
+			</main>
+		);
+	}
+
+	if (!album) {
+		return (
+			<main>
+				<div className='text-creamy-white text-center py-20'>Альбом не найден</div>
+			</main>
+		);
+	}
+
 	return (
 		<main>
 			<Title title={album.title} src={album.src} />

@@ -1,14 +1,24 @@
 'use client';
 
 import { AlbumCard } from '@/src/shared/components/home/AlbumCard';
-
-import { useRef } from 'react';
-
+import { useRef, useEffect, useState } from 'react';
 import LayoutWorks from '../layoutWorks';
-import { albumsList } from '@/src/shared/config/social';
+import { AlbumItem } from '@/src/shared/types';
 
 export default function () {
+	const [albumsList, setAlbumsList] = useState<AlbumItem[]>([]);
+	const [loading, setLoading] = useState(true);
 	const itemRefs = useRef<HTMLAnchorElement[]>([]);
+
+	useEffect(() => {
+		fetch('/api/albums')
+			.then((res) => res.json())
+			.then((data) => {
+				setAlbumsList(data);
+				setLoading(false);
+			})
+			.catch(() => setLoading(false));
+	}, []);
 
 	const setItemRef = (el: HTMLAnchorElement | null) => {
 		if (el && !itemRefs.current.includes(el)) {
@@ -16,9 +26,17 @@ export default function () {
 		}
 	};
 
+	if (loading) {
+		return (
+			<LayoutWorks title={'Albums'} className='gap-10'>
+				<div className='text-creamy-white text-center py-20'>Загрузка...</div>
+			</LayoutWorks>
+		);
+	}
+
 	return (
 		<LayoutWorks title={'Albums'} className='gap-10'>
-			{albumsList.map(el => (
+			{albumsList.map((el) => (
 				<AlbumCard key={el.id} ref={setItemRef} item={el} className='h-[446px]' />
 			))}
 		</LayoutWorks>
