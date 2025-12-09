@@ -5,7 +5,6 @@ import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import gsap from 'gsap';
 import { Observer } from 'gsap/Observer';
 import { useMemo, useRef } from 'react';
-import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { ArticlesCard } from '../ui/Articles-card';
 import { ArticlesItem } from '../../types';
@@ -31,26 +30,34 @@ export const Articles = () => {
 		{
 			id: '1',
 			src: '/assets/expertise/img-1.avif',
+			href: '1',
 			message: 'Сделайте ваши фотографии выразительнее с моими фирменными пресетами цветокоррекции',
-			badge: ['Фотография', 'Путешествия', 'Стиль жизни'],
+			category: 'Photography',
+			date: 'March 6, 2024',
 		},
 		{
 			id: '2',
 			src: '/assets/expertise/img-2.avif',
+			href: '2',
 			message: 'Искусство репортажной съёмки: как естественно ловить моменты',
-			badge: ['Фотография', 'Путешествия', 'Стиль жизни', 'Путешествия', 'Путешествия'],
+			category: 'Photography',
+			date: 'March 6, 2024',
 		},
 		{
 			id: '3',
 			src: '/assets/expertise/img-3.avif',
+			href: '3',
 			message: 'Магия «золотого часа»: гид для фотографов по идеальному свету',
-			badge: ['Фотография', 'Путешествия', 'Стиль жизни'],
+			category: 'Photography',
+			date: 'March 6, 2024',
 		},
 		{
 			id: '4',
 			src: '/assets/expertise/img-1.avif',
+			href: '4',
 			message: 'Улучшите свои снимки с помощью моих авторских пресетов цветокоррекции',
-			badge: ['Фотография', 'Путешествия', 'Стиль жизни'],
+			category: 'Photography',
+			date: 'March 6, 2024',
 		},
 	];
 

@@ -2,10 +2,12 @@ import { IconName } from 'lucide-react/dynamic';
 
 export interface ArticlesItem {
 	id: string;
+	href: string;
 	src: string;
 	subTitle?: string;
 	message: string;
-	badge: string[];
+	category: string;
+	date: string;
 }
 
 export interface Characteristics {
@@ -23,8 +25,8 @@ export interface AlbumItem {
 	video?: {
 		src: string;
 		preview: string;
-    alt: string;
-    id: string;
+		alt: string;
+		id: string;
 	};
 	description?: string;
 	albums: string[];
