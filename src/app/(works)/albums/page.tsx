@@ -1,15 +1,15 @@
 'use client';
 
 import { AlbumCard } from '@/src/shared/components/home/AlbumCard';
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import LayoutWorks from '../layoutWorks';
-import { AlbumItem } from '@/src/shared/types';
+import { useAlbums } from '@/src/hooks/queries/useAlbums';
+import { Skeleton } from '@/src/shared/components/ui/skeleton';
 
 export default function () {
- 
 	const itemRefs = useRef<HTMLAnchorElement[]>([]);
 
- 
+	const { data: albums, isLoading } = useAlbums();
 
 	const setItemRef = (el: HTMLAnchorElement | null) => {
 		if (el && !itemRefs.current.includes(el)) {
@@ -17,19 +17,24 @@ export default function () {
 		}
 	};
 
-	if (loading) {
+	if (isLoading) {
 		return (
 			<LayoutWorks title={'Albums'} className='gap-10'>
-				<div className='text-creamy-white text-center py-20'>Загрузка...</div>
+				<Skeleton className='h-[446px]' />
+				<Skeleton className='h-[446px]' />
+				<Skeleton className='h-[446px]' />
+				<Skeleton className='h-[446px]' />
 			</LayoutWorks>
 		);
 	}
 
 	return (
 		<LayoutWorks title={'Albums'} className='gap-10'>
-			{albumsList.map((el) => (
-				<AlbumCard key={el.id} ref={setItemRef} item={el} className='h-[446px]' />
-			))}
+			{albums ? (
+				albums.map(el => <AlbumCard key={el.id} ref={setItemRef} item={el} className='h-[446px]' />)
+			) : (
+				<div>Альбомы не найдены</div>
+			)}
 		</LayoutWorks>
 	);
 }
