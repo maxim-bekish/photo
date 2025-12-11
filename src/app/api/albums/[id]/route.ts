@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAlbumById } from '@/src/lib/data-loader';
+import { getAlbumById } from '@/src/lib/supabase-data-loader';
 
 export async function GET(
 	request: NextRequest,

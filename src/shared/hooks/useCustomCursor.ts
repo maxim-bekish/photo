@@ -66,31 +66,57 @@ export const useCustomCursor = ({
 		};
 		const hideCursor = () => gsap.to(cursor, { opacity: 0, scale: 0.6, duration: 0.2 });
 
-		// Получаем реальные DOM элементы из refs
-		const elementsArray = typeof elements === 'function' ? elements() : elements;
-		const domElements = elementsArray
-			.map(el => {
-				if (!el) return null;
-				return el instanceof HTMLElement ? el : el.current;
-			})
-			.filter((el): el is HTMLElement => el !== null);
+		// Храним обработчики для очистки
+		const handlers = new Map<HTMLElement, { show: () => void; hide: () => void }>();
 
-		// Добавляем обработчики на каждый элемент
-		domElements.forEach(item => {
-			item.addEventListener('mouseenter', showCursor);
-			item.addEventListener('mouseleave', hideCursor);
-		});
+		const updateHandlers = () => {
+			// Получаем реальные DOM элементы из refs
+			const elementsArray = typeof elements === 'function' ? elements() : elements;
+			const domElements = elementsArray
+				.map(el => {
+					if (!el) return null;
+					return el instanceof HTMLElement ? el : el.current;
+				})
+				.filter((el): el is HTMLElement => el !== null);
+
+			// Удаляем обработчики со старых элементов, которых больше нет
+			handlers.forEach((handler, element) => {
+				if (!domElements.includes(element)) {
+					element.removeEventListener('mouseenter', handler.show);
+					element.removeEventListener('mouseleave', handler.hide);
+					handlers.delete(element);
+				}
+			});
+
+			// Добавляем обработчики на новые элементы
+			domElements.forEach(item => {
+				if (!handlers.has(item)) {
+					handlers.set(item, { show: showCursor, hide: hideCursor });
+					item.addEventListener('mouseenter', showCursor);
+					item.addEventListener('mouseleave', hideCursor);
+				}
+			});
+		};
+
+		// Обновляем обработчики сразу
+		updateHandlers();
+
+		// Периодически проверяем новые элементы (элементы добавляются через refs асинхронно)
+		const intervalId = setInterval(updateHandlers, 150);
 
 		return () => {
 			window.removeEventListener('mousemove', moveCursor);
 			if (animationFrameId) {
 				cancelAnimationFrame(animationFrameId);
 			}
+			clearInterval(intervalId);
 
-			domElements.forEach(item => {
-				item.removeEventListener('mouseenter', showCursor);
-				item.removeEventListener('mouseleave', hideCursor);
+			// Удаляем все обработчики
+			handlers.forEach((handler, element) => {
+				element.removeEventListener('mouseenter', handler.show);
+				element.removeEventListener('mouseleave', handler.hide);
 			});
+			handlers.clear();
 		};
 	}, [elements, cursorId, text]);
 };

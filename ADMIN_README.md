@@ -5,12 +5,37 @@
 ## Настройка
 
 1. Создайте файл `.env.local` в корне проекта:
+
 ```env
+# Supabase настройки
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Старая авторизация (опционально, если не используете Supabase)
 ADMIN_EMAIL=admin@example.com
 ADMIN_PASSWORD=admin123
 ```
 
+**Где найти ключи Supabase:**
+
+1. Откройте [Supabase Dashboard](https://supabase.com/dashboard)
+2. Выберите ваш проект
+3. Перейдите в **Settings** → **API**
+4. В секции "Project API keys" найдите:
+   - `NEXT_PUBLIC_SUPABASE_URL` - это "Project URL"
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - это "anon public" key (можно публиковать)
+   - `SUPABASE_SERVICE_ROLE_KEY` - это "service_role" key (секретный!)
+
+**Важно:**
+
+- `SUPABASE_SERVICE_ROLE_KEY` нужен для серверной проверки токенов аутентификации
+- Этот ключ обходит Row Level Security (RLS) - **НИКОГДА не публикуйте его!**
+- Храните только в `.env.local` (который уже в `.gitignore`)
+- Используется только на сервере в API routes
+
 2. Запустите проект:
+
 ```bash
 npm run dev
 ```
@@ -30,6 +55,7 @@ npm run dev
 1. Перейдите в раздел "Блоги" (`/admin/blogs`)
 2. Нажмите "Создать блог" для добавления новой статьи
 3. Заполните форму:
+
    - **ID** - уникальный идентификатор
    - **Href** - URL для страницы блога (например, `my-blog-post`)
    - **Путь к изображению** - путь к превью (например, `/assets/expertise/img-1.avif`)
@@ -47,6 +73,7 @@ npm run dev
 1. Перейдите в раздел "Альбомы" (`/admin/albums`)
 2. Нажмите "Создать альбом" для добавления нового альбома
 3. Заполните форму:
+
    - **ID** - уникальный идентификатор
    - **Href** - URL для страницы альбома
    - **Название** - название альбома
@@ -65,6 +92,7 @@ npm run dev
 ## Структура данных
 
 Данные хранятся в JSON файлах:
+
 - `src/data/blogs.json` - блоги
 - `src/data/albums.json` - альбомы
 
@@ -80,12 +108,14 @@ npm run dev
 ## API Endpoints
 
 ### Публичные (для чтения данных):
+
 - `GET /api/blogs` - получить все блоги
 - `GET /api/blogs/[id]` - получить блог по ID
 - `GET /api/albums` - получить все альбомы
 - `GET /api/albums/[id]` - получить альбом по ID
 
 ### Админские (требуют авторизации):
+
 - `POST /api/admin/login` - вход в админку
 - `POST /api/admin/logout` - выход
 - `GET /api/admin/blogs` - получить все блоги (админ)
@@ -100,7 +130,7 @@ npm run dev
 ## Миграция на базу данных
 
 В будущем можно легко мигрировать на базу данных:
+
 1. Замените функции в `src/lib/data-loader.ts` на запросы к БД
 2. Обновите API routes для работы с БД
 3. Структура данных останется той же
-

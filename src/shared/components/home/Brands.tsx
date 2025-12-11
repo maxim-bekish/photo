@@ -1,17 +1,28 @@
-export const Brands = () => {
-	const brands = [
-		{ id: '124', href: '/assets/brands/img-1.svg', alt: 'logo' },
-		{ id: '12r', href: '/assets/brands/img-2.svg', alt: 'logo' },
-		{ id: 'wec', href: '/assets/brands/img-3.svg', alt: 'logo' },
-		{ id: 'werv', href: '/assets/brands/img-4.svg', alt: 'logo' },
-		{ id: 'awg', href: '/assets/brands/img-5.svg', alt: 'logo' },
-		{ id: 'tbk', href: '/assets/brands/img-6.svg', alt: 'logo' },
-		{ id: 'a4vwt', href: '/assets/brands/img-7.svg', alt: 'logo' },
-		{ id: 'mu', href: '/assets/brands/img-8.svg', alt: 'logo' },
-		{ id: 'ef', href: '/assets/brands/img-9.svg', alt: 'logo' },
-		{ id: 'uk', href: '/assets/brands/img-10.svg', alt: 'logo' },
-	];
+'use client';
+import { useEffect, useState } from 'react';
+import { BrandItem } from '../../types';
 
+
+export const Brands = () => {
+	const [brands, setBrands] = useState<BrandItem[]>([]);
+	const [loading, setLoading] = useState(true);
+
+
+
+	useEffect(() => {
+		fetch('/api/brands')
+			.then(res => res.json())
+			.then(data => {
+				setBrands(data);
+				setLoading(false);
+			})
+			.catch(error => {
+				console.error('Ошибка загрузки брендов:', error);
+			});
+	}, []);
+	if (loading) {
+		return <div className='text-creamy-white'>Загрузка...</div>;
+	}
 	return (
 		<div className='flex gap-15 py-7.5 md:py-[150px] px-(--px) flex-col items-center wrapper mx-auto'>
 			<div>

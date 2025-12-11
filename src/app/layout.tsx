@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Providers } from './providers';
 import { Inter, Montserrat } from 'next/font/google';
 import localFont from 'next/font/local';
 import { SiteLayout } from '../shared/components/SiteLayout';
@@ -59,7 +60,9 @@ export default function RootLayout({
 		<html lang='en' className='dark'>
 			<body
 				className={`${clashDisplay.variable} ${satoshi.variable} ${inter.variable} ${montserrat.variable} scrollBar  antialiased`}>
-				<SiteLayout>{children}</SiteLayout>
+				<Providers>
+					<SiteLayout>{children}</SiteLayout>
+				</Providers>
 			</body>
 		</html>
 	);

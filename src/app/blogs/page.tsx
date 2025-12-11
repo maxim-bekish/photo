@@ -1,27 +1,16 @@
 'use client';
 
-import { ArticlesItem } from '@/src/shared/types';
-import LayoutPage from '../layoutPage';
+import { useBlogs } from '@/src/hooks/queries/useBlogs';
 import { ArticlesCard } from '@/src/shared/components/ui/Articles-card';
-import { useRef, useEffect, useState } from 'react';
+import { Skeleton } from '@/src/shared/components/ui/skeleton';
 import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
+import LayoutPage from '../layoutPage';
 
-export default function () {
-	const [articlesList, setArticlesList] = useState<ArticlesItem[]>([]);
-	const [loading, setLoading] = useState(true);
-	const containerRef = useRef<HTMLDivElement>(null);
+export default function BlogsPage() {
 	const itemRefs = useRef<HTMLDivElement[]>([]);
 
-	useEffect(() => {
-		fetch('/api/blogs')
-			.then((res) => res.json())
-			.then((data) => {
-				setArticlesList(data);
-				setLoading(false);
-			})
-			.catch(() => setLoading(false));
-	}, []);
+	const { data: articlesList, isLoading } = useBlogs();
 
 	const setItemRef = (el: HTMLDivElement | null) => {
 		if (el && !itemRefs.current.includes(el)) {
@@ -29,23 +18,12 @@ export default function () {
 		}
 	};
 
-	// Используем хук для кастомного курсора
 	const getElements = useMemo(() => () => itemRefs.current, []);
 	useCustomCursor({ elements: getElements, text: 'read' });
 
-	if (loading) {
+	if (!isLoading && articlesList?.length === 0) {
 		return (
-			<LayoutPage title={'Blogs'}>
-				<div className='flex items-center justify-center py-20'>
-					<div className='text-creamy-white'>Загрузка...</div>
-				</div>
-			</LayoutPage>
-		);
-	}
-
-	if (articlesList.length === 0) {
-		return (
-			<LayoutPage title={'Blogs'}>
+			<LayoutPage title='Blogs'>
 				<div className='flex items-center justify-center py-20'>
 					<div className='text-creamy-white'>Блоги не найдены</div>
 				</div>
@@ -54,13 +32,23 @@ export default function () {
 	}
 
 	return (
-		<LayoutPage title={'Blogs'}>
+		<LayoutPage title='Blogs'>
 			<div className='flex flex-col gap-2.5 wrapper'>
-				{articlesList[0] && <ArticlesCard el={articlesList[0]} row big setItemRef={setItemRef} />}
-				<div ref={containerRef} className='grid  grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2.5'>
-					{articlesList.slice(1).map((el, index) => (
-						<ArticlesCard key={el.id + index} el={el} setItemRef={setItemRef} />
-					))}
+				{isLoading ? (
+					<Skeleton className='w-full h-[250px] md:h-[400px]' />
+				) : (
+					articlesList?.[0] && <ArticlesCard el={articlesList[0]} row big setItemRef={setItemRef} />
+				)}
+				<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2.5'>
+					{isLoading
+						? Array.from({ length: 6 }).map((_, index) => (
+								<Skeleton key={index} className='h-[250px]' />
+						  ))
+						: articlesList
+								?.slice(1)
+								.map((el, index) => (
+									<ArticlesCard key={el.id + index} el={el} setItemRef={setItemRef} />
+								))}
 				</div>
 			</div>
 		</LayoutPage>

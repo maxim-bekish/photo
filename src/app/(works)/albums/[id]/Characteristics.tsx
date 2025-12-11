@@ -11,6 +11,8 @@ export const Characteristics = ({
 	description?: string;
 	characteristics: CharacteristicsType[];
 }) => {
+
+
 	return (
 		<section className='px-(--px) py-[50px] xl:py-[120px] gap-15 flex-col flex items-center '>
 			<div className='max-w-[800px] w-full'>

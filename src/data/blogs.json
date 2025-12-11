@@ -1,35 +1,33 @@
 [
 	{
 		"id": "1",
-		"href": "1",
 		"src": "/assets/expertise/img-1.avif",
-		"subTitle": "1111Photography",
-		"message": "1 Elevate your photos with my signature color grading presets",
+		"href": "1",
+		"message": "Сделайте ваши фотографии выразительнее с моими фирменными пресетами цветокоррекции",
 		"category": "Photography",
 		"date": "March 6, 2024"
 	},
 	{
 		"id": "2",
-		"href": "2",
 		"src": "/assets/expertise/img-2.avif",
-		"subTitle": "Photography",
-		"message": "2 The art of candid photography: capturing moments naturally",
+		"href": "2",
+		"message": "Искусство репортажной съёмки: как естественно ловить моменты",
 		"category": "Photography",
 		"date": "March 6, 2024"
 	},
 	{
 		"id": "3",
-		"href": "3",
 		"src": "/assets/expertise/img-3.avif",
-		"message": "3Admin Capturing the magic of golden hour: a photographer's guide",
+		"href": "3",
+		"message": "Магия «золотого часа»: гид для фотографов по идеальному свету",
 		"category": "Photography",
 		"date": "March 6, 2024"
 	},
 	{
 		"id": "4",
-		"href": "4",
 		"src": "/assets/expertise/img-1.avif",
-		"message": "4 Elevate your photos with my signature color grading presets",
+		"href": "4",
+		"message": "Улучшите свои снимки с помощью моих авторских пресетов цветокоррекции",
 		"category": "Photography",
 		"date": "March 6, 2024"
 	},

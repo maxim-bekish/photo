@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getBlogs } from '@/src/lib/supabase-data-loader';
+import { getBlogs } from '@/src/lib/data-loader';
 
 export async function GET() {
 	const blogs = await getBlogs();

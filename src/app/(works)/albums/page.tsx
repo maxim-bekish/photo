@@ -6,19 +6,10 @@ import LayoutWorks from '../layoutWorks';
 import { AlbumItem } from '@/src/shared/types';
 
 export default function () {
-	const [albumsList, setAlbumsList] = useState<AlbumItem[]>([]);
-	const [loading, setLoading] = useState(true);
+ 
 	const itemRefs = useRef<HTMLAnchorElement[]>([]);
 
-	useEffect(() => {
-		fetch('/api/albums')
-			.then((res) => res.json())
-			.then((data) => {
-				setAlbumsList(data);
-				setLoading(false);
-			})
-			.catch(() => setLoading(false));
-	}, []);
+ 
 
 	const setItemRef = (el: HTMLAnchorElement | null) => {
 		if (el && !itemRefs.current.includes(el)) {

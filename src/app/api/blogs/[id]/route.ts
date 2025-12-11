@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getBlogById } from '@/src/lib/data-loader';
+import { getBlogById } from '@/src/lib/supabase-data-loader';
 
 export async function GET(
 	request: NextRequest,

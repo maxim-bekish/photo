@@ -8,6 +8,7 @@ import { useMemo, useRef } from 'react';
 import { Button } from '../ui/button';
 import { ArticlesCard } from '../ui/Articles-card';
 import { ArticlesItem } from '../../types';
+import { useBlogs } from '@/src/hooks/queries/useBlogs';
 
 gsap.registerPlugin(Observer);
 
@@ -26,41 +27,14 @@ export const Articles = () => {
 	const getElements = useMemo(() => () => itemRefs.current, []);
 	useCustomCursor({ elements: getElements, text: 'read' });
 
-	const articlesList: ArticlesItem[] = [
-		{
-			id: '1',
-			src: '/assets/expertise/img-1.avif',
-			href: '1',
-			message: 'Сделайте ваши фотографии выразительнее с моими фирменными пресетами цветокоррекции',
-			category: 'Photography',
-			date: 'March 6, 2024',
-		},
-		{
-			id: '2',
-			src: '/assets/expertise/img-2.avif',
-			href: '2',
-			message: 'Искусство репортажной съёмки: как естественно ловить моменты',
-			category: 'Photography',
-			date: 'March 6, 2024',
-		},
-		{
-			id: '3',
-			src: '/assets/expertise/img-3.avif',
-			href: '3',
-			message: 'Магия «золотого часа»: гид для фотографов по идеальному свету',
-			category: 'Photography',
-			date: 'March 6, 2024',
-		},
-		{
-			id: '4',
-			src: '/assets/expertise/img-1.avif',
-			href: '4',
-			message: 'Улучшите свои снимки с помощью моих авторских пресетов цветокоррекции',
-			category: 'Photography',
-			date: 'March 6, 2024',
-		},
-	];
+	const { data: articlesList, isLoading } = useBlogs();
 
+	if (isLoading) {
+		return <div className='text-creamy-white'>Загрузка...</div>;
+	}
+	if (!articlesList) {
+		return <div className='text-creamy-white'>Статьи не найдены</div>;
+	}
 	return (
 		<div className='pt-15 pb-7.5  md:py-[150px] px-(--px) flex flex-col items-center'>
 			<div className='wrapper flex flex-col items-center gap-10 md:gap-15'>

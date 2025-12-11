@@ -1,60 +1,36 @@
 'use client';
 
-import { supabase } from '@/src/lib/supabase';
-import { Input } from '@/src/shared/components/ui/input';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { Input } from '@/src/shared/components/ui/input';
 
-export default function LoginPage() {
+export default function AdminLoginPage() {
 	const router = useRouter();
-	const [email, setEmail] = useState('max@max.ru');
-	const [password, setPassword] = useState('max123');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
-	const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setError('');
 		setLoading(true);
 
 		try {
-			const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-				email,
-				password,
-			});
-
-			if (authError) {
-				setError(authError.message || 'Ошибка входа');
-				setLoading(false);
-				return;
-			}
-
-			if (!authData.session?.access_token) {
-				setError('Не удалось получить токен доступа');
-				setLoading(false);
-				return;
-			}
-
-			const response = await fetch('/api/admin/supabase-auth', {
+			const res = await fetch('/api/admin/login', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ access_token: authData.session.access_token }),
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email, password }),
 			});
 
-			const data = await response.json();
-
-			if (!response.ok) {
-				setError(data.error || 'Ошибка установки сессии');
-				setLoading(false);
-				return;
+			if (res.ok) {
+				router.push('/admin');
+				router.refresh();
+			} else {
+				setError('Неверные данные для входа');
 			}
-
-			router.push('/admin');
-			router.refresh();
-		} catch (err) {
-			setError('Ошибка соединения с сервером');
+		} catch {
+			setError('Ошибка при входе');
 		} finally {
 			setLoading(false);
 		}
@@ -65,13 +41,13 @@ export default function LoginPage() {
 			<div className='bg-white/10 backdrop-blur-sm p-8 rounded-lg shadow-lg w-full max-w-md border border-white/20'>
 				<h2 className='text-2xl font-bold mb-6 text-creamy-white text-center'>Вход в админку</h2>
 				{error && <p className='text-red-400 mb-4 text-center'>{error}</p>}
-				<form onSubmit={handleLogin} className='space-y-4'>
+				<form onSubmit={handleSubmit} className='space-y-4'>
 					<div>
 						<label className='block mb-2 text-creamy-white'>Email</label>
 						<Input
 							type='email'
 							value={email}
-							onChange={e => setEmail(e.target.value)}
+							onChange={(e) => setEmail(e.target.value)}
 							required
 							className='bg-white/10 border-white/20 text-creamy-white'
 							placeholder='admin@example.com'
@@ -82,7 +58,7 @@ export default function LoginPage() {
 						<Input
 							type='password'
 							value={password}
-							onChange={e => setPassword(e.target.value)}
+							onChange={(e) => setPassword(e.target.value)}
 							required
 							className='bg-white/10 border-white/20 text-creamy-white'
 							placeholder='Введите пароль'
@@ -99,3 +75,4 @@ export default function LoginPage() {
 		</div>
 	);
 }
+

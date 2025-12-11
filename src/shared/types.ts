@@ -10,6 +10,12 @@ export interface ArticlesItem {
 	date: string;
 }
 
+export interface BrandItem {
+	id: string;
+	href: string;
+	alt: string;
+}
+
 export interface Characteristics {
 	icon: IconName;
 	code: string;

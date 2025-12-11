@@ -8,6 +8,7 @@ import { AlbumCard } from './AlbumCard';
 // import { albumsList } from '../../config/social';
 import { cn } from '../../lib/utils';
 import { AlbumItem } from '../../types';
+import { useAlbums } from '@/src/hooks/queries/useAlbums';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,9 +16,6 @@ export const Albums = () => {
 	const titleRef = useRef<HTMLHeadingElement>(null);
 	const itemRefs = useRef<HTMLAnchorElement[]>([]);
 	const albumsRef = useRef<HTMLDivElement>(null);
-
-	const [albums, setAlbums] = useState<AlbumItem[]>([]);
-	const [loading, setLoading] = useState(true);
 
 	const setItemRef = (el: HTMLAnchorElement | null) => {
 		if (el && !itemRefs.current.includes(el)) {
@@ -29,17 +27,7 @@ export const Albums = () => {
 	const getElements = useMemo(() => () => itemRefs.current, []);
 	useCustomCursor({ elements: getElements, text: 'view' });
 
-	useEffect(() => {
-		fetch('/api/albums')
-			.then(res => res.json())
-			.then(data => {
-				setAlbums(data);
-				setLoading(false);
-			})
-			.catch(error => {
-				console.error('Ошибка загрузки альбомов:', error);
-			});
-	}, []);
+	const { data: albums, isLoading } = useAlbums();
 
 	useEffect(() => {
 		const title = titleRef.current;
@@ -76,10 +64,14 @@ export const Albums = () => {
 				},
 			}
 		);
-	}, [loading]);
+	}, [isLoading]);
 
-	if (loading) {
+	if (isLoading) {
 		return <div className='text-creamy-white'>Загрузка...</div>;
+	}
+
+	if (!albums) {
+		return <div className='text-creamy-white'>Альбомы не найдены</div>;
 	}
 
 	return (
