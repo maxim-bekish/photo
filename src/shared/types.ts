@@ -28,12 +28,12 @@ export interface AlbumItem {
 	alt: string;
 	title: string;
 	characteristics: Characteristics[];
-	video?: {
-		src: string;
-		preview: string;
-		alt: string;
-		id: string;
-	};
+	videoSrc: string;
+	videoPreview: string;
+
 	description?: string;
-	albums: string[];
+	gallery: {
+		src: string;
+		gallery_id: string;
+	}[];
 }

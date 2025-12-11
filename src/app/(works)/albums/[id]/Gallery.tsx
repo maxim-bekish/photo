@@ -5,11 +5,13 @@ import type { AlbumItem } from '@/src/shared/types';
 import { useState } from 'react';
 
 export const Gallery = ({
-	album,
-	video,
+	gallery,
+	videoSrc,
+	videoPreview,
 }: {
-	album: AlbumItem['albums'];
-	video: AlbumItem['video'];
+	gallery: AlbumItem['gallery'];
+	videoSrc: AlbumItem['videoSrc'];
+	videoPreview: AlbumItem['videoPreview'];
 }) => {
 	const [playedVideos, setPlayedVideos] = useState<Set<string>>(new Set());
 
@@ -21,29 +23,30 @@ export const Gallery = ({
 		<section className='px-(--px) flex items-center flex-col gap-2.5'>
 			<div className='wrapper flex gap-2.5 flex-col md:flex-row relative'>
 				<div className='flex flex-col gap-2.5 md:sticky md:top-0 h-min'>
-					{album.map((item, i) => {
+					{gallery.map((item, i) => {
 						if (i % 2 === 0) {
-							return <img key={item} src={item} alt={item} />;
+							return <img key={item.gallery_id} src={item.src} alt={item.src} />;
 						}
 					})}
 				</div>
 				<div className='flex flex-col gap-2.5 md:sticky md:top-0 h-min'>
-					{album.map((item, i) => {
+					{gallery.map((item, i) => {
 						if (i % 2 !== 0) {
-							return <img key={item} src={item} alt={item} />;
+							return <img key={item.gallery_id} src={item.src} alt={item.src} />;
 						}
 					})}
 				</div>
 			</div>
 
-			{video && (
+			{/* {video && (
 				<VideoCard
 					className='wrapper max-h-[700px]'
-					{...video}
+            src={videoSrc}
+            preview={videoPreview}
 					isPlayed={playedVideos.has(video.id)}
 					onPlay={handleVideoClick}
 				/>
-			)}
+			)} */}
 		</section>
 	);
 };

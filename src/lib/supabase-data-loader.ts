@@ -47,7 +47,7 @@ export async function getAlbums(): Promise<AlbumItem[]> {
 		const supabase = getSupabaseServer();
 		const { data, error } = await supabase.from('albums').select(`
         *,
-        gallery(src),
+        gallery(src,gallery_id),
         characteristics(code, icon, value)
       `);
 
@@ -69,10 +69,15 @@ export async function getAlbumById(id: string): Promise<AlbumItem | null> {
 		const supabase = getSupabaseServer();
 		const { data, error } = await supabase
 			.from('albums')
-			.select('*')
+			.select(`
+        *,
+        gallery(src,gallery_id),
+        characteristics(code, icon, value)
+      `)
 			.or(`id.eq.${id},href.eq.${id}`)
 			.maybeSingle();
 
+     
 		if (error) {
 			console.error('Ошибка при получении альбома из Supabase:', error);
 			return null;

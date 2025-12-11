@@ -1,18 +1,20 @@
 'use client';
 
+import { useAlbums } from '@/src/hooks/queries/useAlbums';
 import { AlbumCard } from '@/src/shared/components/home/AlbumCard';
 import { Button } from '@/src/shared/components/ui/button';
 import { useInfiniteSlider } from '@/src/shared/hooks/useInfiniteSlider';
-import type { AlbumItem } from '@/src/shared/types';
+
 import { useRef } from 'react';
 
-export const MoreAlbums = ({ albums }: { albums: AlbumItem[] }) => {
+export const MoreAlbums = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const duplicatedAlbums = [...albums, ...albums, ...albums];
+	const { data: albums } = useAlbums();
+
 	useInfiniteSlider({
 		containerRef,
-		itemCount: albums.length,
+		itemCount: albums?.length ?? 0,
 		itemWidth: 370,
 		gap: 40,
 		duration: 30,
@@ -26,6 +28,10 @@ export const MoreAlbums = ({ albums }: { albums: AlbumItem[] }) => {
 			return 350;
 		},
 	});
+
+	if (!albums) return null;
+
+	const duplicatedAlbums = [...albums, ...albums, ...albums];
 
 	return (
 		<section className='flex items-center overflow-hidden gap-[35px] flex-col py-[150px]'>

@@ -4,6 +4,9 @@ export const AlbumsAPI = {
 	getAll() {
 		return api.get('/albums').then(res => res.data);
 	},
+	getAlbumById(id: string) {
+		return api.get(`/albums/${id}`).then(res => res.data);
+	},
 
 	// create(payload) {
 	// 	return api.post('/blogs', payload).then(res => res.data);

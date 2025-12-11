@@ -29,7 +29,7 @@ export const Characteristics = ({
 								</div>
 								<div className='flex-1'>
 									<p className='p-s text-creamy-white text-right'>
-										{characteristic.value.join(', ')}
+										{characteristic.value}
 									</p>
 								</div>
 							</li>

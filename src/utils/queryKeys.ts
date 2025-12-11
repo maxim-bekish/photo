@@ -1,6 +1,6 @@
 export const QueryKeys = {
 	blogs: (id: string) => ['blogs', id],
 	blog: ['blog'],
-	albums: (id: string) => ['albums', id],
-	album: ['album'],
+	albums: () => ['albums'],
+	album: (id: string) => ['album', id],
 };
