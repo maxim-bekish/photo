@@ -1,10 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { getAlbumById } from '@/src/lib/supabase-data-loader';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(
-	request: NextRequest,
-	{ params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;
 	const album = await getAlbumById(id);
 
@@ -14,4 +11,3 @@ export async function GET(
 
 	return NextResponse.json(album);
 }
-

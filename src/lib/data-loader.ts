@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { ArticlesItem, AlbumItem } from '@/src/shared/types';
+import { ArticlesItem, AlbumItem, BrandItem } from '@/src/shared/types';
 
 const BLOGS_PATH = join(process.cwd(), 'src', 'data', 'blogs.json');
 const ALBUMS_PATH = join(process.cwd(), 'src', 'data', 'albums.json');
@@ -32,4 +32,14 @@ export async function getAlbums(): Promise<AlbumItem[]> {
 export async function getAlbumById(id: string): Promise<AlbumItem | null> {
 	const albums = await getAlbums();
 	return albums.find(a => a.id === id || a.href === id) || null;
+}
+
+
+export async function getBrands(): Promise<BrandItem[]> {
+	try {
+		const file = await readFile(BRANDS_PATH, 'utf-8');
+		return JSON.parse(file);
+	} catch {
+		return [];
+	}
 }

@@ -31,7 +31,9 @@ export default function EditAlbumPage() {
 		title: '',
 		characteristics: [],
 		description: '',
-		albums: [],
+		gallery: [{ src: '', gallery_id: '' }],
+		videoSrc: '',
+		videoPreview: '',
 	});
 	const [loading, setLoading] = useState(!isNew);
 	const [newCharCode, setNewCharCode] = useState('');
@@ -118,7 +120,7 @@ export default function EditAlbumPage() {
 		if (url) {
 			setAlbum({
 				...album,
-				albums: [...album.albums, url],
+				gallery: [...album.gallery, { src: url, gallery_id: '' }],
 			});
 		}
 	};
@@ -126,7 +128,7 @@ export default function EditAlbumPage() {
 	const removePhoto = (index: number) => {
 		setAlbum({
 			...album,
-			albums: album.albums.filter((_, i) => i !== index),
+			gallery: album.gallery.filter((_, i) => i !== index),
 		});
 	};
 
@@ -200,8 +202,8 @@ export default function EditAlbumPage() {
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 						<div>
 							<label className='block mb-2 text-creamy-white'>URL видео (YouTube embed)</label>
-							<Input
-								value={album.video?.src || ''}
+							{/* <Input
+								value={album.videoSrc || ''}
 								onChange={(e) =>
 									setAlbum({
 										...album,
@@ -212,12 +214,12 @@ export default function EditAlbumPage() {
 								}
 								className='bg-white/10 border-white/20 text-creamy-white'
 								placeholder='https://www.youtube.com/embed/...'
-							/>
+							/> */}
 						</div>
 						<div>
 							<label className='block mb-2 text-creamy-white'>Превью видео</label>
-							<Input
-								value={album.video?.preview || ''}
+							{/* <Input
+								value={album.videoPreview || ''}
 								onChange={(e) =>
 									setAlbum({
 										...album,
@@ -227,7 +229,7 @@ export default function EditAlbumPage() {
 									})
 								}
 								className='bg-white/10 border-white/20 text-creamy-white'
-							/>
+							/> */}
 						</div>
 					</div>
 				</div>
@@ -288,9 +290,9 @@ export default function EditAlbumPage() {
 				<div className='border-t border-white/20 pt-4'>
 					<h3 className='text-xl font-bold text-creamy-white mb-4'>Фотографии альбома</h3>
 					<div className='grid grid-cols-2 md:grid-cols-3 gap-2 mb-4'>
-						{album.albums.map((photo, index) => (
+						{album.gallery.map((photo, index) => (
 							<div key={index} className='relative group'>
-								<img src={photo} alt={`Photo ${index + 1}`} className='w-full h-32 object-cover rounded' />
+								<img src={photo.src} alt={`Photo ${index + 1}`} className='w-full h-32 object-cover rounded' />
 								<button
 									type='button'
 									onClick={() => removePhoto(index)}

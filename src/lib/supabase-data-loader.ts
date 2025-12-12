@@ -1,4 +1,4 @@
-import { AlbumItem, ArticlesItem } from '@/src/shared/types';
+import { AlbumItem, ArticlesItem, BrandItem } from '@/src/shared/types';
 import { getSupabaseServer } from './supabase-server';
 
 export async function getBlogs(): Promise<ArticlesItem[]> {
@@ -69,15 +69,16 @@ export async function getAlbumById(id: string): Promise<AlbumItem | null> {
 		const supabase = getSupabaseServer();
 		const { data, error } = await supabase
 			.from('albums')
-			.select(`
+			.select(
+				`
         *,
         gallery(src,gallery_id),
         characteristics(code, icon, value)
-      `)
+      `
+			)
 			.or(`id.eq.${id},href.eq.${id}`)
 			.maybeSingle();
 
-     
 		if (error) {
 			console.error('Ошибка при получении альбома из Supabase:', error);
 			return null;
@@ -87,5 +88,22 @@ export async function getAlbumById(id: string): Promise<AlbumItem | null> {
 	} catch (error) {
 		console.error('Ошибка при получении альбома:', error);
 		return null;
+	}
+}
+
+export async function getBrands(): Promise<BrandItem[]> {
+	try {
+		const supabase = getSupabaseServer();
+		const { data, error } = await supabase.from('brands').select('*');
+		if (error) {
+			console.error('Ошибка при получении брендов из Supabase:', error);
+
+			return [];
+		}
+
+		return (data as BrandItem[]) || [];
+	} catch (error) {
+		console.error('Ошибка при получении брендов:', error);
+		return [];
 	}
 }
