@@ -10,7 +10,7 @@ export interface ArticlesItem {
 	date: string;
 }
 
-export interface BrandItem {
+export interface Brand {
 	id: string;
 	href: string;
 	alt: string;
@@ -36,4 +36,16 @@ export interface AlbumItem {
 		src: string;
 		gallery_id: string;
 	}[];
+}
+
+export interface ExpertiseItem<T> {
+	id: string;
+	title: string;
+	src: T;
+	description: string;
+}
+
+export interface Expertise {
+	main: ExpertiseItem<string>[];
+	sub: ExpertiseItem<string | null>[];
 }

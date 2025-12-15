@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { ArticlesItem, AlbumItem, BrandItem } from '@/src/shared/types';
+import { ArticlesItem, AlbumItem, Brand } from '@/src/shared/types';
 
 const BLOGS_PATH = join(process.cwd(), 'src', 'data', 'blogs.json');
 const ALBUMS_PATH = join(process.cwd(), 'src', 'data', 'albums.json');
@@ -35,7 +35,7 @@ export async function getAlbumById(id: string): Promise<AlbumItem | null> {
 }
 
 
-export async function getBrands(): Promise<BrandItem[]> {
+export async function getBrands(): Promise<Brand[]> {
 	try {
 		const file = await readFile(BRANDS_PATH, 'utf-8');
 		return JSON.parse(file);

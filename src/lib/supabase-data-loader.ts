@@ -1,4 +1,4 @@
-import { AlbumItem, ArticlesItem, BrandItem } from '@/src/shared/types';
+import { AlbumItem, ArticlesItem, Brand, Expertise } from '@/src/shared/types';
 import { getSupabaseServer } from './supabase-server';
 
 export async function getBlogs(): Promise<ArticlesItem[]> {
@@ -74,7 +74,7 @@ export async function getAlbumById(id: string): Promise<AlbumItem | null> {
         *,
         gallery(src,gallery_id),
         characteristics(code, icon, value)
-      `
+      `,
 			)
 			.or(`id.eq.${id},href.eq.${id}`)
 			.maybeSingle();
@@ -91,7 +91,35 @@ export async function getAlbumById(id: string): Promise<AlbumItem | null> {
 	}
 }
 
-export async function getBrands(): Promise<BrandItem[]> {
+export async function getExpertise(): Promise<{ main: Expertise[]; sub: Expertise[] }> {
+	try {
+		const supabase = getSupabaseServer();
+		const { data, error } = await supabase.from('expertise').select(`*`);
+		if (error) {
+			console.error('Ошибка при получении Expertise из Supabase:', error);
+
+			return { main: [], sub: [] };
+		}
+
+		const main: Expertise[] = [];
+		const sub: Expertise[] = [];
+		data?.forEach((item) => {
+			if (item.src !== null && main.length < 4) {
+				main.push(item);
+			} else {
+				sub.push(item);
+			}
+		});
+		const result = { main: main, sub: sub };
+		console.log('[------result------]', result);
+		return result;
+	} catch (error) {
+		console.error('Ошибка при получении брендов:', error);
+		return { main: [], sub: [] } as { main: Expertise[]; sub: Expertise[] };
+	}
+}
+
+export async function getBrands(): Promise<Brand[]> {
 	try {
 		const supabase = getSupabaseServer();
 		const { data, error } = await supabase.from('brands').select('*');
@@ -101,7 +129,7 @@ export async function getBrands(): Promise<BrandItem[]> {
 			return [];
 		}
 
-		return (data as BrandItem[]) || [];
+		return (data as Brand[]) || [];
 	} catch (error) {
 		console.error('Ошибка при получении брендов:', error);
 		return [];

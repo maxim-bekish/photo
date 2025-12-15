@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
-import { getBlogs } from '@/src/lib/data-loader';
+import { getBrands } from '@/src/lib/supabase-data-loader';
 
 export async function GET() {
-	const blogs = await getBlogs();
-	return NextResponse.json(blogs);
+	const brands = await getBrands();
+	return NextResponse.json(brands);
 }
-

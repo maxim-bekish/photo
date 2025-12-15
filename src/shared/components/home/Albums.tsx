@@ -5,9 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AlbumCard } from './AlbumCard';
-// import { albumsList } from '../../config/social';
 import { cn } from '../../lib/utils';
-import { AlbumItem } from '../../types';
 import { useAlbums } from '@/src/hooks/queries/useAlbums';
 
 gsap.registerPlugin(ScrollTrigger);
