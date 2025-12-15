@@ -277,11 +277,13 @@
 	/* Ползунок скролла */
 	.scrollBar::-webkit-scrollbar-thumb {
 		@apply bg-deep-orange;
+		cursor: pointer;
 	}
 
 	/* Фон скроллбара */
 	.scrollBar::-webkit-scrollbar-track {
 		@apply bg-black;
+		cursor: pointer;
 	}
 }
 
