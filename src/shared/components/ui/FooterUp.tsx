@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { socials } from '../../config/social';
+import { useSocials } from '@/src/hooks/queries/useSocials';
 
 const polygonConfigs = [
 	{
@@ -74,6 +74,7 @@ const polygonConfigs = [
 ];
 
 export function FooterUp() {
+	const { data: socials } = useSocials();
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -101,7 +102,10 @@ export function FooterUp() {
 										height: '103px',
 										width: '118px',
 										zIndex: 10 - index,
-										transform: config.rotation !== 0 ? `rotate(${config.rotation}deg)` : undefined,
+										transform:
+											config.rotation !== 0
+												? `rotate(${config.rotation}deg)`
+												: undefined,
 										top: isHovered ? config.topHover : config.top,
 										left: isHovered ? config.leftHover : config.left,
 										bottom: isHovered ? config.bottomHover : config.bottom,
@@ -122,18 +126,26 @@ export function FooterUp() {
 						photo@gmail.com
 					</a>
 					<ul className='flex gap-3 md:gap-8  flex-col md:flex-row'>
-						{socials.map(el => (
-							<li key={el.id}>
-								<a
-									className='flex gap-1 items-center text-matt-black hover:text-creamy-white duration-200 f-nav'
-									href={el.href}
-									target='_blank'
-									rel='noopener noreferrer'>
-									{<el.icon />}
-									{el.text}
-								</a>
-							</li>
-						))}
+						{socials &&
+							socials.filter(item => item.footer).map((el) => (
+								<li key={el.id}>
+									<a
+										className='flex gap-1 items-center text-matt-black hover:text-creamy-white duration-200 f-nav group'
+										href={el.href}
+										target='_blank'
+										rel='noopener noreferrer'>
+										{/* {<el.icon />} */}
+										<Image
+											className='group-hover:invert group-hover:scale-110 transition-all duration-200'
+											src={`/assets/network/${el.icon}.svg`}
+											alt={el.text}
+											width={24}
+											height={24}
+										/>
+										{el.text}
+									</a>
+								</li>
+							))}
 					</ul>
 				</div>
 				<div className='h-10 w-10 absolute top-5 md:top-10 left-5 md:left-10'>

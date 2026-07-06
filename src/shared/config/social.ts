@@ -1,5 +1,3 @@
-import { Send, Instagram, Linkedin, Twitter } from 'lucide-react';
- 
 
 export const socials = [
 	{
@@ -7,29 +5,48 @@ export const socials = [
 		mob: 'ig',
 		text: 'Instagram',
 		href: 'https://www.instagram.com/maxa_max',
-		icon: Instagram,
+		icon: 'instagram',
 	},
 	{
-		id: 'tw',
-		mob: 'tw',
-		text: 'Twitter',
-		href: 'http://twitter.com/ECIEWUBCUYAEWVCYVEWBCYHEWBVHC',
-		icon: Twitter,
+		id: 'fb',
+		mob: 'fb',
+		text: 'Facebook',
+		href: '#',
+		icon: 'facebook',
 	},
 	{
-		id: 'li',
-		mob: 'li',
-		text: 'Linkedin',
-		href: 'https://www.linkedin.com/in/maksim-bekish-819b8920a/',
-		icon: Linkedin,
+		id: 'yt',
+		mob: 'yt',
+		text: 'Youtube',
+		href: '#',
+		icon: 'youtube',
 	},
 	{
 		id: 'tg',
 		mob: 'tg',
 		text: 'Telegram',
 		href: 'https://t.me/maxa_max',
-		icon: Send,
+		icon: 'telegram',
+	},
+	{
+		id: 'tw',
+		mob: 'tw',
+		text: 'Twitter',
+		href: 'http://twitter.com/ECIEWUBCUYAEWVCYVEWBCYHEWBVHC',
+		icon: 'twitter',
+	},
+	{
+		id: 'twt',
+		mob: 'twt',
+		text: 'Twitch',
+		href: '#',
+		icon: 'twitch',
+	},
+	{
+		id: 'li',
+		mob: 'li',
+		text: 'Linkedin',
+		href: 'https://www.linkedin.com/in/maksim-bekish-819b8920a/',
+		icon: 'linkedin',
 	},
 ];
-
- 

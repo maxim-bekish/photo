@@ -1,28 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { supabase } from '../../lib/supabase';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
 	const router = useRouter();
-	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const checkUser = async () => {
-			const {
-				data: { user },
-			} = await supabase.auth.getUser();
-			if (!user) {
-				router.push('/admin/login');
-			} else {
-				setLoading(false);
-			}
-		};
-		checkUser();
-	}, [router]);
-
-	if (loading) return <p>Загрузка...</p>;
-
-	return <h1>Добро пожаловать в админку</h1>;
+	return (
+		<div className='flex flex-col items-start gap-4'>
+			<h1>Добро пожаловать в админку</h1>
+			<button
+				type='button'
+				className='px-4 py-2 rounded bg-deep-orange text-creamy-white'
+				onClick={() => router.push('/admin')}>
+				Перейти в панель
+			</button>
+		</div>
+	);
 }

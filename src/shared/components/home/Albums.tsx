@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AlbumCard } from './AlbumCard';
 import { cn } from '../../lib/utils';
-import { useAlbums } from '@/src/hooks/queries/useAlbums';
+import { apiResources } from '@/src/lib/api-resources';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +25,7 @@ export const Albums = () => {
 	const getElements = useMemo(() => () => itemRefs.current, []);
 	useCustomCursor({ elements: getElements, text: 'view' });
 
-	const { data: albums, isLoading } = useAlbums();
+	const { data: albums, isLoading } = apiResources.albums.useQuery();
 
 	useEffect(() => {
 		const title = titleRef.current;
@@ -44,7 +44,7 @@ export const Albums = () => {
 					end: '+=600', // блюр закончится через 300px
 					scrub: true,
 				},
-			}
+			},
 		);
 		gsap.fromTo(
 			title,
@@ -60,7 +60,7 @@ export const Albums = () => {
 					pinSpacing: false, // страница продолжает скролл поверх
 					scrub: true,
 				},
-			}
+			},
 		);
 	}, [isLoading]);
 
@@ -83,13 +83,25 @@ export const Albums = () => {
 				ref={albumsRef}
 				className='flex max-w-[1440px] w-full flex-col gap-7.5 md:gap-15 xl:gap-[174px] pb-7.5 pt-7.5 xl:pt-0 xl:pb-[200px] '>
 				<section className='flex items-center justify-center px-(--px) xl:px-[100px]'>
-					<AlbumCard item={albums[0]} className='h-[446px] w-full xl:w-[632px]' ref={setItemRef} />
+					<AlbumCard
+						item={albums[0]}
+						className='h-[446px] w-full xl:w-[632px]'
+						ref={setItemRef}
+					/>
 				</section>
 				<section className='flex items-center justify-left px-(--px) xl:px-[100px]'>
-					<AlbumCard ref={setItemRef} item={albums[1]} className='h-[446px] w-full xl:w-[718px]' />
+					<AlbumCard
+						ref={setItemRef}
+						item={albums[1]}
+						className='h-[446px] w-full xl:w-[718px]'
+					/>
 				</section>
 				<section className='flex items-center justify-between flex-col md:flex-row px-(--px) gap-7.5 md:gap-15'>
-					<AlbumCard ref={setItemRef} item={albums[2]} className='h-[446px] w-full xl:w-[451px]' />
+					<AlbumCard
+						ref={setItemRef}
+						item={albums[2]}
+						className='h-[446px] w-full xl:w-[451px]'
+					/>
 					<AlbumCard
 						ref={setItemRef}
 						item={albums[3]}
@@ -98,7 +110,11 @@ export const Albums = () => {
 				</section>
 
 				<section className='flex items-center justify-center px-(--px) xl:px-[100px]'>
-					<AlbumCard ref={setItemRef} item={albums[4]} className='h-[446px] w-full xl:w-[718px]' />
+					<AlbumCard
+						ref={setItemRef}
+						item={albums[4]}
+						className='h-[446px] w-full xl:w-[718px]'
+					/>
 				</section>
 
 				{albums.slice(5).map((el, i) => {
@@ -107,9 +123,13 @@ export const Albums = () => {
 							key={el.id}
 							className={cn(
 								'flex items-center px-(--px) jus xl:px-[100px]',
-								i % 2 === 0 ? 'justify-start' : 'justify-end'
+								i % 2 === 0 ? 'justify-start' : 'justify-end',
 							)}>
-							<AlbumCard ref={setItemRef} item={el} className='h-[446px] w-full xl:w-[653px]' />
+							<AlbumCard
+								ref={setItemRef}
+								item={el}
+								className='h-[446px] w-full xl:w-[653px]'
+							/>
 						</section>
 					);
 				})}

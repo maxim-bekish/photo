@@ -11,10 +11,11 @@ interface Props {
 }
 
 export const AlbumCard = forwardRef<HTMLAnchorElement, Props>(({ item, className }, ref) => {
+	
 	return (
 		<a
 			ref={ref}
-			href={'/albums/' + item.href}
+			href={'/albums/' + item.id}
 			className={`album-item relative flex flex-col gap-3 group [--corner-offset:-1.5rem] ${className}`}>
 			<div className='flex-[1_0_0px] relative'>
 				<img

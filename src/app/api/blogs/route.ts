@@ -1,8 +1,7 @@
+import { getBlogs } from '@/src/lib/vercel-loader';
 import { NextResponse } from 'next/server';
-import { getBlogs } from '@/src/lib/supabase-data-loader';
 
 export async function GET() {
 	const blogs = await getBlogs();
 	return NextResponse.json(blogs);
 }
-

@@ -1,6 +1,5 @@
 'use client';
 
-import { supabase } from '@/src/lib/supabase';
 import { Input } from '@/src/shared/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
@@ -18,29 +17,12 @@ export default function LoginPage() {
 		setLoading(true);
 
 		try {
-			const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-				email,
-				password,
-			});
-
-			if (authError) {
-				setError(authError.message || 'Ошибка входа');
-				setLoading(false);
-				return;
-			}
-
-			if (!authData.session?.access_token) {
-				setError('Не удалось получить токен доступа');
-				setLoading(false);
-				return;
-			}
-
-			const response = await fetch('/api/admin/supabase-auth', {
+			const response = await fetch('/api/admin/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ access_token: authData.session.access_token }),
+				body: JSON.stringify({ email, password }),
 			});
 
 			const data = await response.json();
@@ -53,7 +35,7 @@ export default function LoginPage() {
 
 			router.push('/admin');
 			router.refresh();
-		} catch (err) {
+		} catch {
 			setError('Ошибка соединения с сервером');
 		} finally {
 			setLoading(false);

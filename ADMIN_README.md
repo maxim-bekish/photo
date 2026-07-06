@@ -7,32 +7,20 @@
 1. Создайте файл `.env.local` в корне проекта:
 
 ```env
-# Supabase настройки
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+# Vercel Postgres
+POSTGRES_URL=your_vercel_postgres_url
 
-# Старая авторизация (опционально, если не используете Supabase)
+# Авторизация админки
 ADMIN_EMAIL=admin@example.com
 ADMIN_PASSWORD=admin123
 ```
 
-**Где найти ключи Supabase:**
+**Где взять `POSTGRES_URL`:**
 
-1. Откройте [Supabase Dashboard](https://supabase.com/dashboard)
-2. Выберите ваш проект
-3. Перейдите в **Settings** → **API**
-4. В секции "Project API keys" найдите:
-   - `NEXT_PUBLIC_SUPABASE_URL` - это "Project URL"
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - это "anon public" key (можно публиковать)
-   - `SUPABASE_SERVICE_ROLE_KEY` - это "service_role" key (секретный!)
-
-**Важно:**
-
-- `SUPABASE_SERVICE_ROLE_KEY` нужен для серверной проверки токенов аутентификации
-- Этот ключ обходит Row Level Security (RLS) - **НИКОГДА не публикуйте его!**
-- Храните только в `.env.local` (который уже в `.gitignore`)
-- Используется только на сервере в API routes
+1. Откройте ваш проект в [Vercel Dashboard](https://vercel.com/dashboard)
+2. Перейдите в **Storage** → **Postgres**
+3. Создайте или выберите БД
+4. В разделе **.env.local** скопируйте `POSTGRES_URL`
 
 2. Запустите проект:
 
@@ -131,6 +119,6 @@ npm run dev
 
 В будущем можно легко мигрировать на базу данных:
 
-1. Замените функции в `src/lib/data-loader.ts` на запросы к БД
-2. Обновите API routes для работы с БД
-3. Структура данных останется той же
+1. Добавьте нужные таблицы в Vercel Postgres
+2. Проверьте, что `POSTGRES_URL` задан в продакшене и локально
+3. При необходимости перенесите админские CRUD-роуты с JSON на SQL

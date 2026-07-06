@@ -5,14 +5,14 @@ import { Characteristics } from './Characteristics';
 import { Gallery } from './Gallery';
 import { MoreAlbums } from './MoreAlbums';
 import { useParams } from 'next/navigation';
-import { useAlbum } from '@/src/hooks/queries/useAlbums';
+import { apiResources } from '@/src/lib/api-resources';
 
 export default function () {
 	const params = useParams();
 	const id = params.id as string;
 
-	const { data: album, isLoading } = useAlbum(id);
-
+	const { data: album, isLoading } = apiResources.albums.useQueryById(id)();
+	console.log(album);
 	if (isLoading) {
 		return (
 			<main>
@@ -37,11 +37,8 @@ export default function () {
 				description={album.description}
 			/>
 
-			<Gallery
-				gallery={album.gallery}
-				videoSrc={album.videoSrc}
-				videoPreview={album.videoPreview}
-			/>
+			<Gallery gallery={album.gallery} videos={album.videos} />
+
 			<MoreAlbums />
 		</main>
 	);

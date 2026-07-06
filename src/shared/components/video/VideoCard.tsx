@@ -2,11 +2,12 @@
 
 import { default as NextImage } from 'next/image';
 import { cn } from '@/src/shared/lib/utils';
+import { useState } from 'react';
 
 type VideoCardProps = {
 	id: string;
 	src: string;
-	alt: string;
+	alt?: string;
 	preview?: string;
 	isPlayed?: boolean;
 	onPlay?: (id: string) => void;
@@ -32,13 +33,16 @@ export default function VideoCard({
 	id,
 	preview,
 	src,
-	alt,
-	isPlayed,
-	onPlay,
+	alt = 'video',
 	className,
 }: VideoCardProps & { className?: string }) {
 	const hasPreview = !!preview;
-	const handlePlay = () => onPlay?.(id);
+
+	const handlePlay = (videoId: string) => {
+		setPlayedVideos((prev) => new Set(prev).add(videoId));
+	};
+
+	const [playedVideos, setPlayedVideos] = useState<Set<string>>(new Set());
 
 	if (!hasPreview) {
 		return (
@@ -59,8 +63,8 @@ export default function VideoCard({
 
 	return (
 		<div className={cn('relative h-auto group aspect-[1.77/1]', className)}>
-			{!isPlayed ? (
-				<div className='cursor-pointer w-full h-full' onClick={handlePlay}>
+			{!playedVideos.has(id) ? (
+				<div className='cursor-pointer w-full h-full' onClick={() => handlePlay(id)}>
 					<NextImage
 						className='w-full h-full object-cover absolute top-0 left-0'
 						src={preview}
@@ -70,7 +74,7 @@ export default function VideoCard({
 					/>
 					<button
 						type='button'
-						className='absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 w-[68px] h-[48px]'>
+						className='absolute cursor-pointer top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 w-[68px] h-[48px]'>
 						<PlayIcon className='group-hover:fill-black transition-all fill-black/70' />
 					</button>
 				</div>

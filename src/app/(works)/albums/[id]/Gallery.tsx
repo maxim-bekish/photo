@@ -2,23 +2,14 @@
 
 import VideoCard from '@/src/shared/components/video/VideoCard';
 import type { AlbumItem } from '@/src/shared/types';
-import { useState } from 'react';
 
 export const Gallery = ({
 	gallery,
-	videoSrc,
-	videoPreview,
+	videos,
 }: {
 	gallery: AlbumItem['gallery'];
-	videoSrc: AlbumItem['videoSrc'];
-	videoPreview: AlbumItem['videoPreview'];
+	videos: AlbumItem['videos'];
 }) => {
-	const [playedVideos, setPlayedVideos] = useState<Set<string>>(new Set());
-
-	const handleVideoClick = (videoId: string) => {
-		setPlayedVideos(prev => new Set(prev).add(videoId));
-	};
-
 	return (
 		<section className='px-(--px) flex items-center flex-col gap-2.5'>
 			<div className='wrapper flex gap-2.5 flex-col md:flex-row relative'>
@@ -38,15 +29,7 @@ export const Gallery = ({
 				</div>
 			</div>
 
-			{/* {video && (
-				<VideoCard
-					className='wrapper max-h-[700px]'
-            src={videoSrc}
-            preview={videoPreview}
-					isPlayed={playedVideos.has(video.id)}
-					onPlay={handleVideoClick}
-				/>
-			)} */}
+			{videos.length && <VideoCard className='wrapper max-h-[700px]' {...videos[0]} />}
 		</section>
 	);
 };

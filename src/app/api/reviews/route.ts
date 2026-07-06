@@ -1,7 +1,7 @@
-import { getBrands } from '@/src/lib/vercel-loader';
+import { getReviews } from '@/src/lib/vercel-loader';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-	const brands = await getBrands();
+	const brands = await getReviews();
 	return NextResponse.json(brands);
 }

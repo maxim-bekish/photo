@@ -1,4 +1,4 @@
-import { getAlbumById } from '@/src/lib/supabase-data-loader';
+import { getAlbumById } from '@/src/lib/vercel-loader';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

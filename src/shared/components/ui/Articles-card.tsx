@@ -16,9 +16,9 @@ export const ArticlesCard = ({
 	big?: boolean;
 }) => {
 	return (
-		<div ref={setItemRef}>
+		<div ref={setItemRef} >
 			<a
-				href={'/blogs/' + el.href}
+				href={'/blogs/' + el.id}
 				className={cn(
 					'flex cursor-pointer group gap-1 flex-col ',
 					row && 'flex-col md:flex-row  md:gap-2.5',

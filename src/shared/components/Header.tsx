@@ -8,8 +8,9 @@ import { Button } from './ui/button';
 
 import { usePathname } from 'next/navigation';
 import { navItems } from '../config/nav';
-import { socials } from '../config/social';
+ 
 import { cn } from '../lib/utils';
+import { useSocials } from '@/src/hooks/queries/useSocials';
 
 export function Header() {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -38,7 +39,7 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.1, // чуть позже после появления меню
-				}
+				},
 			);
 		} else {
 			document.body.style.overflow = 'auto';
@@ -60,12 +61,14 @@ export function Header() {
 					stagger: 0.1,
 					ease: 'power3.out',
 					delay: 0.4, // чуть позже после появления меню
-				}
+				},
 			);
 		}
 	}, [menuOpen]);
 
 	const pathname = usePathname(); // текущий путь, напр. "/articles"
+
+	const { data: socials } = useSocials();
 
 	return (
 		<>
@@ -99,11 +102,12 @@ export function Header() {
 				className='fixed py-10 px-(--px) top-0 left-0 w-full h-full bg-background  backdrop-blur-md z-55 flex flex-col  transform -translate-y-full'>
 				<nav className='flex flex-col gap-1.5 flex-1 justify-center uppercase text-2xl'>
 					{navItems.map((el, i) => {
-						const isActive = el.href === '/' ? pathname === '/' : pathname.startsWith(el.href);
+						const isActive =
+							el.href === '/' ? pathname === '/' : pathname.startsWith(el.href);
 
 						return (
 							<a
-								ref={el => {
+								ref={(el) => {
 									if (el) navRefs.current[i] = el;
 								}}
 								key={i}
@@ -113,7 +117,7 @@ export function Header() {
 									{
 										'text-deep-orange ': isActive,
 										'hover:text-white/30': !isActive,
-									}
+									},
 								)}>
 								{el.text}
 							</a>
@@ -121,17 +125,22 @@ export function Header() {
 					})}
 				</nav>
 				<ul className='flex h-[45px] items-center justify-between border  border-white'>
-					{socials.map((item, index) => (
-						<React.Fragment key={index}>
-							<li className='flex-[1 0 0px] px-5 w-full flex justify-center'>
-								<Button variant={'ghost'}>
-									<span className='hidden md:block'>{item.text}</span>
-									<span className='md:hidden'>{item.mob}</span>
-								</Button>
-							</li>
-							{index < 3 && <hr className='bg-white w-px flex-[0 0 auto] h-6.5 ' />}
-						</React.Fragment>
-					))}
+					{socials &&
+						socials
+							.filter((item) => item.nav)
+							.map((item, index) => (
+								<React.Fragment key={index}>
+									<li className='flex-[1 0 0px] px-5 w-full flex justify-center'>
+										<Button variant={'ghost'}>
+											<span className='hidden md:block'>{item.text}</span>
+											<span className='md:hidden'>{item.mob}</span>
+										</Button>
+									</li>
+									{index < socials.length - 1 && (
+										<hr className='bg-white w-px flex-[0 0 auto] h-6.5 ' />
+									)}
+								</React.Fragment>
+							))}
 				</ul>
 			</div>
 		</>

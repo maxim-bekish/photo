@@ -1,8 +1,8 @@
+import { UUID } from 'crypto';
 import { IconName } from 'lucide-react/dynamic';
 
 export interface ArticlesItem {
 	id: string;
-	href: string;
 	src: string;
 	subTitle?: string;
 	message: string;
@@ -21,16 +21,20 @@ export interface Characteristics {
 	code: string;
 	value: string[];
 }
+
+export interface VideoItem {
+	alt?: string;
+	src: string;
+	id: string;
+	preview?: string;
+}
 export interface AlbumItem {
 	href: string;
-	id: string;
+	id: UUID;
 	src: string;
-	alt: string;
 	title: string;
 	characteristics: Characteristics[];
-	videoSrc: string;
-	videoPreview: string;
-
+	videos: VideoItem[];
 	description?: string;
 	gallery: {
 		src: string;
@@ -48,4 +52,23 @@ export interface ExpertiseItem<T> {
 export interface Expertise {
 	main: ExpertiseItem<string>[];
 	sub: ExpertiseItem<string | null>[];
+}
+
+export interface Reviews {
+	id: string;
+	src: string;
+	message: string;
+	name: string;
+	role: string;
+	rating: number;
+}
+export interface Social {
+	id: string;
+	href: string;
+	icon: string;
+	text: string;
+	mob: string;
+	nav: boolean;
+	footer: boolean;
+	contact: boolean;
 }

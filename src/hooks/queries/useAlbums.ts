@@ -17,3 +17,5 @@ export const useAlbum = (id: string) => {
 		staleTime: 1000 * 60,
 	});
 };
+
+

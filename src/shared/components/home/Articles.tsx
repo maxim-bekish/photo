@@ -8,7 +8,7 @@ import { useMemo, useRef } from 'react';
 import { Button } from '../ui/button';
 import { ArticlesCard } from '../ui/Articles-card';
 import { ArticlesItem } from '../../types';
-import { useBlogs } from '@/src/hooks/queries/useBlogs';
+import { apiResources } from '@/src/lib/api-resources';
 
 gsap.registerPlugin(Observer);
 
@@ -27,7 +27,7 @@ export const Articles = () => {
 	const getElements = useMemo(() => () => itemRefs.current, []);
 	useCustomCursor({ elements: getElements, text: 'read' });
 
-	const { data: articlesList, isLoading } = useBlogs();
+	const { data: articlesList, isLoading } = apiResources.blogs.useQuery();
 
 	if (isLoading) {
 		return <div className='text-creamy-white'>Загрузка...</div>;

@@ -14,11 +14,10 @@ export async function middleware(request: NextRequest) {
 		}
 	}
 
-	// Если запрос к API админки (кроме login и supabase-auth)
+	// Если запрос к API админки (кроме login)
 	if (
 		request.nextUrl.pathname.startsWith('/api/admin') &&
-		!request.nextUrl.pathname.startsWith('/api/admin/login') &&
-		!request.nextUrl.pathname.startsWith('/api/admin/supabase-auth')
+		!request.nextUrl.pathname.startsWith('/api/admin/login')
 	) {
 		if (!token || token.value !== 'authenticated') {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

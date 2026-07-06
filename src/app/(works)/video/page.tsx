@@ -1,62 +1,29 @@
 'use client';
 
-import { useState } from 'react';
-
 import VideoCard from '@/src/shared/components/video/VideoCard';
 import LayoutWorks from '../layoutWorks';
-
-const videosList = [
-	{
-		id: 'video-colorful-india',
-		// preview: '/assets/albums/img-1.avif',
-		src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
-		alt: 'video',
-	},
-	{
-		id: 'video-echoes-of-dreams',
-		// preview: '/assets/albums/img-1.avif',
-		src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
-		alt: 'video',
-	},
-	{
-		id: 'video-wings-of-freedom',
-		preview: '/assets/albums/img-2.avif',
-		src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
-		alt: 'video',
-	},
-	{
-		id: 'video-crafted-perfection',
-		preview: '/assets/albums/img-3.avif',
-		src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
-		alt: 'video',
-	},
-	{
-		id: 'video-wild-wonders',
-		preview: '/assets/albums/img-4.avif',
-		src: 'https://www.youtube.com/embed/fd5FD-ra53M?si=Zq14LahnomjXm-Tt',
-		alt: 'video',
-	},
-];
+import { useVideos } from '@/src/hooks/queries/useVideos';
+import { Skeleton } from '@/src/shared/components/ui/skeleton';
 
 export default function () {
-	const [playedVideos, setPlayedVideos] = useState<Set<string>>(new Set());
+	const { data: videos, isLoading } = useVideos();
 
-	const handleVideoClick = (videoId: string) => {
-		setPlayedVideos(prev => new Set(prev).add(videoId));
-	};
+	console.log(videos);
+	if (isLoading) {
+		return (
+			<LayoutWorks title={'Videos'} className='gap-2'>
+				<Skeleton className='h-[446px]' />
+			</LayoutWorks>
+		);
+	}
 
 	return (
 		<LayoutWorks title={'Videos'} className='gap-2'>
-			{videosList.map(el => {
-				return (
-					<VideoCard
-						key={el.id}
-						{...el}
-						isPlayed={playedVideos.has(el.id)}
-						onPlay={handleVideoClick}
-					/>
-				);
-			})}
+			{videos ? (
+				videos.map((el) => <VideoCard key={el.id} {...el} />)
+			) : (
+				<div>Videos not found</div>
+			)}
 		</LayoutWorks>
 	);
 }

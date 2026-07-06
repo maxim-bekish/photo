@@ -1,10 +1,7 @@
+import { getBlogById } from '@/src/lib/vercel-loader';
 import { NextRequest, NextResponse } from 'next/server';
-import { getBlogById } from '@/src/lib/supabase-data-loader';
 
-export async function GET(
-	request: NextRequest,
-	{ params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;
 	const blog = await getBlogById(id);
 
@@ -14,4 +11,3 @@ export async function GET(
 
 	return NextResponse.json(blog);
 }
-
