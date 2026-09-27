@@ -1,8 +1,8 @@
-import { UUID } from 'crypto';
 import { IconName } from 'lucide-react/dynamic';
 
 export interface ArticlesItem {
 	id: string;
+	href?: string;
 	src: string;
 	subTitle?: string;
 	message: string;
@@ -32,8 +32,9 @@ export interface VideoItem {
 }
 export interface AlbumItem {
 	href: string;
-	id: UUID;
+	id: string;
 	src: string;
+	alt: string;
 	title: string;
 	characteristics: Characteristics[];
 	videos: VideoItem[];
