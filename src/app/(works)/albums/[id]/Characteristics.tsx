@@ -37,7 +37,7 @@ export const Characteristics = ({
 					})}
 				</ul>
 				<div className='flex justify-center'>
-					<Button variant={'outline'} label={'Buy Prints'} />
+					<Button variant={'outline'} href='/contacts' label={'Заказать печать'} />
 				</div>
 			</div>
 		</section>

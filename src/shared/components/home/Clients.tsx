@@ -59,7 +59,7 @@ export const Clients = () => {
 					</div>
 				</div>
 				<div>
-					<Button variant={'outline'} label={'View all reviews'} />
+					<Button variant={'outline'} href='/reviews' label={'Все отзывы'} />
 				</div>
 			</div>
 		</div>

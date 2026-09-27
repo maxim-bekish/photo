@@ -54,7 +54,7 @@ export const Articles = () => {
 					</div>
 				</div>
 				<div>
-					<Button variant={'outline'} label={'all blogs '} />
+					<Button variant={'outline'} href='/blogs' label={'Все статьи'} />
 				</div>
 			</div>
 		</div>

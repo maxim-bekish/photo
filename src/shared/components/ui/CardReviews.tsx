@@ -1,8 +1,9 @@
 'use client';
 
 import { Star } from 'lucide-react';
+import { Reviews } from '../../types';
 
-export const CardReviews = ({ el, className }: { el: any; className?: string }) => {
+export const CardReviews = ({ el, className }: { el: Reviews; className?: string }) => {
 	return (
 		<div
 			className={`flex  will-change-transform flex-col   gap-5 px-5 py-10 shrink-0 ${className}`}>

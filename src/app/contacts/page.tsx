@@ -3,13 +3,14 @@
 import { cn } from '@/src/shared/lib/utils';
 
 import LayoutPage from '../layoutPage';
+import { ContactForm } from './ContactForm';
 import { useSocials } from '@/src/hooks/queries/useSocials';
 
 const gap = 'gap-2.5';
 const bg = 'bg-white/10';
 const hover = 'hover:scale-90 transition-all';
 const duration = 'duration-400';
-export default function () {
+export default function ContactsPage() {
 	const { data: socials } = useSocials();
 
 	return (
@@ -86,49 +87,8 @@ export default function () {
 								))}
 					</div>
 					<div className={cn(bg, 'p-5 flex flex-col gap-4')}>
-						<p className='body1 uppercase opacity-60 text-center'>Send Me a Message</p>
-						<form className='flex flex-col gap-4'>
-							<input
-								type='text'
-								placeholder='Name'
-								className={cn(
-									'outline-none h-[50px] focus-within:border-deep-orange text-[14px] font-inter w-full border border-solid border-white/10 bg-white/5 p-3',
-								)}
-							/>
-							<div className={cn('flex flex-col md:flex-row gap-4')}>
-								<input
-									type='text'
-									placeholder='Email'
-									className={cn(
-										'outline-none h-[50px] focus-within:border-deep-orange text-[14px] font-inter w-full border border-solid border-white/10 bg-white/5 p-3',
-									)}
-								/>
-								<input
-									type='text'
-									placeholder='Phone'
-									className={cn(
-										'outline-none h-[50px] focus-within:border-deep-orange text-[14px] font-inter w-full border border-solid border-white/10 bg-white/5 p-3',
-									)}
-								/>
-							</div>
-							<div className='relative'>
-								<textarea
-									placeholder='Enter your Messsage'
-									className={cn(
-										'outline-none focus-within:border-deep-orange h-[120px] resize-y overflow-y-auto whitespace-break-spaces text-[14px] font-inter w-full border border-solid border-white/10 bg-white/5 p-3',
-									)}
-								/>
-							</div>
-
-							<button
-								type='submit'
-								className={cn(
-									'cursor-pointer h-[50px] w-full  text-[14px] font-inter font-medium transition-all bg-deep-orange hover:bg-white/10 active:bg-white/20',
-									duration,
-								)}>
-								Submit
-							</button>
-						</form>
+						<p className='body1 uppercase opacity-60 text-center'>Напишите мне</p>
+						<ContactForm />
 					</div>
 				</div>
 			</div>

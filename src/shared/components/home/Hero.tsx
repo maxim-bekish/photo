@@ -40,7 +40,7 @@ export default function Hero() {
 						Привет! Вася пупкин на связи. Я фриланс-фотограф из Шабанов и ловлю магию жизни в каждом
 						кадре, щелчок за щелчком.
 					</p>
-					<Button variant={'outline'} label={'get template'} />
+					<Button variant={'outline'} href='/contacts' label={'Связаться со мной'} />
 				</div>
 				<div className='flex flex-col gap-8'>
 					<div>
@@ -96,7 +96,7 @@ export default function Hero() {
 							стремлюсь создавать изображения, которые не только красивы, но и вызывают эмоции,
 							рассказывая захватывающую историю.
 						</p>
-						<Button variant={'outline'} label={'Еще обо мне'} />
+						<Button variant={'outline'} href='/about' label={'Ещё обо мне'} />
 					</div>
 				</div>
 			</div>

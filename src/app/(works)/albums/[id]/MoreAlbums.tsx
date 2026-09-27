@@ -42,7 +42,7 @@ export const MoreAlbums = () => {
 				))}
 			</div>
 
-			<Button variant={'outline'} label={'all albums'} />
+			<Button variant={'outline'} href='/albums' label={'Все альбомы'} />
 		</section>
 	);
 };

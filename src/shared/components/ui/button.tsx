@@ -22,15 +22,18 @@ interface ButtonProps extends VariantProps<typeof buttonVariants> {
 	className?: string;
 	href?: string;
 	label?: string;
+	/** Открыть ссылку в новой вкладке */
+	external?: boolean;
 
 	children?: React.ReactNode;
 }
 
-function Button({ className = '', variant, children, href, label }: ButtonProps) {
+function Button({ className = '', variant, children, href, label, external }: ButtonProps) {
 	const Btn = href ? 'a' : 'button';
+	const externalProps = href && external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 
 	return (
-		<Btn href={href} className={clsx(buttonVariants({ variant }), className)}>
+		<Btn href={href} {...externalProps} className={clsx(buttonVariants({ variant }), className)}>
 			<p className='h-full duration-300 flex items-center uppercase border-inherit  text-btn'>
 				{children ? children : label}
 			</p>

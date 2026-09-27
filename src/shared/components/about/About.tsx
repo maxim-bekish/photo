@@ -118,7 +118,7 @@ export default function About() {
 						Feel free to reach out, and let’s make magic happen.
 					</p>
 
-					<Button variant={'outline'} className='mx-auto' label={'get template'} />
+					<Button variant={'outline'} className='mx-auto' href='/contacts' label={'Связаться со мной'} />
 				</div>
 			</div>
 		</section>

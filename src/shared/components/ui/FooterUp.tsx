@@ -81,7 +81,7 @@ export function FooterUp() {
 		<div className='p-3 md:py-0 md:px-(--px)'>
 			<div className='bg-light-orange pt-[230px] pb-[150px] relative flex flex-col  items-center gap-12'>
 				<a
-					href='#'
+					href='/contacts'
 					className='camera group'
 					onMouseEnter={() => setIsHovered(true)}
 					onMouseLeave={() => setIsHovered(false)}>
@@ -113,8 +113,8 @@ export function FooterUp() {
 									}}
 								/>
 							))}
-							<p className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-matt-black font-display text-[18px] leading-[150%] font-medium'>
-								Let's Talk
+							<p className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-matt-black font-display text-[18px] leading-[150%] font-medium'>
+								Напишите мне
 							</p>
 						</div>
 					</div>

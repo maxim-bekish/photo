@@ -145,11 +145,12 @@ export async function getVideos(): Promise<VideoItem[]> {
 
 export async function getReviews(): Promise<Reviews[]> {
 	assertVercelPostgresEnv();
-	const { rows } = await sql<Reviews>`
+	const { rows } = await sql<Omit<Reviews, 'rating'> & { rating: string | number | null }>`
 		SELECT *
 		FROM reviews;
 	`;
-	return rows;
+	// rating в БД хранится как text
+	return rows.map((row) => ({ ...row, rating: Number(row.rating) || 0 }));
 }
 
 export async function getSocials(): Promise<Social[]> {

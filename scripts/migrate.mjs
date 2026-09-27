@@ -11,6 +11,17 @@ const migrations = [
 		name: 'blogs.content — текст статьи в markdown',
 		sql: 'ALTER TABLE blogs ADD COLUMN IF NOT EXISTS content text',
 	},
+	{
+		name: 'contact_requests — заявки с формы контактов',
+		sql: `CREATE TABLE IF NOT EXISTS contact_requests (
+			id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+			name text NOT NULL,
+			email text,
+			phone text,
+			message text NOT NULL,
+			created_at timestamptz NOT NULL DEFAULT now()
+		)`,
+	},
 ];
 
 function parseEnv(content) {

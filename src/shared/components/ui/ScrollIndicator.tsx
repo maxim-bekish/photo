@@ -37,7 +37,7 @@ export const ScrollIndicator = () => {
 				<ArrowDown size={12} className='animate-bounce' />
 				Листайте
 			</p>
-			<a className='body1 link' href='#'>
+			<a className='body1 link' href='/contacts'>
 				Сотрудничайте со мной
 			</a>
 		</div>

@@ -64,6 +64,13 @@ export interface Reviews {
 	role: string;
 	rating: number;
 }
+export interface ContactRequest {
+	name: string;
+	email?: string;
+	phone?: string;
+	message: string;
+}
+
 export interface Social {
 	id: string;
 	href: string;

@@ -33,6 +33,8 @@ npm run db:seed-socials    # заполнить таблицу socials
    - обобщённый `createApiClient` + `createQueryHook` (фабрика хуков), собранные в `src/lib/api-resources.ts` (сейчас только albums и blogs). Использование: `apiResources.albums.useQueryById(id)()` — обратите внимание на двойной вызов.
 4. Ключи кеша — только через `src/utils/queryKeys.ts`.
 
+Форма на `/contacts` (`ContactForm.tsx`) шлёт `POST /api/contact`, заявки пишутся в таблицу `contact_requests`.
+
 Почти все страницы — клиентские компоненты (`'use client'`), данные грузятся через React Query, SSR-фетчинга нет.
 
 **Админка:**

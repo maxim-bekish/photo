@@ -131,7 +131,7 @@ export function Header() {
 							.map((item, index) => (
 								<React.Fragment key={index}>
 									<li className='flex-[1 0 0px] px-5 w-full flex justify-center'>
-										<Button variant={'ghost'}>
+										<Button variant={'ghost'} href={item.href} external>
 											<span className='hidden md:block'>{item.text}</span>
 											<span className='md:hidden'>{item.mob}</span>
 										</Button>
