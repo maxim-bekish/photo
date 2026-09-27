@@ -1,21 +1,23 @@
 'use client';
 
+import { useQualities } from '@/src/hooks/queries/useSiteContent';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 
+const rotations = [10, -5, 4, -6]; // углы поворота, повторяются по кругу
+const rotationDistance = 200; // расстояние поворота в пикселях
+
 export default function Quality() {
 	const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 	const sectionRef = useRef<HTMLElement | null>(null);
+	const { data: qualities = [] } = useQualities();
 
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger);
 
-		const rotations = [10, -5, 4, -6]; // углы поворота для каждого элемента
-		const rotationDistance = 200; // расстояние поворота в пикселях
-
 		const ctx = gsap.context(() => {
-			itemsRef.current.forEach((item, i) => {
+			itemsRef.current.slice(0, qualities.length).forEach((item, i) => {
 				if (!item) return;
 
 				// Для sticky элементов поворот происходит когда элемент
@@ -26,7 +28,7 @@ export default function Quality() {
 						rotation: 0,
 					},
 					{
-						rotation: rotations[i],
+						rotation: rotations[i % rotations.length],
 						scrollTrigger: {
 							trigger: item,
 							start: `top+=${rotationDistance} center`,
@@ -41,7 +43,9 @@ export default function Quality() {
 		return () => {
 			ctx.revert();
 		};
-	}, []);
+	}, [qualities.length]);
+
+	if (!qualities.length) return null;
 
 	const text = 'text-[38px] md:text-[67px] xl:text-[80px]';
 	return (
@@ -50,41 +54,19 @@ export default function Quality() {
 				sectionRef.current = el;
 			}}
 			className='flex flex-col gap-[100px] items-center text-creamy-white relative px-(--px) pb-[50px] pt-[30px] md:pb-0 md:pt-[150px]'>
-			<h2 className='h2-s sticky top-[150px]'>What you will find in me</h2>
-			<div
-				ref={(el) => {
-					itemsRef.current[0] = el;
-				}}
-				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className={`font-display text-center font-medium leading-none ${text}`}>
-					Creative Vision
-				</h4>
-			</div>
-			<div
-				ref={(el) => {
-					itemsRef.current[1] = el;
-				}}
-				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className={`font-display text-center font-medium leading-none ${text}`}>
-					Professionalism
-				</h4>
-			</div>
-			<div
-				ref={(el) => {
-					itemsRef.current[2] = el;
-				}}
-				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className={`font-display text-center font-medium leading-none ${text}`}>Passion</h4>
-			</div>
-			<div
-				ref={(el) => {
-					itemsRef.current[3] = el;
-				}}
-				className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[700px]'>
-				<h4 className={`font-display text-center font-medium leading-none ${text}`}>
-					Adaptability
-				</h4>
-			</div>
+			<h2 className='h2-s sticky top-[150px]'>Что вы найдёте во мне</h2>
+			{qualities.map((quality, i) => (
+				<div
+					key={quality.id}
+					ref={(el) => {
+						itemsRef.current[i] = el;
+					}}
+					className='sticky top-[300] bg-background border border-solid border-white/50 w-full p-7 max-w-[900px]'>
+					<h4 className={`font-display text-center font-medium leading-none ${text}`}>
+						{quality.title}
+					</h4>
+				</div>
+			))}
 		</section>
 	);
 }

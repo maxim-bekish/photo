@@ -9,7 +9,8 @@
 		"lint": "eslint",
 		"db:migrate": "node scripts/migrate.mjs",
 		"db:import-backup": "node scripts/import-backup-to-neon.mjs",
-		"db:seed-socials": "node scripts/seed-socials.mjs"
+		"db:seed-socials": "node scripts/seed-socials.mjs",
+		"db:seed-demo": "node scripts/seed-demo.mjs"
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.15",

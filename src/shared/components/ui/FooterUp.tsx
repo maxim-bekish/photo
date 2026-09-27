@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSocials } from '@/src/hooks/queries/useSocials';
+import { useSettings } from '@/src/hooks/queries/useSiteContent';
 
 const polygonConfigs = [
 	{
@@ -75,6 +76,7 @@ const polygonConfigs = [
 
 export function FooterUp() {
 	const { data: socials } = useSocials();
+	const { data: settings } = useSettings();
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -120,11 +122,13 @@ export function FooterUp() {
 					</div>
 				</a>
 				<div className='flex flex-col gap-8 md:gap-2 items-center'>
-					<a
-						href='mailto:photo@gmail.com'
-						className='body2 font-semibold text-matt-black hover:underline'>
-						photo@gmail.com
-					</a>
+					{settings?.email && (
+						<a
+							href={`mailto:${settings.email}`}
+							className='body2 font-semibold text-matt-black hover:underline'>
+							{settings.email}
+						</a>
+					)}
 					<ul className='flex gap-3 md:gap-8  flex-col md:flex-row'>
 						{socials &&
 							socials.filter(item => item.footer).map((el) => (

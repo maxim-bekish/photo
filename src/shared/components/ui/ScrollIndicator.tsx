@@ -5,11 +5,14 @@ import { useLayoutEffect, useRef } from 'react';
 
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { useSettings } from '@/src/hooks/queries/useSiteContent';
 
 export const ScrollIndicator = () => {
 	gsap.registerPlugin(ScrollTrigger);
 
 	const lineScrollRef = useRef<HTMLDivElement | null>(null);
+	const { data: settings } = useSettings();
+	const fullName = [settings?.first_name, settings?.last_name].filter(Boolean).join(' ');
 
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
@@ -32,7 +35,7 @@ export const ScrollIndicator = () => {
 		<div
 			ref={lineScrollRef}
 			className='uppercase hidden md:flex justify-between items-center pb-2.5 w-full border-b border-white/50'>
-			<p className='body1'>Вася Пупкин - фотограф</p>
+			<p className='body1'>{fullName && `${fullName} — фотограф`}</p>
 			<p className='flex gap-1 body1 items-center'>
 				<ArrowDown size={12} className='animate-bounce' />
 				Листайте

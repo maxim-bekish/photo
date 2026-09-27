@@ -23,7 +23,7 @@ export default function BlogsPage() {
 
 	if (!isLoading && articlesList?.length === 0) {
 		return (
-			<LayoutPage title='Blogs'>
+			<LayoutPage title='Блоги'>
 				<div className='flex items-center justify-center py-20'>
 					<div className='text-creamy-white'>Блоги не найдены</div>
 				</div>
@@ -32,7 +32,7 @@ export default function BlogsPage() {
 	}
 
 	return (
-		<LayoutPage title='Blogs'>
+		<LayoutPage title='Блоги'>
 			<div className='flex flex-col gap-2.5 wrapper'>
 				{isLoading ? (
 					<Skeleton className='w-full h-[250px] md:h-[400px]' />

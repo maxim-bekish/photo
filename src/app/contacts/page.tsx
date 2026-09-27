@@ -5,6 +5,7 @@ import { cn } from '@/src/shared/lib/utils';
 import LayoutPage from '../layoutPage';
 import { ContactForm } from './ContactForm';
 import { useSocials } from '@/src/hooks/queries/useSocials';
+import { useSettings } from '@/src/hooks/queries/useSiteContent';
 
 const gap = 'gap-2.5';
 const bg = 'bg-white/10';
@@ -12,9 +13,10 @@ const hover = 'hover:scale-90 transition-all';
 const duration = 'duration-400';
 export default function ContactsPage() {
 	const { data: socials } = useSocials();
+	const { data: settings } = useSettings();
 
 	return (
-		<LayoutPage title={'Contacts'}>
+		<LayoutPage title={'Контакты'}>
 			<div className='max-w-[600px] w-full mx-auto'>
 				<div className={cn('flex flex-col', gap)}>
 					<div
@@ -26,12 +28,12 @@ export default function ContactsPage() {
 						)}>
 						<p className='body1 opacity-60 uppercase'>email</p>
 						<a
-							href='mailto:photo@gmail.com'
+							href={`mailto:${settings?.email ?? ''}`}
 							className={cn(
 								'body3 hover:text-deep-orange transition-colors hover:underline',
 								duration,
 							)}>
-							photo@gmail.com
+							{settings?.email}
 						</a>
 					</div>
 					<div
@@ -41,14 +43,14 @@ export default function ContactsPage() {
 							hover,
 							duration,
 						)}>
-						<p className='body1 opacity-60 uppercase'>Phone</p>
+						<p className='body1 opacity-60 uppercase'>Телефон</p>
 						<a
-							href='tel:+1234567890'
+							href={`tel:${settings?.phone.replace(/[^d+]/g, '') ?? ''}`}
 							className={cn(
 								'body3 hover:text-deep-orange transition-colors hover:underline',
 								duration,
 							)}>
-							+123 456 7890
+							{settings?.phone}
 						</a>
 					</div>
 					<div className={cn('grid grid-cols-3', gap)}>

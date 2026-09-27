@@ -1,4 +1,18 @@
-import { AlbumItem, ArticlesItem, Brand, ExpertiseItem, Reviews, Social, VideoItem } from '../shared/types';
+import {
+	AlbumItem,
+	ArticlesItem,
+	Award,
+	Brand,
+	ExpertiseItem,
+	FaqItem,
+	GearCategory,
+	Quality,
+	Reviews,
+	SiteSettings,
+	Social,
+	Stat,
+	VideoItem,
+} from '../shared/types';
 import { assertVercelPostgresEnv, parseJsonField, sql } from './vercel-db';
 
 type AlbumRow = Omit<AlbumItem, 'gallery' | 'characteristics' | 'videos'> & {
@@ -211,4 +225,102 @@ export async function getExpertise(): Promise<{ main: ExpertiseItem<string>[]; s
 	});
 
 	return { main, sub };
+}
+
+export const EMPTY_SETTINGS: SiteSettings = {
+	first_name: '',
+	last_name: '',
+	city: '',
+	email: '',
+	phone: '',
+	hero_title: '',
+	hero_text: '',
+	hero_video: '',
+	hero_poster: '',
+	about_short: '',
+	about_intro: '',
+	about_story: '',
+	about_highlight: '',
+	about_cta: '',
+	about_hero_image: '',
+	about_images: [],
+	meta_title: '',
+	meta_description: '',
+};
+
+export async function getSettings(): Promise<SiteSettings> {
+	assertVercelPostgresEnv();
+	const { rows } = await sql<SiteSettings & { id: number; about_images: unknown }>`
+		SELECT *
+		FROM site_settings
+		WHERE id = 1;
+	`;
+	if (!rows[0]) return EMPTY_SETTINGS;
+
+	const settings: SiteSettings = { ...EMPTY_SETTINGS };
+	for (const key of Object.keys(EMPTY_SETTINGS) as (keyof SiteSettings)[]) {
+		if (rows[0][key] != null) Object.assign(settings, { [key]: rows[0][key] });
+	}
+	return { ...settings, about_images: normalizeArrayField<string>(rows[0].about_images) };
+}
+
+export async function getStats(): Promise<Stat[]> {
+	assertVercelPostgresEnv();
+	const { rows } = await sql<Stat>`
+		SELECT id, title, value
+		FROM stats
+		ORDER BY sort_order;
+	`;
+	return rows;
+}
+
+export async function getFaq(): Promise<FaqItem[]> {
+	assertVercelPostgresEnv();
+	const { rows } = await sql<FaqItem>`
+		SELECT id, question, answer
+		FROM faq
+		ORDER BY sort_order;
+	`;
+	return rows;
+}
+
+export async function getAwards(): Promise<Award[]> {
+	assertVercelPostgresEnv();
+	const { rows } = await sql<Award>`
+		SELECT id, title, year, img
+		FROM awards
+		ORDER BY sort_order;
+	`;
+	return rows;
+}
+
+export async function getGear(): Promise<GearCategory[]> {
+	assertVercelPostgresEnv();
+	const { rows } = await sql<Omit<GearCategory, 'items'> & { items: unknown }>`
+		SELECT
+			c.id,
+			c.title,
+			c.icon,
+			COALESCE(
+				(
+					SELECT json_agg(json_build_object('id', g.id, 'value', g.value, 'link', g.link) ORDER BY g.sort_order)
+					FROM gear g
+					WHERE g.category_id = c.id
+				),
+				'[]'::json
+			) AS items
+		FROM gear_categories c
+		ORDER BY c.sort_order;
+	`;
+	return rows.map((row) => ({ ...row, items: normalizeArrayField(row.items) }));
+}
+
+export async function getQualities(): Promise<Quality[]> {
+	assertVercelPostgresEnv();
+	const { rows } = await sql<Quality>`
+		SELECT id, title
+		FROM qualities
+		ORDER BY sort_order;
+	`;
+	return rows;
 }

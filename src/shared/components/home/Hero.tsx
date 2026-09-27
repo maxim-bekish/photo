@@ -2,16 +2,23 @@
 
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { AboutCard } from '../ui/about-card';
 import { Button } from '../ui/button';
 import { ScrollIndicator } from '../ui/ScrollIndicator';
+import { useSettings, useStats } from '@/src/hooks/queries/useSiteContent';
+import { highlight } from '../../lib/highlight';
 
 export default function Hero() {
 	gsap.registerPlugin(ScrollTrigger);
 
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const aboutBlockRef = useRef<HTMLDivElement | null>(null);
+	const { data: settings } = useSettings();
+	const { data: stats = [] } = useStats();
+
+	// Счётчики выводятся парами; в каждой следующей строке широкая карточка меняет сторону
+	const statRows = Array.from({ length: Math.ceil(stats.length / 2) }, (_, i) => stats.slice(i * 2, i * 2 + 2));
 
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
@@ -31,24 +38,22 @@ export default function Hero() {
 		};
 	}, []);
 
+	// После загрузки контента высота блока меняется — пересчитываем позиции ScrollTrigger
+	useEffect(() => {
+		ScrollTrigger.refresh();
+	}, [settings, stats.length]);
+
 	return (
 		<div className='relative'>
 			{/* Overlay с текстом и кнопками */}
 			<div className='absolute mix-blend-exclusion py-[100px]  md:pt-32.5 md:pb-12.5 px-(--px) h-screen w-full flex justify-between z-10 flex-col-reverse md:flex-col'>
 				<div className='max-w-[400px] ml-auto flex flex-col items-end gap-5'>
-					<p className='text-right font-satoshi p-s'>
-						Привет! Вася пупкин на связи. Я фриланс-фотограф из Шабанов и ловлю магию жизни в каждом
-						кадре, щелчок за щелчком.
-					</p>
+					<p className='text-right font-satoshi p-s whitespace-pre-line'>{settings?.hero_text}</p>
 					<Button variant={'outline'} href='/contacts' label={'Связаться со мной'} />
 				</div>
 				<div className='flex flex-col gap-8'>
 					<div>
-						<h1 className='h1 wrap-break-word'>
-							Ловим Лучшие
-							<br />
-							Моменты Жизни
-						</h1>
+						<h1 className='h1 wrap-break-word whitespace-pre-line'>{settings?.hero_title}</h1>
 					</div>
 					<ScrollIndicator />
 				</div>
@@ -61,28 +66,33 @@ export default function Hero() {
 				muted
 				playsInline
 				loop
-				poster='/assets/poster-home-video.png'
+				src={settings?.hero_video || undefined}
+				poster={settings?.hero_poster || undefined}
 				style={{
 					filter: 'contrast(1.16) grayscale(1)  ',
 					willChange: 'opacity, filter, transform',
 				}}
-				className='sticky  top-0 left-0 w-full  h-screen object-cover'>
-				<source src='/assets/home-video.mp4' type='video/mp4' />
-			</video>
+				className='sticky  top-0 left-0 w-full  h-screen object-cover'/>
 
 			{/* Блок About */}
 			<div
 				ref={aboutBlockRef}
 				className='h-min flex flex-col items-center gap-7.5 relative pt-[500px] pb-7.5 md:pb-[150px]  px-(--px)'>
 				<div className='md:p-2.5 wrapper flex flex-col gap-2.5 md:border border-solid border-white/10 overflow-hidden'>
-					<div className='flex row-1 md:flex-nowrap gap-2.5 flex-col md:flex-row'>
-						<AboutCard title='Часы за объективом' value={9000} position='left' />
-						<AboutCard title='Лет опыта' value={15} position='right' />
-					</div>
-					<div className='flex row-2 md:flex-nowrap gap-2.5 flex-col md:flex-row'>
-						<AboutCard title='Награды и признания' value={13} position='right' />
-						<AboutCard title='Счастливых клиентов' value={200} position='left' />
-					</div>
+					{statRows.map((row, rowIndex) => (
+						<div
+							key={rowIndex}
+							className={`flex row-${rowIndex + 1} md:flex-nowrap gap-2.5 flex-col md:flex-row`}>
+							{row.map((stat, i) => (
+								<AboutCard
+									key={stat.id}
+									title={stat.title}
+									value={stat.value}
+									position={(i + rowIndex) % 2 === 0 ? 'left' : 'right'}
+								/>
+							))}
+						</div>
+					))}
 				</div>
 				<div className='wrapper h-min flex flex-col gap-8 xl:gap-1 md:pt-25 md:pb-0 md:px-0 py-[30px] px-3'>
 					<div>
@@ -90,11 +100,7 @@ export default function Hero() {
 					</div>
 					<div className='ml-auto flex flex-col gap-11'>
 						<p className='p-l font-satoshi font-light text-left w-full md:w-[700px] text-creamy-white whitespace-pre-wrap leading-normal'>
-							Страстный фотограф, посвящающий себя запечатлению самых ценных моментов жизни. С
-							острым вниманием к деталям и
-							<span className='text-deep-orange font-satoshi'> любовью к рассказу историй</span>, я
-							стремлюсь создавать изображения, которые не только красивы, но и вызывают эмоции,
-							рассказывая захватывающую историю.
+							{highlight(settings?.about_short ?? '', 'text-deep-orange font-satoshi')}
 						</p>
 						<Button variant={'outline'} href='/about' label={'Ещё обо мне'} />
 					</div>

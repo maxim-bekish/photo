@@ -35,7 +35,7 @@ export const MoreAlbums = () => {
 
 	return (
 		<section className='flex items-center overflow-hidden gap-[35px] flex-col py-[150px]'>
-			<h1 className='h1 text-center'>More Albums</h1>
+			<h1 className='h1 text-center'>Еще альбомы</h1>
 			<div ref={containerRef} className='flex gap-10  py-10'>
 				{duplicatedAlbums.map((album, i) => (
 					<AlbumCard key={album.id + i} item={album} className='h-[446px] w-[370px] md:w-[370px]' />

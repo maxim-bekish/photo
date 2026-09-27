@@ -15,6 +15,7 @@ npm run lint               # eslint (flat config, eslint-config-next)
 npm run db:migrate         # идемпотентные ALTER-миграции схемы (scripts/migrate.mjs) — новые изменения схемы добавлять туда
 npm run db:import-backup   # залить db_cluster-*.backup.gz в Postgres (scripts/import-backup-to-neon.mjs)
 npm run db:seed-socials    # заполнить таблицу socials
+npm run db:seed-demo       # демо-контент вымышленного фотографа (ПЕРЕЗАПИСЫВАЕТ settings/stats/faq/awards/gear/qualities/blogs/reviews)
 ```
 
 Тестов в проекте нет. Скрипты в `scripts/` сами читают `.env.local` из корня.
@@ -32,6 +33,13 @@ npm run db:seed-socials    # заполнить таблицу socials
    - ручные `src/app/api/endpoints/*.api.ts` + хуки `src/hooks/queries/use*.ts`;
    - обобщённый `createApiClient` + `createQueryHook` (фабрика хуков), собранные в `src/lib/api-resources.ts` (сейчас только albums и blogs). Использование: `apiResources.albums.useQueryById(id)()` — обратите внимание на двойной вызов.
 4. Ключи кеша — только через `src/utils/queryKeys.ts`.
+
+**Контент сайта** (всё, что должно редактироваться из админки):
+- `site_settings` — одна строка (`id = 1`): имя, город, контакты, тексты Hero и «Обо мне», картинки/видео, SEO. Читается через `useSettings()` на клиенте и `getSettings()` в `generateMetadata` (`layout.tsx`).
+- Списки с `sort_order`: `stats`, `faq`, `awards`, `gear_categories` + `gear`, `qualities`. Хуки — `src/hooks/queries/useSiteContent.ts`.
+- В текстах `**фрагмент**` — акцент, рендерится через `highlight()` из `src/shared/lib/highlight.tsx`; переносы строк — `\n` + `whitespace-pre-line`. Многострочный ответ FAQ выводится списком.
+- Заголовки секций и подписи интерфейса — в коде, не в БД.
+- Секции, которые подгружают контент после монтирования и используют GSAP ScrollTrigger, должны вызывать `ScrollTrigger.refresh()` после загрузки данных.
 
 Форма на `/contacts` (`ContactForm.tsx`) шлёт `POST /api/contact`, заявки пишутся в таблицу `contact_requests`.
 

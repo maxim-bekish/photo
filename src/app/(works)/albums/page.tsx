@@ -19,7 +19,7 @@ export default function () {
 
 	if (isLoading) {
 		return (
-			<LayoutWorks title={'Albums'} className='gap-10'>
+			<LayoutWorks title={'Альбомы'} className='gap-10'>
 				<Skeleton className='h-[446px]' />
 				<Skeleton className='h-[446px]' />
 				<Skeleton className='h-[446px]' />
@@ -29,7 +29,7 @@ export default function () {
 	}
 
 	return (
-		<LayoutWorks title={'Albums'} className='gap-10'>
+		<LayoutWorks title={'Альбомы'} className='gap-10'>
 			{albums ? (
 				albums.map(el => <AlbumCard key={el.id} ref={setItemRef} item={el} className='h-[446px]' />)
 			) : (

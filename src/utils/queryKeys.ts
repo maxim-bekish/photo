@@ -8,4 +8,10 @@ export const QueryKeys = {
 	expertise: () => ['expertise'],
 	reviews: () => ['reviews'],
 	socials: () => ['socials'],
+	settings: () => ['settings'],
+	stats: () => ['stats'],
+	faq: () => ['faq'],
+	awards: () => ['awards'],
+	gear: () => ['gear'],
+	qualities: () => ['qualities'],
 };

@@ -3,22 +3,28 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Button } from '../ui/button';
+import { useSettings } from '@/src/hooks/queries/useSiteContent';
+import { highlight } from '../../lib/highlight';
 
 export default function About() {
 	gsap.registerPlugin(ScrollTrigger);
 	const textRef = useRef<HTMLDivElement>(null);
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [currentImage, setCurrentImage] = useState(0);
+	const { data: settings } = useSettings();
+	const images = settings?.about_images ?? [];
+	const imagesCount = images.length;
 
 	useEffect(() => {
+		if (imagesCount < 2) return;
 		const interval = setInterval(() => {
-			setCurrentImage((prev: number) => (prev + 1) % 3);
+			setCurrentImage((prev: number) => (prev + 1) % imagesCount);
 		}, 8000);
 
 		return () => {
 			clearInterval(interval);
 		};
-	}, []);
+	}, [imagesCount]);
 
 	useLayoutEffect(() => {
 		if (!textRef.current || !wrapperRef.current) return;
@@ -71,6 +77,11 @@ export default function About() {
 		};
 	}, []);
 
+	// Тексты подгружаются после монтирования — пересчитываем позиции ScrollTrigger
+	useEffect(() => {
+		ScrollTrigger.refresh();
+	}, [settings]);
+
 	const imgClass =
 		'h-full w-full absolute top-0 border-0 left-0 right-0 transition-opacity duration-[3s]';
 
@@ -78,45 +89,24 @@ export default function About() {
 		<section ref={wrapperRef} className='flex wrapper flex-col gap-10 px-(--px) pb-[30px] md:pb-[100px]'>
 			<div ref={textRef} className=' sticky top-0 h-screen flex items-center justify-center'>
 				<p className='p-l  text-white/50 [&>span]:text-creamy-white t-wrap text-center max-w-[700px]'>
-					Hi there! I’m <span> Finnegan Manroe</span>, a passionate photographer based in the
-					vibrant city of <span>Seattle</span>. With over a decade of experience behind the lens, I
-					specialize in capturing <span>the unique beauty of life’s fleeting moments</span>, from
-					intimate portraits and breathtaking landscapes to dynamic product shots and lively events.
+					{highlight(settings?.about_intro ?? '')}
 				</p>
 			</div>
 			<div className='flex px-3 md:px-0 gap-10 flex-col md:flex-row   items-center'>
 				<div className='flex-1 relative min-h-[60vh] w-full md:h-full '>
-					<div className={imgClass} style={{ opacity: currentImage === 0 ? 1 : 0 }}>
-						<img className='w-full h-full' src='assets/about/about/img-1.avif' alt='' />
-					</div>
-					<div className={imgClass} style={{ opacity: currentImage === 1 ? 1 : 0 }}>
-						<img className='w-full h-full' src='assets/about/about/img-2.avif' alt='' />
-					</div>
-					<div className={imgClass} style={{ opacity: currentImage === 2 ? 1 : 0 }}>
-						<img className='w-full h-full' src='assets/about/about/img-3.avif' alt='' />
-					</div>
+					{images.map((src, i) => (
+						<div key={src + i} className={imgClass} style={{ opacity: currentImage === i ? 1 : 0 }}>
+							<img className='w-full h-full object-cover' src={src} alt='' />
+						</div>
+					))}
 				</div>
 				<div className='flex flex-1 flex-col gap-22'>
-					<p className='p-s text-creamy-white'>
-						My journey into photography began as a curious child with a disposable camera,
-						fascinated by the world’s colors and light. Over the years, this hobby transformed into
-						a full-blown love affair with visual storytelling. Each click of the shutter is my way
-						of freezing time, preserving emotions, and narrating stories that words alone can’t
-						convey.
-					</p>
+					<p className='p-s text-creamy-white whitespace-pre-line'>{settings?.about_story}</p>
 
 					<p className='p-l text-white/50 [&>span]:text-creamy-white'>
-						I’ve had the privilege of working with <span>amazing clients</span> and have been
-						<span>honored with several awards</span> for my work.
+						{highlight(settings?.about_highlight ?? '')}
 					</p>
-					<p className='p-s text-creamy-white'>
-						Let’s create something extraordinary together. Whether you’re looking to capture a
-						special moment, need stunning visuals for your brand, or simply want to explore the
-						world through my lens, I’d love to hear from you!
-						<br />
-						<br />
-						Feel free to reach out, and let’s make magic happen.
-					</p>
+					<p className='p-s text-creamy-white whitespace-pre-line'>{settings?.about_cta}</p>
 
 					<Button variant={'outline'} className='mx-auto' href='/contacts' label={'Связаться со мной'} />
 				</div>

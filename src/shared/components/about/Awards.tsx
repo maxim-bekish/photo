@@ -1,62 +1,29 @@
 'use client';
 
+import { useAwards } from '@/src/hooks/queries/useSiteContent';
 import { useState } from 'react';
 
-const awardsList = [
-	{
-		id: '1',
-		img: '/assets/about/awards/img-1.avif',
-		title: 'Sony World Photography Awards',
-		year: '2025',
-	},
-	{
-		id: '2',
-		img: '/assets/about/awards/img-2.avif',
-		title: 'World Press Photo Contest',
-		year: '2024',
-	},
-	{
-		id: '3',
-		img: '/assets/about/awards/img-3.avif',
-		title: 'National Geographic Photo Contest',
-		year: '2023',
-	},
-	{
-		id: '4',
-		img: '/assets/about/awards/img-1.avif',
-		title: 'Leica Oskar Barnack Award',
-		year: '2022',
-	},
-	{
-		id: '5',
-		img: '/assets/about/awards/img-2.avif',
-		title: 'Moscow International Foto Awards (MIFA)',
-		year: '2021',
-	},
-	{
-		id: '6',
-		img: '/assets/about/awards/img-3.avif',
-		title: 'Magnum Photography Awards',
-		year: '2020',
-	},
-];
-
 export default function Awards() {
-	const [activeId, setActiveId] = useState<string | null>('1');
+	const { data: awards = [] } = useAwards();
+	// undefined — пользователь ещё ничего не выбирал, по умолчанию раскрыта первая награда
+	const [selectedId, setSelectedId] = useState<string | null | undefined>(undefined);
+	const activeId = selectedId === undefined ? awards[0]?.id : selectedId;
 
 	const handleClick = (id: string) => {
-		setActiveId(activeId === id ? null : id);
+		setSelectedId(activeId === id ? null : id);
 	};
+
+	if (!awards.length) return null;
 
 	return (
 		<section className='px-(--px) py-[30px] md:py-[150px]'>
 			<div className='wrapper-small flex flex-col gap-[30px]'>
 				<div className='flex flex-col items-center md:items-start'>
-					<h2 className='h2-s'>Shining Moments of Glory</h2>
-					<h2 className='h2-l text-deep-orange'>Awards I got</h2>
+					<h2 className='h2-s'>Моменты признания</h2>
+					<h2 className='h2-l text-deep-orange'>Мои награды</h2>
 				</div>
 				<div className='flex flex-col items-end gap-2.5'>
-					{awardsList.map((item, i) => {
+					{awards.map((item, i) => {
 						const isActive = activeId === item.id;
 						return (
 							<div

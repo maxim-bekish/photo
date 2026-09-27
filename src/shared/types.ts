@@ -82,3 +82,63 @@ export interface Social {
 	footer: boolean;
 	contact: boolean;
 }
+export interface SiteSettings {
+	first_name: string;
+	last_name: string;
+	city: string;
+	email: string;
+	phone: string;
+	/** Слоган на главной, переносы строк — \n */
+	hero_title: string;
+	hero_text: string;
+	hero_video: string;
+	hero_poster: string;
+	/** Абзац «Обо мне» на главной; **текст** — выделение */
+	about_short: string;
+	about_intro: string;
+	about_story: string;
+	about_highlight: string;
+	about_cta: string;
+	about_hero_image: string;
+	about_images: string[];
+	meta_title: string;
+	meta_description: string;
+}
+
+export interface Stat {
+	id: string;
+	title: string;
+	value: number;
+}
+
+export interface FaqItem {
+	id: string;
+	question: string;
+	/** Несколько строк выводятся списком */
+	answer: string;
+}
+
+export interface Award {
+	id: string;
+	title: string;
+	year: string;
+	img: string;
+}
+
+export interface GearItem {
+	id: string;
+	value: string;
+	link: string | null;
+}
+
+export interface GearCategory {
+	id: string;
+	title: string;
+	icon: IconName;
+	items: GearItem[];
+}
+
+export interface Quality {
+	id: string;
+	title: string;
+}

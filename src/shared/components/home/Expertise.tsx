@@ -81,7 +81,7 @@ export const Expertise = () => {
 		<>
 			<div ref={mainW} className='md:h-[600vh]    flex flex-col justify-between'>
 				<div className='sticky h-screen top-0 flex-col overflow-hidden left-0 hidden md:flex justify-center items-center cursor-grab select-none'>
-					<div className='h2-l text-deep-orange'>Мои направления</div>
+					<div className='h2-l text-deep-orange mb-20'>Мои направления</div>
 					<div className='flex justify-center items-center'>
 						<div
 							ref={cubeRef}
@@ -163,7 +163,7 @@ export const Expertise = () => {
 					</div>
 				</div>
 				<div className='flex md:hidden flex-col gap-7.5 pt-20 pb-[30px] px-3'>
-					<h2 className='h2-l text-deep-orange text-center'>My Expertise</h2>
+					<h2 className='h2-l text-deep-orange text-center'>Мои направления</h2>
 					<div className='flex flex-col gap-2.5'>
 						{expertise.main.map((el, i) => (
 							<div

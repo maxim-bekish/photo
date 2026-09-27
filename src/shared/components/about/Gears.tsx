@@ -1,76 +1,45 @@
-import { Aperture, Asterisk, Camera, Laptop } from 'lucide-react';
+'use client';
 
-const GearsList = [
-	{
-		title: 'Cameras',
-		icon: Camera,
-		list: [
-			{ value: 'Canon EOS R5', link: '#' },
-			{ value: 'Sony Alpha a7 III', link: '#' },
-			{ value: 'Fujifilm X-T4', link: '#' },
-		],
-	},
-	{
-		title: 'Lenses',
-		icon: Aperture,
-		list: [
-			{ value: 'Canon RF 24-70mm f/2.8L IS USM', link: '#' },
-			{ value: 'Fujinon XF 16-55mm f/2.8 R LM WR', link: '#' },
-			{ value: 'Sigma 35mm f/1.4 DG HSM Art', link: '#' },
-			{ value: 'Sony FE 85mm f/1.4 GM', link: '#' },
-		],
-	},
-	{
-		title: 'Other Accessories',
-		icon: Asterisk,
-		list: [
-			{ value: 'Godox AD200 Pro', link: '#' },
-			{ value: 'Profoto B10', link: '#' },
-			{ value: 'Neewer Ring Light Kit', link: '#' },
-			{ value: 'Manfrotto Befree Advanced Tripod', link: '#' },
-			{ value: 'DJI Ronin-S Gimbal', link: '#' },
-			{ value: 'Peak Design Everyday Backpack', link: '#' },
-			{ value: 'SanDisk Extreme Pro SD Cards', link: '#' },
-		],
-	},
-	{
-		title: 'Editing Tools',
-		icon: Laptop,
-		list: [
-			{ value: 'Adobe Creative Cloud', link: '#' },
-			{ value: 'Wacom Intuos Pro Tablet', link: '#' },
-			{ value: 'Calibrite ColorChecker Display Pro', link: '#' },
-		],
-	},
-];
+import { useGear } from '@/src/hooks/queries/useSiteContent';
+import { DynamicIcon } from 'lucide-react/dynamic';
 
 export default function Gears() {
+	const { data: categories = [] } = useGear();
+
+	if (!categories.length) return null;
+
 	return (
 		<section className='px-(--px) pt-[30px] pb-[60px] md:py-[150px]'>
 			<div className='wrapper-small flex flex-col gap-10 md:gap-[60px]'>
-				<h2 className='h2-l text-deep-orange text-center'>Gears I own</h2>
+				<h2 className='h2-l text-deep-orange text-center'>Моя техника</h2>
 				<div className='flex flex-col gap-[100px] py-[30px] px-(--px) border border-solid border-white/10 bg-white/5'>
-					{GearsList.map((gear, index) => {
-						const IconComponent = gear.icon;
-						return (
-							<div key={index} className='flex flex-col gap-[18px] '>
-								<h3 className='h3 text-creamy-white'>{gear.title}</h3>
+					{categories.map((category) => (
+						<div key={category.id} className='flex flex-col gap-[18px] '>
+							<h3 className='h3 text-creamy-white'>{category.title}</h3>
 
-								<ul className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[15px]  '>
-									{gear.list.map((item: { value: string; link: string }, itemIndex: number) => (
-										<li key={itemIndex} className='flex gap-[10px] items-center '>
-											<IconComponent className='w-[22px] h-[22px] text-deep-orange' />
+							<ul className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[15px]  '>
+								{category.items.map((item) => (
+									<li key={item.id} className='flex gap-[10px] items-center '>
+										<DynamicIcon
+											name={category.icon}
+											className='w-[22px] h-[22px] text-deep-orange'
+										/>
+										{item.link ? (
 											<a
 												href={item.link}
+												target='_blank'
+												rel='noopener noreferrer'
 												className='p-s   text-creamy-white/60 hover:text-light-orange/70 transition-all duration-200'>
 												{item.value}
 											</a>
-										</li>
-									))}
-								</ul>
-							</div>
-						);
-					})}
+										) : (
+											<span className='p-s text-creamy-white/60'>{item.value}</span>
+										)}
+									</li>
+								))}
+							</ul>
+						</div>
+					))}
 				</div>
 			</div>
 		</section>

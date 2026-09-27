@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { X } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Separator } from '../ui/separator';
+import { useFaq } from '@/src/hooks/queries/useSiteContent';
 
 interface FAQItem {
 	id: string;
@@ -44,7 +45,13 @@ const FAQItemComponent = memo(({ item, isOpen, onToggle, isLast }: FAQItemCompon
 			animationsRef.current.container = gsap.fromTo(
 				container,
 				{ height: 0, opacity: 0, y: -10 },
-				{ height: fullHeight, opacity: 1, y: 0, duration: ANIMATION_DURATION, ease: 'power3.out' }
+				{
+					height: fullHeight,
+					opacity: 1,
+					y: 0,
+					duration: ANIMATION_DURATION,
+					ease: 'power3.out',
+				},
 			);
 
 			animationsRef.current.icon = gsap.to(icon, {
@@ -127,86 +134,52 @@ const FAQItemComponent = memo(({ item, isOpen, onToggle, isLast }: FAQItemCompon
 
 FAQItemComponent.displayName = 'FAQItemComponent';
 
-const FAQ_LIST: FAQItem[] = [
-  {
-    id: '1',
-    question: 'Как записаться на фотосессию?',
-    answer:
-      'Вы можете записаться, заполнив форму обратной связи на моём сайте или написав мне на электронную почту [ваш email]. Я свяжусь с вами в течение 24 часов, чтобы обсудить детали и назначить съёмку.',
-  },
-  {
-    id: '2',
-    question: 'Какие цены на фотосессии?',
-    answer: [
-      'Портретные съёмки начинаются от $200.',
-      'Съёмка мероприятий — от $500.',
-      'Стоимость коммерческой и предметной съёмки рассчитывается индивидуально, исходя из объёма проекта.',
-    ],
-  },
-  {
-    id: '3',
-    question: 'Что входит в стоимость съёмки?',
-    answer: [
-      'Предварительная консультация.',
-      'Проведение фотосессии.',
-      'Профессиональная обработка выбранных фотографий.',
-      'Определённое количество изображений в высоком разрешении.',
-      'Онлайн-галерея для просмотра и скачивания фотографий.',
-    ],
-  },
-  {
-    id: '4',
-    question: 'На каких видах фотографии вы специализируетесь?',
-    answer:
-      'Я занимаюсь различными видами съёмки, включая портретную, тревел, коммерческую, предметную, событийную и пейзажную фотографию. Примеры моих работ вы можете посмотреть в портфолио.',
-  },
-  {
-    id: '5',
-    question: 'Что включают ваши пакеты фотосъёмки?',
-    answer:
-      'Мои пакеты, как правило, включают предварительную консультацию, саму съёмку, профессиональную обработку и определённое количество изображений в высоком разрешении. Также дополнительно доступны печать и создание фотоальбомов.',
-  },
-  {
-    id: '6',
-    question: 'Сколько обычно длится фотосессия?',
-    answer:
-      'Большинство фотосессий длятся от 1 до 2 часов в зависимости от типа съёмки и количества локаций. Съёмки мероприятий, как правило, занимают больше времени.',
-  },
-  
-];
-
 export const FAQ = () => {
 	const [openItems, setOpenItems] = useState<Set<string>>(new Set());
+	const { data: faq = [] } = useFaq();
+
+	// Ответ из нескольких строк выводим списком
+	const items: FAQItem[] = useMemo(
+		() =>
+			faq.map((item) => {
+				const lines = item.answer
+					.split('\n')
+					.map((line) => line.trim())
+					.filter(Boolean);
+				return { ...item, answer: lines.length > 1 ? lines : item.answer };
+			}),
+		[faq],
+	);
 
 	const toggleItem = useCallback((id: string) => {
-		setOpenItems(prev => {
+		setOpenItems((prev) => {
 			const newSet = new Set(prev);
-			newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+			if (newSet.has(id)) newSet.delete(id);
+			else newSet.add(id);
 			return newSet;
 		});
 	}, []);
+
+	if (!items.length) return null;
 
 	return (
 		<div className=' pt-7.5  pb-15 md:py-[150px] px-(--px) flex  md:flex-col items-center'>
 			<div className='wrapper relative flex flex-col md:flex-row gap-10 md:gap-24'>
 				<div className='md:sticky md:top-[66px] h-min '>
 					<div className='flex flex-col items-center md:items-start'>
-						<h2 className='h2-l text-deep-orange'>
-							FAQ <br className='hidden md:block' />
-							Frenzy:
-						</h2>
+						<h2 className='h2-l text-deep-orange'>Частые вопросы</h2>
 						<h2 className='h2-s'>Все ответы здесь</h2>
 					</div>
 				</div>
 				<div className='w-full overflow-hidden'>
 					<div className='flex flex-col'>
-						{FAQ_LIST.map((item, index) => (
+						{items.map((item, index) => (
 							<FAQItemComponent
 								key={item.id}
 								item={item}
 								isOpen={openItems.has(item.id)}
 								onToggle={() => toggleItem(item.id)}
-								isLast={index === FAQ_LIST.length - 1}
+								isLast={index === items.length - 1}
 							/>
 						))}
 					</div>
