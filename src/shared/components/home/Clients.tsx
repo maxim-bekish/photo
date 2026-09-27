@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionSkeleton } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useReviews } from '@/src/hooks/queries/useReviews';
 import { useRef } from 'react';
@@ -33,10 +34,11 @@ export const Clients = () => {
 	});
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>{texts.common.loading}</div>;
+		return <SectionSkeleton className='h-[600px]' />;
 	}
-	if (!clientsList) {
-		return <div className='text-creamy-white'>{texts.home.reviewsEmpty}</div>;
+	// Нет данных или ошибка загрузки — на лендинге просто не показываем секцию
+	if (!clientsList?.length) {
+		return null;
 	}
 
 	const duplicatedList = [...clientsList, ...clientsList, ...clientsList];

@@ -1,5 +1,6 @@
 'use client';
 
+import { EmptyState } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import VideoCard from '@/src/shared/components/video/VideoCard';
 import LayoutWorks from '../layoutWorks';
@@ -7,9 +8,8 @@ import { useVideos } from '@/src/hooks/queries/useVideos';
 import { Skeleton } from '@/src/shared/components/ui/skeleton';
 
 export default function VideoPage() {
-	const { data: videos, isLoading } = useVideos();
+	const { data: videos, isLoading, isError } = useVideos();
 
-	console.log(videos);
 	if (isLoading) {
 		return (
 			<LayoutWorks title={texts.works.videosTitle} className='gap-2'>
@@ -20,10 +20,12 @@ export default function VideoPage() {
 
 	return (
 		<LayoutWorks title={texts.works.videosTitle} className='gap-2'>
-			{videos ? (
+			{isError ? (
+				<EmptyState text={texts.common.loadError} />
+			) : videos?.length ? (
 				videos.map((el) => <VideoCard key={el.id} {...el} />)
 			) : (
-				<div>{texts.works.videosEmpty}</div>
+				<EmptyState text={texts.works.videosEmpty} />
 			)}
 		</LayoutWorks>
 	);

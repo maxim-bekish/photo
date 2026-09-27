@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionSkeleton } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useBrands } from '@/src/hooks/queries/useBrands';
 
@@ -7,10 +8,11 @@ export const Brands = () => {
 	const { data: brands, isLoading } = useBrands();
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>{texts.common.loading}</div>;
+		return <SectionSkeleton className='h-[120px]' />;
 	}
-	if (!brands) {
-		return <div className='text-creamy-white'>{texts.home.brandsEmpty}</div>;
+	// Нет данных или ошибка загрузки — на лендинге просто не показываем секцию
+	if (!brands?.length) {
+		return null;
 	}
 	return (
 		<div className='flex gap-15 py-7.5 md:py-[150px] px-(--px) flex-col items-center wrapper mx-auto'>

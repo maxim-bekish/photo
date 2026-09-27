@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionSkeleton } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import gsap from 'gsap';
@@ -66,11 +67,12 @@ export const Albums = () => {
 	}, [isLoading]);
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>{texts.common.loading}</div>;
+		return <SectionSkeleton className='h-[70vh]' />;
 	}
 
-	if (!albums) {
-		return <div className='text-creamy-white'>{texts.home.albumsEmpty}</div>;
+	// Нет данных или ошибка загрузки — на лендинге просто не показываем секцию
+	if (!albums?.length) {
+		return null;
 	}
 
 	return (

@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionSkeleton } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useBreakpoint } from '@/src/shared/hooks/useBreakpoint';
 import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
@@ -31,10 +32,11 @@ export const Articles = () => {
 	const { data: articlesList, isLoading } = apiResources.blogs.useQuery();
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>{texts.common.loading}</div>;
+		return <SectionSkeleton className='h-[500px]' />;
 	}
-	if (!articlesList) {
-		return <div className='text-creamy-white'>{texts.home.articlesEmpty}</div>;
+	// Нет данных или ошибка загрузки — на лендинге просто не показываем секцию
+	if (!articlesList?.length) {
+		return null;
 	}
 	return (
 		<div className='pt-15 pb-7.5  md:py-[150px] px-(--px) flex flex-col items-center'>

@@ -1,5 +1,6 @@
 'use client';
 
+import { EmptyState } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useReviews } from '@/src/hooks/queries/useReviews';
 import { CardReviews } from '@/src/shared/components/ui/CardReviews';
@@ -57,9 +58,7 @@ export default function ReviewsPage() {
 	if (isError || !reviews?.length) {
 		return (
 			<LayoutPage title={texts.reviews.title}>
-				<div className='text-creamy-white text-center py-20'>
-					{isError ? texts.reviews.error : texts.reviews.empty}
-				</div>
+				<EmptyState text={isError ? texts.reviews.error : texts.reviews.empty} />
 			</LayoutPage>
 		);
 	}

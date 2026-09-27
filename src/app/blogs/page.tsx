@@ -1,5 +1,6 @@
 'use client';
 
+import { EmptyState } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useBlogs } from '@/src/hooks/queries/useBlogs';
 import { ArticlesCard } from '@/src/shared/components/ui/Articles-card';
@@ -11,7 +12,7 @@ import LayoutPage from '../layoutPage';
 export default function BlogsPage() {
 	const itemRefs = useRef<HTMLDivElement[]>([]);
 
-	const { data: articlesList, isLoading } = useBlogs();
+	const { data: articlesList, isLoading, isError } = useBlogs();
 
 	const setItemRef = (el: HTMLDivElement | null) => {
 		if (el && !itemRefs.current.includes(el)) {
@@ -22,12 +23,10 @@ export default function BlogsPage() {
 	const getElements = useMemo(() => () => itemRefs.current, []);
 	useCustomCursor({ elements: getElements, text: texts.cursor.read });
 
-	if (!isLoading && articlesList?.length === 0) {
+	if (!isLoading && !articlesList?.length) {
 		return (
 			<LayoutPage title={texts.blogs.title}>
-				<div className='flex items-center justify-center py-20'>
-					<div className='text-creamy-white'>{texts.blogs.empty}</div>
-				</div>
+				<EmptyState text={isError ? texts.common.loadError : texts.blogs.empty} />
 			</LayoutPage>
 		);
 	}

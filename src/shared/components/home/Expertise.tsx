@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionSkeleton } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useExpertise } from '@/src/hooks/queries/useExpertise';
 import gsap from 'gsap';
@@ -72,10 +73,11 @@ export const Expertise = () => {
 	const faceClasses = 'absolute flex justify-center items-center';
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>{texts.common.loading}</div>;
+		return <SectionSkeleton className='h-[70vh]' />;
 	}
-	if (!expertise?.main) {
-		return <div className='text-creamy-white'>{texts.home.expertiseEmpty}</div>;
+	// Нет данных или ошибка загрузки — на лендинге просто не показываем секцию
+	if (!expertise?.main?.length) {
+		return null;
 	}
 
 	return (

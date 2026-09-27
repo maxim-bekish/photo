@@ -41,6 +41,8 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 - Заголовки секций и подписи интерфейса — в коде, не в БД: все строки в `src/shared/config/texts.ts` (заготовка под RU/EN). Новые подписи добавлять туда, не писать текст прямо в JSX.
 - Секции, которые подгружают контент после монтирования и используют GSAP ScrollTrigger, должны вызывать `ScrollTrigger.refresh()` после загрузки данных.
 
+**Состояния загрузки:** секции главной при загрузке показывают `SectionSkeleton`, а без данных/при ошибке возвращают `null` (секция скрывается). Страницы-списки используют `EmptyState` (оба в `src/shared/components/ui/states.tsx`). Глобальные `src/app/not-found.tsx` и `src/app/error.tsx`.
+
 Форма на `/contacts` (`ContactForm.tsx`) шлёт `POST /api/contact`, заявки пишутся в таблицу `contact_requests`.
 
 Почти все страницы — клиентские компоненты (`'use client'`), данные грузятся через React Query, SSR-фетчинга нет.
