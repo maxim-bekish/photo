@@ -1,40 +1,38 @@
 'use client';
 
-import { ArticlesItem } from '@/src/shared/types';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { FooterBlog } from './FooterBlog';
-import { HeaderBlog } from './HeaderBlog';
-import { MainBlog } from './MainBlog';
 import { apiResources } from '@/src/lib/api-resources';
+import { Button } from '@/src/shared/components/ui/button';
+import { useParams } from 'next/navigation';
+import { FooterBlog } from './FooterBlog';
+import { HeaderBlog, HeaderBlogSkeleton } from './HeaderBlog';
+import { MainBlog } from './MainBlog';
 
-export default function () {
+export default function BlogPage() {
 	const params = useParams();
 	const id = params.id as string;
- 
 
- 
-	// if (isLoading) {
-	// 	return (
-	// 		<div className='pt-[130px] pb-[100px] flex flex-col gap-[100px] items-center'>
-	// 			<div className='text-creamy-white'>Загрузка...</div>
-	// 		</div>
-	// 	);
-	// }
-
-	// if (!article) {
-	// 	return (
-	// 		<div className='pt-[130px] pb-[100px] flex flex-col gap-[100px] items-center'>
-	// 			<div className='text-creamy-white'>Блог не найден</div>
-	// 		</div>
-	// 	);
-	// }
+	const { data: article, isLoading, isError } = apiResources.blogs.useQueryById(id)();
 
 	return (
 		<div className='pt-[130px] px-(--px) pb-[100px] flex flex-col gap-[100px] items-center'>
-			<HeaderBlog id={id} />
-			{/* <MainBlog article={article} /> */}
-			<FooterBlog   />
+			{isLoading && <HeaderBlogSkeleton />}
+
+			{!isLoading && (isError || !article) && (
+				<section className='flex flex-col items-center gap-7.5 py-20 text-center'>
+					<h1 className='h1-b'>Статья не найдена</h1>
+					<p className='p-s opacity-60'>Возможно, она была удалена или ссылка устарела.</p>
+					<Button variant={'outline'} href='/blogs' label={'Все статьи'} />
+				</section>
+			)}
+
+			{article && (
+				<>
+					<HeaderBlog article={article} />
+					<MainBlog content={article.content} />
+				</>
+			)}
+
+			<FooterBlog currentId={id} />
 		</div>
 	);
 }

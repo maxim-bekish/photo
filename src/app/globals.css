@@ -263,6 +263,61 @@
 		width: 100%;
 		margin: 0 auto;
 	}
+	/* Текст статьи блога (markdown) */
+	.article-content {
+		@apply text-[17px] font-satoshi leading-[1.7] text-creamy-white/85 flex flex-col gap-5;
+
+		& h2 {
+			@apply font-display text-[24px] md:text-[32px] tracking-[-0.01em] leading-[1.3] text-creamy-white mt-8;
+		}
+		& h3 {
+			@apply font-display text-[20px] tracking-[-0.02em] leading-[1.2] text-creamy-white mt-4;
+		}
+		& a {
+			@apply text-light-orange underline underline-offset-4 hover:text-deep-orange duration-300;
+		}
+		& strong {
+			@apply text-creamy-white font-semibold;
+		}
+		& ul,
+		& ol {
+			@apply flex flex-col gap-2 pl-6;
+		}
+		& ul {
+			@apply list-disc;
+		}
+		& ol {
+			@apply list-decimal;
+		}
+		& li::marker {
+			@apply text-deep-orange;
+		}
+		& blockquote {
+			@apply border-l-2 border-deep-orange pl-5 italic text-creamy-white;
+		}
+		& img {
+			@apply w-full h-auto my-4;
+		}
+		& hr {
+			@apply border-white/20 my-4;
+		}
+		& code {
+			@apply bg-white/10 px-1.5 py-0.5 text-[15px];
+		}
+		& pre {
+			@apply bg-white/5 p-4 overflow-x-auto;
+		}
+		& pre code {
+			@apply bg-transparent p-0;
+		}
+		& table {
+			@apply w-full border-collapse text-[15px];
+		}
+		& th,
+		& td {
+			@apply border border-white/20 px-3 py-2 text-left;
+		}
+	}
 	.p-wrapper {
 		@apply px-10;
 	}

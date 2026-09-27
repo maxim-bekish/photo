@@ -7,6 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint",
+		"db:migrate": "node scripts/migrate.mjs",
 		"db:import-backup": "node scripts/import-backup-to-neon.mjs",
 		"db:seed-socials": "node scripts/seed-socials.mjs"
 	},
@@ -26,6 +27,8 @@
 		"next": "16.0.1",
 		"react": "19.2.0",
 		"react-dom": "19.2.0",
+		"react-markdown": "^10.1.0",
+		"remark-gfm": "^4.0.1",
 		"tailwind-merge": "^3.3.1",
 		"vaul": "^1.1.2"
 	},

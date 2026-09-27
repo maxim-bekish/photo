@@ -25,7 +25,7 @@ export const apiResources = {
 		}),
 		useQueryById: (id: string) =>
 			createQueryHook<ArticlesItem>({
-				queryKey: QueryKeys.album(id),
+				queryKey: QueryKeys.blog(id),
 				queryFn: () => createApiClient<ArticlesItem>('blogs').getById(id),
 			}),
 	},

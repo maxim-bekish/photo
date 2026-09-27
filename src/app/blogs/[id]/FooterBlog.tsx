@@ -4,11 +4,10 @@ import { apiResources } from '@/src/lib/api-resources';
 import { ArticlesCard } from '@/src/shared/components/ui/Articles-card';
 import { Button } from '@/src/shared/components/ui/button';
 import { Skeleton } from '@/src/shared/components/ui/skeleton';
-import { ArticlesItem } from '@/src/shared/types';
 import { useRef } from 'react';
 
-export const FooterBlog = () => {
-	const { data: article, isLoading } = apiResources.blogs.useQuery();
+export const FooterBlog = ({ currentId }: { currentId: string }) => {
+	const { data: articles, isLoading } = apiResources.blogs.useQuery();
 
 	const itemRefs = useRef<HTMLDivElement[]>([]);
 	const setItemRef = (el: HTMLDivElement | null) => {
@@ -17,10 +16,14 @@ export const FooterBlog = () => {
 		}
 	};
 
+	const otherArticles = articles?.filter((el) => el.id !== currentId).slice(0, 3) ?? [];
+
+	if (!isLoading && otherArticles.length === 0) return null;
+
 	return (
 		<section className='flex flex-col gap-10 items-center  wrapper-small'>
 			<div className='flex flex-col gap-10 w-full'>
-				<h2 className='h2-s text-left w-full'>Read other Blogs</h2>
+				<h2 className='h2-s text-left w-full'>Читайте также</h2>
 				<div className='flex gap-2.5 flex-col sm:flex-row'>
 					{isLoading && (
 						<>
@@ -30,20 +33,17 @@ export const FooterBlog = () => {
 						</>
 					)}
 
-					{article &&
-						article
-							.slice(0, 3)
-							.map((el, i) => (
-								<ArticlesCard
-									className={i === 1 ? 'hidden md:flex w-full' : 'w-full'}
-									key={el.id}
-									el={el}
-									setItemRef={setItemRef}
-								/>
-							))}
+					{otherArticles.map((el, i) => (
+						<ArticlesCard
+							className={i === 1 ? 'hidden md:flex w-full' : 'w-full'}
+							key={el.id}
+							el={el}
+							setItemRef={setItemRef}
+						/>
+					))}
 				</div>
 			</div>
-			<Button variant={'outline'} label={'all blogs'} />
+			<Button variant={'outline'} href='/blogs' label={'Все статьи'} />
 		</section>
 	);
 };

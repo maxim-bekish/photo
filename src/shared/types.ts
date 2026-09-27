@@ -8,6 +8,8 @@ export interface ArticlesItem {
 	message: string;
 	category: string;
 	date: string;
+	/** Текст статьи в markdown */
+	content?: string | null;
 }
 
 export interface Brand {
