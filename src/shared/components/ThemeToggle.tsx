@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { Moon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/buttons';
@@ -39,7 +40,7 @@ export function ThemeToggle() {
 			onClick={toggleTheme}
 			size={'icon'}
 			className='relative opacity-0'
-			aria-label='Toggle theme'>
+			aria-label={texts.common.toggleTheme}>
 			{isDark ? (
 				<span></span>
 			) : (

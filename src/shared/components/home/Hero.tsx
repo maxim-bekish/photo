@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useEffect, useLayoutEffect, useRef } from 'react';
@@ -49,7 +50,7 @@ export default function Hero() {
 			<div className='absolute mix-blend-exclusion py-[100px]  md:pt-32.5 md:pb-12.5 px-(--px) h-screen w-full flex justify-between z-10 flex-col-reverse md:flex-col'>
 				<div className='max-w-[400px] ml-auto flex flex-col items-end gap-5'>
 					<p className='text-right font-satoshi p-s whitespace-pre-line'>{settings?.hero_text}</p>
-					<Button variant={'outline'} href='/contacts' label={'Связаться со мной'} />
+					<Button variant={'outline'} href='/contacts' label={texts.common.contactMe} />
 				</div>
 				<div className='flex flex-col gap-8'>
 					<div>
@@ -96,13 +97,13 @@ export default function Hero() {
 				</div>
 				<div className='wrapper h-min flex flex-col gap-8 xl:gap-1 md:pt-25 md:pb-0 md:px-0 py-[30px] px-3'>
 					<div>
-						<h2 className='h2-l text-deep-orange'>Обо мне ...</h2>
+						<h2 className='h2-l text-deep-orange'>{texts.home.aboutTitle}</h2>
 					</div>
 					<div className='ml-auto flex flex-col gap-11'>
 						<p className='p-l font-satoshi font-light text-left w-full md:w-[700px] text-creamy-white whitespace-pre-wrap leading-normal'>
 							{highlight(settings?.about_short ?? '', 'text-deep-orange font-satoshi')}
 						</p>
-						<Button variant={'outline'} href='/about' label={'Ещё обо мне'} />
+						<Button variant={'outline'} href='/about' label={texts.home.moreAboutMe} />
 					</div>
 				</div>
 			</div>

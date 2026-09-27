@@ -1,20 +1,21 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useBrands } from '@/src/hooks/queries/useBrands';
 
 export const Brands = () => {
 	const { data: brands, isLoading } = useBrands();
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>Загрузка...</div>;
+		return <div className='text-creamy-white'>{texts.common.loading}</div>;
 	}
 	if (!brands) {
-		return <div className='text-creamy-white'>Бренды не найдены</div>;
+		return <div className='text-creamy-white'>{texts.home.brandsEmpty}</div>;
 	}
 	return (
 		<div className='flex gap-15 py-7.5 md:py-[150px] px-(--px) flex-col items-center wrapper mx-auto'>
 			<div>
-				<h2 className='h2-s'>Бренды, с которыми я работал</h2>
+				<h2 className='h2-s'>{texts.home.brandsTitle}</h2>
 			</div>
 			<div className='w-full grid grid-cols-[repeat(auto-fill,minmax(130px,1fr))] md:grid-cols-[repeat(3,minmax(200px,1fr))] xl:grid-cols-[repeat(5,minmax(200px,1fr))] auto-rows-min grid-rows-[repeat(2,min-content)] gap-2.5'>
 				{brands.map((el) => (

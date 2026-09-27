@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useReviews } from '@/src/hooks/queries/useReviews';
 import { CardReviews } from '@/src/shared/components/ui/CardReviews';
 import { Skeleton } from '@/src/shared/components/ui/skeleton';
@@ -40,7 +41,7 @@ export default function ReviewsPage() {
 
 	if (isLoading) {
 		return (
-			<LayoutPage title={'Отзывы'}>
+			<LayoutPage title={texts.reviews.title}>
 				<div className='wrapper flex flex-col xl:flex-row gap-2.5 items-center xl:items-start'>
 					{Array.from({ length: COLUMNS }).map((_, index) => (
 						<div key={index} className='flex flex-col w-full md:max-w-[600px] gap-2.5 flex-1'>
@@ -55,16 +56,16 @@ export default function ReviewsPage() {
 
 	if (isError || !reviews?.length) {
 		return (
-			<LayoutPage title={'Отзывы'}>
+			<LayoutPage title={texts.reviews.title}>
 				<div className='text-creamy-white text-center py-20'>
-					{isError ? 'Не удалось загрузить отзывы' : 'Отзывов пока нет'}
+					{isError ? texts.reviews.error : texts.reviews.empty}
 				</div>
 			</LayoutPage>
 		);
 	}
 
 	return (
-		<LayoutPage title={'Отзывы'}>
+		<LayoutPage title={texts.reviews.title}>
 			<div className='wrapper flex flex-col xl:flex-row gap-2.5 relative items-center xl:items-start '>
 				{splitIntoColumns(reviews).map((group, index) => (
 					<div

@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSocials } from '@/src/hooks/queries/useSocials';
@@ -95,7 +96,7 @@ export function FooterUp() {
 									src='/assets/polygon.svg'
 									width={118}
 									height={103}
-									alt='polygon'
+									alt=''
 									className='absolute transition-all duration-700 ease-out'
 									style={{
 										transformOrigin: '50% 50% 0px',
@@ -116,7 +117,7 @@ export function FooterUp() {
 								/>
 							))}
 							<p className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-matt-black font-display text-[18px] leading-[150%] font-medium'>
-								Напишите мне
+								{texts.footer.writeMe}
 							</p>
 						</div>
 					</div>

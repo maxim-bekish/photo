@@ -38,7 +38,7 @@ export const ArticlesCard = ({
 					<img
 						className='w-full h-full object-cover group-hover:scale-110 transition-all duration-1000'
 						src={el.src}
-						alt='img-article'
+						alt={el.message}
 					/>
 				</div>
 				<div

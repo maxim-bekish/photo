@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { apiResources } from '@/src/lib/api-resources';
 import { Button } from '@/src/shared/components/ui/button';
 import { useParams } from 'next/navigation';
@@ -19,9 +20,9 @@ export default function BlogPage() {
 
 			{!isLoading && (isError || !article) && (
 				<section className='flex flex-col items-center gap-7.5 py-20 text-center'>
-					<h1 className='h1-b'>Статья не найдена</h1>
-					<p className='p-s opacity-60'>Возможно, она была удалена или ссылка устарела.</p>
-					<Button variant={'outline'} href='/blogs' label={'Все статьи'} />
+					<h1 className='h1-b'>{texts.blogs.notFound}</h1>
+					<p className='p-s opacity-60'>{texts.blogs.notFoundHint}</p>
+					<Button variant={'outline'} href='/blogs' label={texts.common.allArticles} />
 				</section>
 			)}
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { Title } from './Title';
 import { Characteristics } from './Characteristics';
 import { Gallery } from './Gallery';
@@ -7,7 +8,7 @@ import { MoreAlbums } from './MoreAlbums';
 import { useParams } from 'next/navigation';
 import { apiResources } from '@/src/lib/api-resources';
 
-export default function () {
+export default function AlbumPage() {
 	const params = useParams();
 	const id = params.id as string;
 
@@ -16,7 +17,7 @@ export default function () {
 	if (isLoading) {
 		return (
 			<main>
-				<div className='text-creamy-white text-center py-20'>Загрузка...</div>
+				<div className='text-creamy-white text-center py-20'>{texts.common.loading}</div>
 			</main>
 		);
 	}
@@ -24,7 +25,7 @@ export default function () {
 	if (!album) {
 		return (
 			<main>
-				<div className='text-creamy-white text-center py-20'>Альбом не найден</div>
+				<div className='text-creamy-white text-center py-20'>{texts.works.albumNotFound}</div>
 			</main>
 		);
 	}

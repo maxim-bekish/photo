@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { Button } from '@/src/shared/components/ui/button';
 import type { Characteristics as CharacteristicsType } from '@/src/shared/types';
 import { DynamicIcon } from 'lucide-react/dynamic';
@@ -37,7 +38,7 @@ export const Characteristics = ({
 					})}
 				</ul>
 				<div className='flex justify-center'>
-					<Button variant={'outline'} href='/contacts' label={'Заказать печать'} />
+					<Button variant={'outline'} href='/contacts' label={texts.works.orderPrints} />
 				</div>
 			</div>
 		</section>

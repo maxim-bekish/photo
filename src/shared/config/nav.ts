@@ -1,8 +1,10 @@
+import { texts } from '@/src/shared/config/texts';
+
 export const navItems = [
-	{ text: 'Главная', href: '/' },
-	{ text: 'Обо мне', href: '/about' },
-	{ text: 'Работы', href: '/albums' },
-	{ text: 'Отзывы', href: '/reviews' },
-	{ text: 'Блоги', href: '/blogs' },
-	{ text: 'Контакты', href: '/contacts' },
+	{ text: texts.nav.home, href: '/' },
+	{ text: texts.nav.about, href: '/about' },
+	{ text: texts.nav.works, href: '/albums' },
+	{ text: texts.nav.reviews, href: '/reviews' },
+	{ text: texts.nav.blogs, href: '/blogs' },
+	{ text: texts.nav.contacts, href: '/contacts' },
 ];

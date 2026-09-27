@@ -8,7 +8,7 @@ import Gears from '@/src/shared/components/about/Gears';
 
 import { useInertialScroll } from '@/src/shared/hooks/useInertialScroll';
 
-export default function () {
+export default function AboutPage() {
 	useInertialScroll();
 
 	return (

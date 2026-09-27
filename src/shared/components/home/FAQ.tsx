@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { gsap } from 'gsap';
 import { X } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -167,8 +168,8 @@ export const FAQ = () => {
 			<div className='wrapper relative flex flex-col md:flex-row gap-10 md:gap-24'>
 				<div className='md:sticky md:top-[66px] h-min '>
 					<div className='flex flex-col items-center md:items-start'>
-						<h2 className='h2-l text-deep-orange'>Частые вопросы</h2>
-						<h2 className='h2-s'>Все ответы здесь</h2>
+						<h2 className='h2-l text-deep-orange'>{texts.home.faqTitle}</h2>
+						<h2 className='h2-s'>{texts.home.faqSubtitle}</h2>
 					</div>
 				</div>
 				<div className='w-full overflow-hidden'>

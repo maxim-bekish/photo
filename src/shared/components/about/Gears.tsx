@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useGear } from '@/src/hooks/queries/useSiteContent';
 import { DynamicIcon } from 'lucide-react/dynamic';
 
@@ -11,7 +12,7 @@ export default function Gears() {
 	return (
 		<section className='px-(--px) pt-[30px] pb-[60px] md:py-[150px]'>
 			<div className='wrapper-small flex flex-col gap-10 md:gap-[60px]'>
-				<h2 className='h2-l text-deep-orange text-center'>Моя техника</h2>
+				<h2 className='h2-l text-deep-orange text-center'>{texts.about.gearTitle}</h2>
 				<div className='flex flex-col gap-[100px] py-[30px] px-(--px) border border-solid border-white/10 bg-white/5'>
 					{categories.map((category) => (
 						<div key={category.id} className='flex flex-col gap-[18px] '>

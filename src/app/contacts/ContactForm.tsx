@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useSendContactRequest } from '@/src/hooks/mutations/useSendContactRequest';
 import { cn } from '@/src/shared/lib/utils';
 import { isAxiosError } from 'axios';
@@ -24,7 +25,7 @@ export const ContactForm = () => {
 		};
 
 		if (!payload.email.trim() && !payload.phone.trim()) {
-			setValidationError('Укажите email или телефон, чтобы я мог с вами связаться');
+			setValidationError(texts.contacts.needContact);
 			return;
 		}
 		setValidationError(null);
@@ -35,33 +36,33 @@ export const ContactForm = () => {
 	if (isSuccess) {
 		return (
 			<div className='flex flex-col items-center gap-4 py-6 text-center'>
-				<p className='body3'>Спасибо! Заявка отправлена.</p>
-				<p className='p-s opacity-60'>Я свяжусь с вами в ближайшее время.</p>
+				<p className='body3'>{texts.contacts.successTitle}</p>
+				<p className='p-s opacity-60'>{texts.contacts.successText}</p>
 				<button
 					type='button'
 					onClick={reset}
 					className='body1 uppercase link cursor-pointer'>
-					Отправить ещё одну
+					{texts.contacts.sendAnother}
 				</button>
 			</div>
 		);
 	}
 
 	const serverError = error
-		? (isAxiosError(error) && error.response?.data?.error) || 'Не удалось отправить заявку, попробуйте ещё раз'
+		? (isAxiosError(error) && error.response?.data?.error) || texts.contacts.sendError
 		: null;
 	const errorText = validationError ?? serverError;
 
 	return (
 		<form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-			<input name='name' type='text' placeholder='Имя' required className={inputClass} />
+			<input name='name' type='text' placeholder={texts.contacts.name} required className={inputClass} />
 			<div className='flex flex-col md:flex-row gap-4'>
-				<input name='email' type='email' placeholder='Email' className={inputClass} />
-				<input name='phone' type='tel' placeholder='Телефон' className={inputClass} />
+				<input name='email' type='email' placeholder={texts.contacts.email} className={inputClass} />
+				<input name='phone' type='tel' placeholder={texts.contacts.phone} className={inputClass} />
 			</div>
 			<textarea
 				name='message'
-				placeholder='Ваше сообщение'
+				placeholder={texts.contacts.message}
 				required
 				className={cn(inputClass, 'h-[120px] resize-y overflow-y-auto whitespace-break-spaces')}
 			/>
@@ -72,7 +73,7 @@ export const ContactForm = () => {
 				type='submit'
 				disabled={isPending}
 				className='cursor-pointer h-[50px] w-full text-[14px] font-inter font-medium transition-all duration-400 bg-deep-orange hover:bg-white/10 active:bg-white/20 disabled:opacity-60 disabled:cursor-wait'>
-				{isPending ? 'Отправка…' : 'Отправить'}
+				{isPending ? texts.contacts.sending : texts.contacts.submit}
 			</button>
 		</form>
 	);

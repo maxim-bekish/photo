@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useAwards } from '@/src/hooks/queries/useSiteContent';
 import { useState } from 'react';
 
@@ -19,8 +20,8 @@ export default function Awards() {
 		<section className='px-(--px) py-[30px] md:py-[150px]'>
 			<div className='wrapper-small flex flex-col gap-[30px]'>
 				<div className='flex flex-col items-center md:items-start'>
-					<h2 className='h2-s'>Моменты признания</h2>
-					<h2 className='h2-l text-deep-orange'>Мои награды</h2>
+					<h2 className='h2-s'>{texts.about.awardsTitleSmall}</h2>
+					<h2 className='h2-l text-deep-orange'>{texts.about.awardsTitleLarge}</h2>
 				</div>
 				<div className='flex flex-col items-end gap-2.5'>
 					{awards.map((item, i) => {

@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -23,7 +24,7 @@ export const Albums = () => {
 
 	// Используем хук для кастомного курсора
 	const getElements = useMemo(() => () => itemRefs.current, []);
-	useCustomCursor({ elements: getElements, text: 'view' });
+	useCustomCursor({ elements: getElements, text: texts.cursor.open });
 
 	const { data: albums, isLoading } = apiResources.albums.useQuery();
 
@@ -65,18 +66,18 @@ export const Albums = () => {
 	}, [isLoading]);
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>Загрузка...</div>;
+		return <div className='text-creamy-white'>{texts.common.loading}</div>;
 	}
 
 	if (!albums) {
-		return <div className='text-creamy-white'>Альбомы не найдены</div>;
+		return <div className='text-creamy-white'>{texts.home.albumsEmpty}</div>;
 	}
 
 	return (
 		<div className='flex flex-col flex-nowrap relative items-center wrapper mx-auto'>
 			<div className='flex items-center justify-center h-[50vh]'>
 				<h2 ref={titleRef} className='h2-l text-deep-orange'>
-					Альбомы
+					{texts.home.albumsTitle}
 				</h2>
 			</div>
 			<div

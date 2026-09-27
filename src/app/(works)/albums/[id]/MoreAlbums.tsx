@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useAlbums } from '@/src/hooks/queries/useAlbums';
 import { AlbumCard } from '@/src/shared/components/home/AlbumCard';
 import { Button } from '@/src/shared/components/ui/button';
@@ -35,14 +36,14 @@ export const MoreAlbums = () => {
 
 	return (
 		<section className='flex items-center overflow-hidden gap-[35px] flex-col py-[150px]'>
-			<h1 className='h1 text-center'>Еще альбомы</h1>
+			<h1 className='h1 text-center'>{texts.works.moreAlbums}</h1>
 			<div ref={containerRef} className='flex gap-10  py-10'>
 				{duplicatedAlbums.map((album, i) => (
 					<AlbumCard key={album.id + i} item={album} className='h-[446px] w-[370px] md:w-[370px]' />
 				))}
 			</div>
 
-			<Button variant={'outline'} href='/albums' label={'Все альбомы'} />
+			<Button variant={'outline'} href='/albums' label={texts.common.allAlbums} />
 		</section>
 	);
 };

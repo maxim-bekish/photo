@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { Clapperboard, Image } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { usePathname } from 'next/navigation';
@@ -7,13 +8,13 @@ import { usePathname } from 'next/navigation';
 const filters = [
 	{
 		id: 1,
-		label: 'Photos',
+		label: texts.works.photos,
 		href: '/albums',
 		icon: Image,
 	},
 	{
 		id: 2,
-		label: 'Videos',
+		label: texts.works.videos,
 		href: '/video',
 		icon: Clapperboard,
 	},

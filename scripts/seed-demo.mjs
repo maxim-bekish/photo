@@ -4,8 +4,8 @@ import { resolve } from 'node:path';
 import { createPool } from '@vercel/postgres';
 
 // Демо-контент вымышленного фотографа. ВНИМАНИЕ: скрипт ПЕРЕЗАПИСЫВАЕТ
-// site_settings, stats, faq, awards, gear, qualities, blogs и reviews.
-// Альбомы, бренды, направления, видео и соцсети не трогает.
+// site_settings, stats, faq, awards, gear, qualities, blogs, reviews и socials.
+// Альбомы, бренды, направления и видео не трогает.
 // id генерируем сами: у импортированных из бэкапа таблиц нет DEFAULT для id.
 
 const PROJECT_ROOT = process.cwd();
@@ -223,6 +223,14 @@ const reviews = [
 	},
 ];
 
+// Ссылки-заглушки: фотограф подставит свои аккаунты в админке.
+// icon — имя файла в public/assets/network/
+const socials = [
+	{ id: 'ig', mob: 'ig', text: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
+	{ id: 'tg', mob: 'tg', text: 'Telegram', href: 'https://t.me/', icon: 'telegram' },
+	{ id: 'yt', mob: 'yt', text: 'YouTube', href: 'https://youtube.com/', icon: 'youtube' },
+];
+
 function parseEnv(content) {
 	const env = {};
 	content
@@ -327,6 +335,15 @@ async function main() {
 				r.role,
 				String(r.rating),
 			]);
+		}
+
+		await client.query('DELETE FROM socials');
+		for (const so of socials) {
+			await client.query(
+				`INSERT INTO socials (id, href, icon, text, mob, nav, footer, contact)
+				 VALUES ($1, $2, $3, $4, $5, true, true, true)`,
+				[so.id, so.href, so.icon, so.text, so.mob],
+			);
 		}
 
 		await client.query('COMMIT');

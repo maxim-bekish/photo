@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { cn } from '@/src/shared/lib/utils';
 
 import LayoutPage from '../layoutPage';
@@ -16,7 +17,7 @@ export default function ContactsPage() {
 	const { data: settings } = useSettings();
 
 	return (
-		<LayoutPage title={'Контакты'}>
+		<LayoutPage title={texts.contacts.title}>
 			<div className='max-w-[600px] w-full mx-auto'>
 				<div className={cn('flex flex-col', gap)}>
 					<div
@@ -26,7 +27,7 @@ export default function ContactsPage() {
 							hover,
 							duration,
 						)}>
-						<p className='body1 opacity-60 uppercase'>email</p>
+						<p className='body1 opacity-60 uppercase'>{texts.contacts.email}</p>
 						<a
 							href={`mailto:${settings?.email ?? ''}`}
 							className={cn(
@@ -43,7 +44,7 @@ export default function ContactsPage() {
 							hover,
 							duration,
 						)}>
-						<p className='body1 opacity-60 uppercase'>Телефон</p>
+						<p className='body1 opacity-60 uppercase'>{texts.contacts.phone}</p>
 						<a
 							href={`tel:${settings?.phone.replace(/[^d+]/g, '') ?? ''}`}
 							className={cn(
@@ -89,7 +90,7 @@ export default function ContactsPage() {
 								))}
 					</div>
 					<div className={cn(bg, 'p-5 flex flex-col gap-4')}>
-						<p className='body1 uppercase opacity-60 text-center'>Напишите мне</p>
+						<p className='body1 uppercase opacity-60 text-center'>{texts.contacts.formTitle}</p>
 						<ContactForm />
 					</div>
 				</div>

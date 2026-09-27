@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { default as NextImage } from 'next/image';
 import { cn } from '@/src/shared/lib/utils';
 import { useState } from 'react';
@@ -52,7 +53,7 @@ export default function VideoCard({
 						width='100%'
 						height='100%'
 						src={src}
-						title='YouTube video player'
+						title={texts.common.videoPlayer}
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
 						referrerPolicy='strict-origin-when-cross-origin'
 						allowFullScreen></iframe>
@@ -84,7 +85,7 @@ export default function VideoCard({
 						width='100%'
 						height='100%'
 						src={getVideoSrcWithAutoplay(src)}
-						title='YouTube video player'
+						title={texts.common.videoPlayer}
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
 						referrerPolicy='strict-origin-when-cross-origin'
 						allowFullScreen></iframe>

@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useQualities } from '@/src/hooks/queries/useSiteContent';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -54,7 +55,7 @@ export default function Quality() {
 				sectionRef.current = el;
 			}}
 			className='flex flex-col gap-[100px] items-center text-creamy-white relative px-(--px) pb-[50px] pt-[30px] md:pb-0 md:pt-[150px]'>
-			<h2 className='h2-s sticky top-[150px]'>Что вы найдёте во мне</h2>
+			<h2 className='h2-s sticky top-[150px]'>{texts.about.qualitiesTitle}</h2>
 			{qualities.map((quality, i) => (
 				<div
 					key={quality.id}

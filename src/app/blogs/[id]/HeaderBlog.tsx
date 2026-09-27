@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { Skeleton } from '@/src/shared/components/ui/skeleton';
 import { formatDate } from '@/src/shared/lib/utils';
 import { ArticlesItem } from '@/src/shared/types';
@@ -28,7 +29,7 @@ export const HeaderBlog = ({ article }: { article: ArticlesItem }) => {
 				<div className='flex gap-6 p-5'>
 					{article.category && (
 						<p className='body1 uppercase'>
-							Категория: <span className='text-light-orange'>{article.category}</span>
+							{texts.blogs.category} <span className='text-light-orange'>{article.category}</span>
 						</p>
 					)}
 					{article.date && (

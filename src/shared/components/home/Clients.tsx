@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useReviews } from '@/src/hooks/queries/useReviews';
 import { useRef } from 'react';
 import { useInfiniteSlider } from '../../hooks/useInfiniteSlider';
@@ -32,10 +33,10 @@ export const Clients = () => {
 	});
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>Загрузка...</div>;
+		return <div className='text-creamy-white'>{texts.common.loading}</div>;
 	}
 	if (!clientsList) {
-		return <div className='text-creamy-white'>Отзывы не найдены</div>;
+		return <div className='text-creamy-white'>{texts.home.reviewsEmpty}</div>;
 	}
 
 	const duplicatedList = [...clientsList, ...clientsList, ...clientsList];
@@ -44,8 +45,8 @@ export const Clients = () => {
 		<div className=' flex flex-col items-center md:py-[100px] xl:py-[150px]'>
 			<div className='wrapper bg-white/5 border-white/10 border py-14 flex flex-col items-center gap-7'>
 				<div className='flex flex-col items-center'>
-					<h2 className='h2-s'>Радость и истории от</h2>
-					<h2 className='h2-l text-deep-orange'>Моих Клиентов</h2>
+					<h2 className='h2-s'>{texts.home.reviewsTitleSmall}</h2>
+					<h2 className='h2-l text-deep-orange'>{texts.home.reviewsTitleLarge}</h2>
 				</div>
 				<div className='w-full overflow-hidden'>
 					<div ref={containerRef} className='flex flex-row gap-2.5'>
@@ -59,7 +60,7 @@ export const Clients = () => {
 					</div>
 				</div>
 				<div>
-					<Button variant={'outline'} href='/reviews' label={'Все отзывы'} />
+					<Button variant={'outline'} href='/reviews' label={texts.common.allReviews} />
 				</div>
 			</div>
 		</div>

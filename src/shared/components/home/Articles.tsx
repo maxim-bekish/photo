@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useBreakpoint } from '@/src/shared/hooks/useBreakpoint';
 import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import gsap from 'gsap';
@@ -25,22 +26,22 @@ export const Articles = () => {
 
 	// Используем хук для кастомного курсора
 	const getElements = useMemo(() => () => itemRefs.current, []);
-	useCustomCursor({ elements: getElements, text: 'read' });
+	useCustomCursor({ elements: getElements, text: texts.cursor.read });
 
 	const { data: articlesList, isLoading } = apiResources.blogs.useQuery();
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>Загрузка...</div>;
+		return <div className='text-creamy-white'>{texts.common.loading}</div>;
 	}
 	if (!articlesList) {
-		return <div className='text-creamy-white'>Статьи не найдены</div>;
+		return <div className='text-creamy-white'>{texts.home.articlesEmpty}</div>;
 	}
 	return (
 		<div className='pt-15 pb-7.5  md:py-[150px] px-(--px) flex flex-col items-center'>
 			<div className='wrapper flex flex-col items-center gap-10 md:gap-15'>
 				<div className='flex flex-col w-full'>
-					<h2 className='h2-s'>Вдохновляйтесь моими </h2>
-					<h2 className='h2-l text-deep-orange ml-auto'>Статьями</h2>
+					<h2 className='h2-s'>{texts.home.articlesTitleSmall}</h2>
+					<h2 className='h2-l text-deep-orange ml-auto'>{texts.home.articlesTitleLarge}</h2>
 				</div>
 				<div className='w-full overflow-hidden'>
 					<div
@@ -54,7 +55,7 @@ export const Articles = () => {
 					</div>
 				</div>
 				<div>
-					<Button variant={'outline'} href='/blogs' label={'Все статьи'} />
+					<Button variant={'outline'} href='/blogs' label={texts.common.allArticles} />
 				</div>
 			</div>
 		</div>

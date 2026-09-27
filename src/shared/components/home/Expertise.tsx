@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useExpertise } from '@/src/hooks/queries/useExpertise';
 import gsap from 'gsap';
 import { Observer } from 'gsap/Observer';
@@ -71,17 +72,17 @@ export const Expertise = () => {
 	const faceClasses = 'absolute flex justify-center items-center';
 
 	if (isLoading) {
-		return <div className='text-creamy-white'>Загрузка...</div>;
+		return <div className='text-creamy-white'>{texts.common.loading}</div>;
 	}
 	if (!expertise?.main) {
-		return <div className='text-creamy-white'>Направления не найдены</div>;
+		return <div className='text-creamy-white'>{texts.home.expertiseEmpty}</div>;
 	}
 
 	return (
 		<>
 			<div ref={mainW} className='md:h-[600vh]    flex flex-col justify-between'>
 				<div className='sticky h-screen top-0 flex-col overflow-hidden left-0 hidden md:flex justify-center items-center cursor-grab select-none'>
-					<div className='h2-l text-deep-orange mb-20'>Мои направления</div>
+					<div className='h2-l text-deep-orange mb-20'>{texts.home.expertiseTitle}</div>
 					<div className='flex justify-center items-center'>
 						<div
 							ref={cubeRef}
@@ -163,7 +164,7 @@ export const Expertise = () => {
 					</div>
 				</div>
 				<div className='flex md:hidden flex-col gap-7.5 pt-20 pb-[30px] px-3'>
-					<h2 className='h2-l text-deep-orange text-center'>Мои направления</h2>
+					<h2 className='h2-l text-deep-orange text-center'>{texts.home.expertiseTitle}</h2>
 					<div className='flex flex-col gap-2.5'>
 						{expertise.main.map((el, i) => (
 							<div
@@ -185,8 +186,9 @@ export const Expertise = () => {
 				{/* Блок "There's more" */}
 				<div className=' md:h-auto items-center bg-light-orange relative z-50 flex flex-col gap-10  pt-15 pb-7.5 px-(--px) md:py-25'>
 					<h2 className='wrapper h2-l text-black'>
-						Подождите…
-						<br />И это ещё не всё!
+						{texts.home.expertiseMoreTitle}
+						<br />
+						{texts.home.expertiseMoreSubtitle}
 					</h2>
 
 					<div className='wrapper grid auto-rows-min grid-cols-[repeat(1,minmax(200px,1fr))] xl:grid-cols-[repeat(2,minmax(200px,1fr))] grid-rows-[repeat(2,min-content)] gap-2.5 '>

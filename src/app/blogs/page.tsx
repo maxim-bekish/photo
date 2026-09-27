@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { useBlogs } from '@/src/hooks/queries/useBlogs';
 import { ArticlesCard } from '@/src/shared/components/ui/Articles-card';
 import { Skeleton } from '@/src/shared/components/ui/skeleton';
@@ -19,20 +20,20 @@ export default function BlogsPage() {
 	};
 
 	const getElements = useMemo(() => () => itemRefs.current, []);
-	useCustomCursor({ elements: getElements, text: 'read' });
+	useCustomCursor({ elements: getElements, text: texts.cursor.read });
 
 	if (!isLoading && articlesList?.length === 0) {
 		return (
-			<LayoutPage title='Блоги'>
+			<LayoutPage title={texts.blogs.title}>
 				<div className='flex items-center justify-center py-20'>
-					<div className='text-creamy-white'>Блоги не найдены</div>
+					<div className='text-creamy-white'>{texts.blogs.empty}</div>
 				</div>
 			</LayoutPage>
 		);
 	}
 
 	return (
-		<LayoutPage title='Блоги'>
+		<LayoutPage title={texts.blogs.title}>
 			<div className='flex flex-col gap-2.5 wrapper'>
 				{isLoading ? (
 					<Skeleton className='w-full h-[250px] md:h-[400px]' />

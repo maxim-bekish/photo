@@ -1,4 +1,5 @@
 'use client';
+import { texts } from '@/src/shared/config/texts';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -108,7 +109,7 @@ export default function About() {
 					</p>
 					<p className='p-s text-creamy-white whitespace-pre-line'>{settings?.about_cta}</p>
 
-					<Button variant={'outline'} className='mx-auto' href='/contacts' label={'Связаться со мной'} />
+					<Button variant={'outline'} className='mx-auto' href='/contacts' label={texts.common.contactMe} />
 				</div>
 			</div>
 		</section>

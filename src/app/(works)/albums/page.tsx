@@ -1,12 +1,13 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { AlbumCard } from '@/src/shared/components/home/AlbumCard';
 import { useRef } from 'react';
 import LayoutWorks from '../layoutWorks';
 import { useAlbums } from '@/src/hooks/queries/useAlbums';
 import { Skeleton } from '@/src/shared/components/ui/skeleton';
 
-export default function () {
+export default function AlbumsPage() {
 	const itemRefs = useRef<HTMLAnchorElement[]>([]);
 
 	const { data: albums, isLoading } = useAlbums();
@@ -19,7 +20,7 @@ export default function () {
 
 	if (isLoading) {
 		return (
-			<LayoutWorks title={'Альбомы'} className='gap-10'>
+			<LayoutWorks title={texts.works.albumsTitle} className='gap-10'>
 				<Skeleton className='h-[446px]' />
 				<Skeleton className='h-[446px]' />
 				<Skeleton className='h-[446px]' />
@@ -29,11 +30,11 @@ export default function () {
 	}
 
 	return (
-		<LayoutWorks title={'Альбомы'} className='gap-10'>
+		<LayoutWorks title={texts.works.albumsTitle} className='gap-10'>
 			{albums ? (
 				albums.map(el => <AlbumCard key={el.id} ref={setItemRef} item={el} className='h-[446px]' />)
 			) : (
-				<div>Альбомы не найдены</div>
+				<div>{texts.works.albumsEmpty}</div>
 			)}
 		</LayoutWorks>
 	);

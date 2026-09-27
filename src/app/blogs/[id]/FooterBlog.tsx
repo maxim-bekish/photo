@@ -1,5 +1,6 @@
 'use client';
 
+import { texts } from '@/src/shared/config/texts';
 import { apiResources } from '@/src/lib/api-resources';
 import { ArticlesCard } from '@/src/shared/components/ui/Articles-card';
 import { Button } from '@/src/shared/components/ui/button';
@@ -23,7 +24,7 @@ export const FooterBlog = ({ currentId }: { currentId: string }) => {
 	return (
 		<section className='flex flex-col gap-10 items-center  wrapper-small'>
 			<div className='flex flex-col gap-10 w-full'>
-				<h2 className='h2-s text-left w-full'>Читайте также</h2>
+				<h2 className='h2-s text-left w-full'>{texts.blogs.readAlso}</h2>
 				<div className='flex gap-2.5 flex-col sm:flex-row'>
 					{isLoading && (
 						<>
@@ -43,7 +44,7 @@ export const FooterBlog = ({ currentId }: { currentId: string }) => {
 					))}
 				</div>
 			</div>
-			<Button variant={'outline'} href='/blogs' label={'Все статьи'} />
+			<Button variant={'outline'} href='/blogs' label={texts.common.allArticles} />
 		</section>
 	);
 };

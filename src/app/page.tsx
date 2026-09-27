@@ -9,7 +9,7 @@ import { Expertise } from '../shared/components/home/Expertise';
 import { FAQ } from '../shared/components/home/FAQ';
 import Hero from '../shared/components/home/Hero';
 
-export default function () {
+export default function HomePage() {
 	useInertialScroll();
 
 	return (
