@@ -72,6 +72,7 @@ export const texts = {
 		albumsTitle: 'Альбомы',
 		albumsEmpty: 'Альбомы не найдены',
 		albumNotFound: 'Альбом не найден',
+		albumNotFoundHint: 'Возможно, он был удалён или ссылка устарела.',
 		moreAlbums: 'Ещё альбомы',
 		orderPrints: 'Заказать печать',
 		videosTitle: 'Видео',
