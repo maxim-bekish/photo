@@ -11,7 +11,6 @@ export const texts = {
 		allReviews: 'Все отзывы',
 		allArticles: 'Все статьи',
 		allAlbums: 'Все альбомы',
-		toggleTheme: 'Переключить тему',
 		videoPlayer: 'Видео',
 		close: 'Закрыть',
 		loadError: 'Не удалось загрузить данные. Попробуйте обновить страницу.',
