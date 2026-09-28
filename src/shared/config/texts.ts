@@ -76,7 +76,7 @@ export const texts = {
 		albumNotFound: 'Альбом не найден',
 		albumNotFoundHint: 'Возможно, он был удалён или ссылка устарела.',
 		moreAlbums: 'Ещё альбомы',
-		orderPrints: 'Заказать печать',
+		discussProject: 'Обсудить проект',
 		videosTitle: 'Видео',
 		videosEmpty: 'Видео не найдены',
 		videosDescription: 'Видеоработы: репортажи, клипы и бэкстейджи.',

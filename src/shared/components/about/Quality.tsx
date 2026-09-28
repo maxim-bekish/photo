@@ -48,7 +48,9 @@ export default function Quality() {
 
 	if (!qualities.length) return null;
 
-	const text = 'text-[38px] md:text-[67px] xl:text-[80px]';
+	// На мобильном размер зависит от ширины экрана (7.5vw, но не больше 38px), чтобы длинные слова
+	// вроде «Профессионализм» помещались; hyphens-auto переносит по слогам совсем длинные (lang='ru')
+	const text = 'text-[clamp(24px,7.5vw,38px)] md:text-[67px] xl:text-[80px] hyphens-auto wrap-break-word';
 	return (
 		<section
 			ref={(el) => {

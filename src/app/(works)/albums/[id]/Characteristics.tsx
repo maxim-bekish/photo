@@ -38,7 +38,7 @@ export const Characteristics = ({
 					})}
 				</ul>
 				<div className='flex justify-center'>
-					<Button variant={'outline'} href='/contacts' label={texts.works.orderPrints} />
+					<Button variant={'outline'} href='/contacts' label={texts.works.discussProject} />
 				</div>
 			</div>
 		</section>

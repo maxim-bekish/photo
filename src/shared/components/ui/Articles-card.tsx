@@ -28,7 +28,9 @@ export const ArticlesCard = ({
 				<div
 					className={cn(
 						' overflow-hidden relative ',
-						row && 'basis-1/2',
+						// basis только в горизонтальной раскладке: в колонке (мобильный) он задаёт высоту
+						// и перебивает h-[250px], а фото с fill не даёт блоку высоты — получался 0
+						row && 'md:basis-1/2',
 						big ? 'h-[250px] md:h-[400px]' : 'h-[250px]'
 					)}>
 					{el.subTitle && (
@@ -47,7 +49,7 @@ export const ArticlesCard = ({
 				<div
 					className={cn(
 						'flex flex-1 flex-col bg-white/10 p-4 gap-2.5',
-						row && 'h-auto justify-between basis-1/2'
+						row && 'h-auto justify-between md:basis-1/2'
 					)}>
 					<h3
 						className='h3-s text-creamy-white overflow-hidden text-ellipsis'
