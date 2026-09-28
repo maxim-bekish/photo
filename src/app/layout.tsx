@@ -5,7 +5,7 @@ import localFont from 'next/font/local';
 import { SiteLayout } from '../shared/components/SiteLayout';
 import { getSettings, getSocials } from '../lib/vercel-loader';
 import './globals.css';
-import { SITE_URL } from '../shared/config/site';
+import { ALLOW_INDEXING, SITE_URL } from '../shared/config/site';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { QueryKeys } from '../utils/queryKeys';
 import { cache } from 'react';
@@ -25,13 +25,18 @@ export async function generateMetadata(): Promise<Metadata> {
 				default: settings.meta_title || (fullName ? `${fullName} — фотограф` : 'Фотограф'),
 				template: fullName ? `%s — ${fullName}` : '%s',
 			},
+			metadataBase: new URL(SITE_URL),
+			robots: ALLOW_INDEXING ? undefined : { index: false, follow: false },
 
 			description: settings.meta_description || undefined,
-			metadataBase: new URL(SITE_URL),
 		};
 	} catch {
 		// БД недоступна — страница всё равно должна отрендериться
-		return { title: 'Фотограф', metadataBase: new URL(SITE_URL) };
+		return {
+			title: 'Фотограф',
+			metadataBase: new URL(SITE_URL),
+			robots: ALLOW_INDEXING ? undefined : { index: false, follow: false },
+		};
 	}
 }
 const inter = Inter({

@@ -20,7 +20,7 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 
 Тестов в проекте нет. Скрипты в `scripts/` сами читают `.env.local` из корня.
 
-Переменные окружения (`.env.local`): `POSTGRES_URL` (обязательна — без неё любой лоадер бросает ошибку), `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
+Переменные окружения (`.env.local`): `POSTGRES_URL` (обязательна — без неё любой лоадер бросает ошибку), `ADMIN_EMAIL`, `ADMIN_PASSWORD`. `ALLOW_INDEXING=true` — разрешить индексацию поисковиками (задавать только на боевом сайте фотографа; без неё все страницы `noindex`, а `robots.txt` без sitemap). `NEXT_PUBLIC_SITE_URL` — адрес сайта, если это не адрес Vercel.
 
 ## Архитектура
 
