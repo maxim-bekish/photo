@@ -38,6 +38,9 @@ export interface AlbumItem {
 	title: string;
 	characteristics: Characteristics[];
 	videos: VideoItem[];
+	/** Старые колонки таблицы albums, используются админкой (видео теперь в таблице videos) */
+	videoSrc?: string;
+	videoPreview?: string;
 	description?: string;
 	gallery: {
 		src: string;

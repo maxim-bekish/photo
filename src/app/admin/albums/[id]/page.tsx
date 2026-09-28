@@ -32,6 +32,7 @@ export default function EditAlbumPage() {
 		characteristics: [],
 		description: '',
 		gallery: [{ src: '', gallery_id: '' }],
+		videos: [],
 		videoSrc: '',
 		videoPreview: '',
 	});
