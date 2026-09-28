@@ -5,7 +5,7 @@ import { texts } from '@/src/shared/config/texts';
 import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { AlbumCard } from './AlbumCard';
 import { cn } from '../../lib/utils';
 import { apiResources } from '@/src/lib/api-resources';
@@ -31,40 +31,46 @@ export const Albums = () => {
 
 	useEffect(() => {
 		const title = titleRef.current;
-		const albums = albumsRef.current;
+		const albumsBlock = albumsRef.current;
 
-		if (!title || !albums) return;
+		if (!title || !albumsBlock) return;
 
-		gsap.fromTo(
-			title,
-			{ filter: 'blur(0px)' },
-			{
-				filter: 'blur(5px)',
-				scrollTrigger: {
-					trigger: title,
-					start: 'top 50%',
-					end: '+=600', // блюр закончится через 300px
-					scrub: true,
+		// context + revert: при размонтировании (и двойном запуске эффекта в Strict Mode)
+		// анимации и pin удаляются, иначе на заголовке копятся дубли ScrollTrigger
+		const ctx = gsap.context(() => {
+			gsap.fromTo(
+				title,
+				{ filter: 'blur(0px)' },
+				{
+					filter: 'blur(5px)',
+					scrollTrigger: {
+						trigger: title,
+						start: 'top 50%',
+						end: '+=600', // блюр закончится через 600px
+						scrub: true,
+					},
 				},
-			},
-		);
-		gsap.fromTo(
-			title,
-			{ opacity: 1, scale: 1 },
-			{
-				opacity: 0.9,
-				scale: 1.2,
-				scrollTrigger: {
-					trigger: title,
-					start: 'top 50%', // когда верх заголовка доходит до середины экрана
-					end: `+=${albums.offsetHeight - 200}`, // сколько он «держится» фиксированным
-					pin: true, // фиксируем элемент
-					pinSpacing: false, // страница продолжает скролл поверх
-					scrub: true,
+			);
+			gsap.fromTo(
+				title,
+				{ opacity: 1, scale: 1 },
+				{
+					opacity: 0.9,
+					scale: 1.2,
+					scrollTrigger: {
+						trigger: title,
+						start: 'top 50%', // когда верх заголовка доходит до середины экрана
+						end: `+=${albumsBlock.offsetHeight - 200}`, // сколько он «держится» фиксированным
+						pin: true, // фиксируем элемент
+						pinSpacing: false, // страница продолжает скролл поверх
+						scrub: true,
+					},
 				},
-			},
-		);
-	}, [isLoading]);
+			);
+		});
+
+		return () => ctx.revert();
+	}, [isLoading, albums?.length]);
 
 	if (isLoading) {
 		return <SectionSkeleton className='h-[70vh]' />;

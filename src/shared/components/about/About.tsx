@@ -94,8 +94,9 @@ export default function About() {
 					{highlight(settings?.about_intro ?? '')}
 				</p>
 			</div>
-			<div className='flex px-3 md:px-0 gap-10 flex-col md:flex-row   items-center'>
-				<div className='flex-1 relative min-h-[60vh] w-full md:h-full '>
+			<div className='flex px-3 md:px-0 gap-10 flex-col md:flex-row items-center md:items-stretch'>
+				{/* md:items-stretch — на десктопе колонка с фото тянется на всю высоту текстовой колонки */}
+				<div className='flex-1 relative min-h-[60vh] w-full'>
 					{images.map((src, i) => (
 						<div key={src + i} className={imgClass} style={{ opacity: currentImage === i ? 1 : 0 }}>
 							<Image className='object-cover' src={src} alt='' fill sizes='(min-width: 768px) 50vw, 100vw' />
