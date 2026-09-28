@@ -12,7 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
 		const settings = await getSettings();
 		const fullName = [settings.first_name, settings.last_name].filter(Boolean).join(' ');
 		return {
-			title: settings.meta_title || (fullName ? `${fullName} — фотограф` : 'Фотограф'),
+			title: {
+				default: settings.meta_title || (fullName ? `${fullName} — фотограф` : 'Фотограф'),
+				template: fullName ? `%s — ${fullName}` : '%s',
+			},
+
 			description: settings.meta_description || undefined,
 			metadataBase: new URL(SITE_URL),
 		};
