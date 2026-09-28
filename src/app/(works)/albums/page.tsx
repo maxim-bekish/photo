@@ -1,44 +1,25 @@
-'use client';
-
-import { EmptyState } from '@/src/shared/components/ui/states';
+import type { Metadata } from 'next';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { getAlbums } from '@/src/lib/vercel-loader';
+import { QueryKeys } from '@/src/utils/queryKeys';
 import { texts } from '@/src/shared/config/texts';
-import { AlbumCard } from '@/src/shared/components/home/AlbumCard';
-import { useRef } from 'react';
-import LayoutWorks from '../layoutWorks';
-import { useAlbums } from '@/src/hooks/queries/useAlbums';
-import { Skeleton } from '@/src/shared/components/ui/skeleton';
+import AlbumsList from './AlbumsList';
 
-export default function AlbumsPage() {
-	const itemRefs = useRef<HTMLAnchorElement[]>([]);
+export const metadata: Metadata = {
+	title: texts.works.albumsTitle,
+	description: texts.works.albumsDescription,
+};
 
-	const { data: albums, isLoading, isError } = useAlbums();
+// Обновлять страницу раз в минуту, чтобы новые альбомы из админки появлялись без деплоя
+export const revalidate = 60;
 
-	const setItemRef = (el: HTMLAnchorElement | null) => {
-		if (el && !itemRefs.current.includes(el)) {
-			itemRefs.current.push(el);
-		}
-	};
-
-	if (isLoading) {
-		return (
-			<LayoutWorks title={texts.works.albumsTitle} className='gap-10'>
-				<Skeleton className='h-[446px]' />
-				<Skeleton className='h-[446px]' />
-				<Skeleton className='h-[446px]' />
-				<Skeleton className='h-[446px]' />
-			</LayoutWorks>
-		);
-	}
+export default async function AlbumsPage() {
+	const queryClient = new QueryClient();
+	await queryClient.prefetchQuery({ queryKey: QueryKeys.albums(), queryFn: getAlbums });
 
 	return (
-		<LayoutWorks title={texts.works.albumsTitle} className='gap-10'>
-			{isError ? (
-				<EmptyState text={texts.common.loadError} />
-			) : albums?.length ? (
-				albums.map((el) => <AlbumCard key={el.id} ref={setItemRef} item={el} className='h-[446px]' />)
-			) : (
-				<EmptyState text={texts.works.albumsEmpty} />
-			)}
-		</LayoutWorks>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<AlbumsList />
+		</HydrationBoundary>
 	);
 }

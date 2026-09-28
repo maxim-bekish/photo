@@ -1,56 +1,24 @@
-'use client';
-
-import { EmptyState } from '@/src/shared/components/ui/states';
+import type { Metadata } from 'next';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { getBlogs } from '@/src/lib/vercel-loader';
+import { QueryKeys } from '@/src/utils/queryKeys';
 import { texts } from '@/src/shared/config/texts';
-import { useBlogs } from '@/src/hooks/queries/useBlogs';
-import { ArticlesCard } from '@/src/shared/components/ui/Articles-card';
-import { Skeleton } from '@/src/shared/components/ui/skeleton';
-import { useCustomCursor } from '@/src/shared/hooks/useCustomCursor';
-import { useMemo, useRef } from 'react';
-import LayoutPage from '../layoutPage';
+import BlogsList from './BlogsList';
 
-export default function BlogsPage() {
-	const itemRefs = useRef<HTMLDivElement[]>([]);
+export const metadata: Metadata = {
+	title: texts.blogs.title,
+	description: texts.blogs.description,
+};
 
-	const { data: articlesList, isLoading, isError } = useBlogs();
+export const revalidate = 60;
 
-	const setItemRef = (el: HTMLDivElement | null) => {
-		if (el && !itemRefs.current.includes(el)) {
-			itemRefs.current.push(el);
-		}
-	};
-
-	const getElements = useMemo(() => () => itemRefs.current, []);
-	useCustomCursor({ elements: getElements, text: texts.cursor.read });
-
-	if (!isLoading && !articlesList?.length) {
-		return (
-			<LayoutPage title={texts.blogs.title}>
-				<EmptyState text={isError ? texts.common.loadError : texts.blogs.empty} />
-			</LayoutPage>
-		);
-	}
+export default async function BlogsPage() {
+	const queryClient = new QueryClient();
+	await queryClient.prefetchQuery({ queryKey: QueryKeys.blogs(''), queryFn: getBlogs });
 
 	return (
-		<LayoutPage title={texts.blogs.title}>
-			<div className='flex flex-col gap-2.5 wrapper'>
-				{isLoading ? (
-					<Skeleton className='w-full h-[250px] md:h-[400px]' />
-				) : (
-					articlesList?.[0] && <ArticlesCard el={articlesList[0]} row big setItemRef={setItemRef} />
-				)}
-				<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2.5'>
-					{isLoading
-						? Array.from({ length: 6 }).map((_, index) => (
-								<Skeleton key={index} className='h-[250px]' />
-						  ))
-						: articlesList
-								?.slice(1)
-								.map((el, index) => (
-									<ArticlesCard key={el.id + index} el={el} setItemRef={setItemRef} />
-								))}
-				</div>
-			</div>
-		</LayoutPage>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<BlogsList />
+		</HydrationBoundary>
 	);
 }

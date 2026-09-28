@@ -1,32 +1,25 @@
-'use client';
-
-import { EmptyState } from '@/src/shared/components/ui/states';
+import type { Metadata } from 'next';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { getVideos } from '@/src/lib/vercel-loader';
+import { QueryKeys } from '@/src/utils/queryKeys';
 import { texts } from '@/src/shared/config/texts';
-import VideoCard from '@/src/shared/components/video/VideoCard';
-import LayoutWorks from '../layoutWorks';
-import { useVideos } from '@/src/hooks/queries/useVideos';
-import { Skeleton } from '@/src/shared/components/ui/skeleton';
+import VideoList from './VideoList';
 
-export default function VideoPage() {
-	const { data: videos, isLoading, isError } = useVideos();
+export const metadata: Metadata = {
+	title: texts.works.videosTitle,
+	description: texts.works.videosDescription,
+};
 
-	if (isLoading) {
-		return (
-			<LayoutWorks title={texts.works.videosTitle} className='gap-2'>
-				<Skeleton className='h-[446px]' />
-			</LayoutWorks>
-		);
-	}
+// Обновлять страницу раз в минуту, чтобы новые альбомы из админки появлялись без деплоя
+export const revalidate = 60;
+
+export default async function VideoPage() {
+	const queryClient = new QueryClient();
+	await queryClient.prefetchQuery({ queryKey: QueryKeys.videos(), queryFn: getVideos });
 
 	return (
-		<LayoutWorks title={texts.works.videosTitle} className='gap-2'>
-			{isError ? (
-				<EmptyState text={texts.common.loadError} />
-			) : videos?.length ? (
-				videos.map((el) => <VideoCard key={el.id} {...el} />)
-			) : (
-				<EmptyState text={texts.works.videosEmpty} />
-			)}
-		</LayoutWorks>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<VideoList />
+		</HydrationBoundary>
 	);
 }
