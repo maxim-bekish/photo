@@ -25,6 +25,7 @@ export const Brands = () => {
 						key={el.id}
 						className='flex  p-10 bg-white/10 justify-center items-center h-[132px]  '>
 						<div className=' flex w-[130px]  h-full   '>
+							{/* eslint-disable-next-line @next/next/no-img-element -- SVG-логотипы: оптимизировать нечего */}
 							<img
 								className=' w-full h-full object-contain object-center'
 								src={el.href}

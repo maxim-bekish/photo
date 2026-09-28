@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { texts } from '@/src/shared/config/texts';
 import { Skeleton } from '@/src/shared/components/ui/skeleton';
 import { formatDate } from '@/src/shared/lib/utils';
@@ -40,11 +41,14 @@ export const HeaderBlog = ({ article }: { article: ArticlesItem }) => {
 				</div>
 			</div>
 
-			<div className='aspect-2/1 w-full'>
-				<img
-					className='w-full h-full object-cover object-center'
+			<div className='aspect-2/1 w-full relative'>
+				<Image
+					className='object-cover object-center'
 					src={article.src}
 					alt={article.message}
+					fill
+					sizes='800px'
+					preload
 				/>
 			</div>
 		</section>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { cn } from '../../lib/utils';
 import { ArticlesItem } from '../../types';
 import { Badge } from './badge';
@@ -35,10 +36,12 @@ export const ArticlesCard = ({
 							{el.subTitle}
 						</Badge>
 					)}
-					<img
-						className='w-full h-full object-cover group-hover:scale-110 transition-all duration-1000'
+					<Image
+						className='object-cover group-hover:scale-110 transition-all duration-1000'
 						src={el.src}
 						alt={el.message}
+						fill
+						sizes='(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw'
 					/>
 				</div>
 				<div

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { forwardRef } from 'react';
 import { Badge } from '../ui/badge';
@@ -18,10 +19,12 @@ export const AlbumCard = forwardRef<HTMLAnchorElement, Props>(({ item, className
 			href={'/albums/' + item.id}
 			className={`album-item relative flex flex-col gap-3 group [--corner-offset:-1.5rem] ${className}`}>
 			<div className='flex-[1_0_0px] relative'>
-				<img
-					className='absolute top-0 left-0 right-0 bottom-0 w-full h-full object-cover'
+				<Image
+					className='object-cover'
 					src={item.src}
 					alt={item.alt}
+					fill
+					sizes='(min-width: 1280px) 50vw, 100vw'
 				/>
 			</div>
 

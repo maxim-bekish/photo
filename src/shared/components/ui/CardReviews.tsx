@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { Reviews } from '../../types';
 
@@ -9,7 +10,7 @@ export const CardReviews = ({ el, className }: { el: Reviews; className?: string
 			className={`flex  will-change-transform flex-col   gap-5 px-5 py-10 shrink-0 ${className}`}>
 			<div className='flex flex-col gap-5'>
 				<div className='w-16 h-16 relative'>
-					<img className='w-16 h-16 rounded-full select-none' src={el.src} alt={el.name} />
+					<Image className='w-16 h-16 rounded-full object-cover select-none' src={el.src} alt={el.name} width={64} height={64} />
 					<div className='absolute top-0 left-0'>
 						<div className='absolute bg-white w-2 h-px top-0 left-0'></div>
 						<div className='absolute bg-white w-px h-2 top-0 right-0'></div>

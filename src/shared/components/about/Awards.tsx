@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { texts } from '@/src/shared/config/texts';
 import { useAwards } from '@/src/hooks/queries/useSiteContent';
 import { useState } from 'react';
@@ -54,7 +55,7 @@ export default function Awards() {
 												? 'absolute top-0 right-0 w-full h-full  opacity-100 translate-x-0 translate-y-0   '
 												: 'absolute top-1/2 right-[calc(500px+6px)] w-[170px] h-[210px] opacity-0 -translate-y-[calc(50%-30px)] translate-x-0 group-hover:opacity-100 group-hover:-translate-y-1/2'
 										}`}>
-										<img src={item.img} alt={item.title} className='w-full h-full object-cover' />
+										<Image src={item.img} alt={item.title} className='object-cover' fill sizes='500px' />
 									</div>
 								</div>
 							</div>

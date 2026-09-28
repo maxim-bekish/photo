@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { SectionSkeleton } from '@/src/shared/components/ui/states';
 import { texts } from '@/src/shared/config/texts';
 import { useExpertise } from '@/src/hooks/queries/useExpertise';
@@ -156,10 +157,12 @@ export const Expertise = () => {
 								className={`absolute top-0 left-0 right-0 bottom-0 transition-opacity duration-1000 ${
 									isActiveSide === i ? 'opacity-100' : 'opacity-0'
 								}`}>
-								<img
+								<Image
 									src={el.src}
-									className='w-full h-full object-cover object-center'
+									className='object-cover object-center'
 									alt={el.title}
+									fill
+									sizes='(min-width: 768px) 50vw, 100vw'
 								/>
 							</div>
 						))}

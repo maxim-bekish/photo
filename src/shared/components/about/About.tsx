@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { texts } from '@/src/shared/config/texts';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -97,7 +98,7 @@ export default function About() {
 				<div className='flex-1 relative min-h-[60vh] w-full md:h-full '>
 					{images.map((src, i) => (
 						<div key={src + i} className={imgClass} style={{ opacity: currentImage === i ? 1 : 0 }}>
-							<img className='w-full h-full object-cover' src={src} alt='' />
+							<Image className='object-cover' src={src} alt='' fill sizes='(min-width: 768px) 50vw, 100vw' />
 						</div>
 					))}
 				</div>
