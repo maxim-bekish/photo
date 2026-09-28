@@ -3,13 +3,22 @@ import { Providers } from './providers';
 import { Inter, Montserrat } from 'next/font/google';
 import localFont from 'next/font/local';
 import { SiteLayout } from '../shared/components/SiteLayout';
-import { getSettings } from '../lib/vercel-loader';
+import { getSettings, getSocials } from '../lib/vercel-loader';
 import './globals.css';
 import { SITE_URL } from '../shared/config/site';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { QueryKeys } from '../utils/queryKeys';
+import { cache } from 'react';
+
+// Настройки нужны и метаданным, и шапке/футеру — один запрос в БД на рендер
+const getSettingsCached = cache(getSettings);
+
+// Шапка и футер берут данные из БД — обновлять все страницы хотя бы раз в минуту
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
 	try {
-		const settings = await getSettings();
+		const settings = await getSettingsCached();
 		const fullName = [settings.first_name, settings.last_name].filter(Boolean).join(' ');
 		return {
 			title: {
@@ -66,17 +75,26 @@ const satoshi = localFont({
 	variable: '--font-satoshi',
 });
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const queryClient = new QueryClient();
+
+	await Promise.all([
+		queryClient.prefetchQuery({ queryKey: QueryKeys.settings(), queryFn: getSettingsCached }),
+		queryClient.prefetchQuery({ queryKey: QueryKeys.socials(), queryFn: getSocials }),
+	]);
+
 	return (
 		<html lang='ru' className='dark'>
 			<body
 				className={`${clashDisplay.variable} ${satoshi.variable} ${inter.variable} ${montserrat.variable} scrollBar  antialiased`}>
 				<Providers>
-					<SiteLayout>{children}</SiteLayout>
+					<HydrationBoundary state={dehydrate(queryClient)}>
+						<SiteLayout>{children}</SiteLayout>
+					</HydrationBoundary>
 				</Providers>
 			</body>
 		</html>

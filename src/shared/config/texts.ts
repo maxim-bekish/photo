@@ -65,6 +65,7 @@ export const texts = {
 		awardsTitleSmall: 'Моменты признания',
 		awardsTitleLarge: 'Мои награды',
 		gearTitle: 'Моя техника',
+		description: 'О фотографе: опыт, подход к съёмке, награды и техника.',
 	},
 	works: {
 		photos: 'Фото',
@@ -97,6 +98,7 @@ export const texts = {
 	},
 	contacts: {
 		title: 'Контакты',
+		description: 'Как связаться: email, телефон, соцсети и форма для заявки на съёмку.',
 		email: 'Email',
 		phone: 'Телефон',
 		formTitle: 'Напишите мне',

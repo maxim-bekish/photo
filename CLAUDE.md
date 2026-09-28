@@ -28,7 +28,7 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 
 **Поток данных (публичная часть):**
 1. `src/lib/vercel-loader.ts` — все SQL-запросы (`sql` из `@vercel/postgres`). Альбомы собираются из таблиц `albums` + `gallery` + `characteristics` + `videos` через `json_agg`; JSON-поля нормализуются через `parseJsonField`/`normalizeArrayField`. `getExpertise` раскладывает строки на `main` (до 4 элементов с картинкой) и `sub`.
-2. Route handlers в `src/app/api/<resource>/route.ts` (и `[id]/route.ts`) — тонкие обёртки над лоадерами. Есть также универсальный `src/app/api/[resource]/route.ts`, но статические роуты имеют приоритет, так что он фактически перекрыт.
+2. Route handlers в `src/app/api/<resource>/route.ts` (и `[id]/route.ts`) — тонкие обёртки над лоадерами.
 3. Клиент: axios-инстанс с `baseURL: '/api'` (`src/app/api/http/axiosInstance.ts`). Сосуществуют два стиля:
    - ручные `src/app/api/endpoints/*.api.ts` + хуки `src/hooks/queries/use*.ts`;
    - обобщённый `createApiClient` + `createQueryHook` (фабрика хуков), собранные в `src/lib/api-resources.ts` (сейчас только albums и blogs). Использование: `apiResources.albums.useQueryById(id)()` — обратите внимание на двойной вызов.
@@ -45,7 +45,11 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 
 Форма на `/contacts` (`ContactForm.tsx`) шлёт `POST /api/contact`, заявки пишутся в таблицу `contact_requests`.
 
-Почти все страницы — клиентские компоненты (`'use client'`), данные грузятся через React Query, SSR-фетчинга нет.
+**Серверный рендер (SEO):**
+- `albums/[id]` и `blogs/[id]` — полностью серверные: `page.tsx` вызывает лоадер через `cache()`, `generateMetadata`, `notFound()`; рядом `loading.tsx` и `not-found.tsx`.
+- Остальные страницы: `page.tsx` — серверная обёртка (`metadata`, `revalidate = 60`, `prefetchQuery` + `HydrationBoundary`), а UI — в клиентском `*List.tsx` / `*View.tsx` с хуками React Query. **`queryKey` в `prefetchQuery` должен совпадать с ключом клиентского хука** (например, блоги — `QueryKeys.blogs('')`), иначе клиент загрузит данные заново.
+- `layout.tsx` предзагружает `settings` и `socials` для шапки и футера всех страниц, задаёт шаблон `title` (`%s — Имя`) и `metadataBase` из `SITE_URL` (`src/shared/config/site.ts`).
+- `sitemap.ts` (статические страницы + альбомы и статьи из БД) и `robots.ts` (закрыты `/admin`, `/api`).
 
 **Админка:**
 - `/admin-login` → `POST /api/admin/login` ставит httpOnly-cookie `admin_token=authenticated` (`src/lib/admin-auth.ts`).

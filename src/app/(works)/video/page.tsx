@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 	description: texts.works.videosDescription,
 };
 
-// Обновлять страницу раз в минуту, чтобы новые альбомы из админки появлялись без деплоя
 export const revalidate = 60;
 
 export default async function VideoPage() {

@@ -1,23 +1,29 @@
-'use client';
+import type { Metadata } from 'next';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { getAwards, getGear, getQualities } from '@/src/lib/vercel-loader';
+import { QueryKeys } from '@/src/utils/queryKeys';
+import { texts } from '@/src/shared/config/texts';
+import AboutView from './AboutView';
 
-import About from '@/src/shared/components/about/About';
-import Hero from '@/src/shared/components/about/Hero';
-import Quality from '@/src/shared/components/about/Quality';
-import Awards from '@/src/shared/components/about/Awards';
-import Gears from '@/src/shared/components/about/Gears';
+export const metadata: Metadata = {
+	title: texts.nav.about,
+	description: texts.about.description,
+};
 
-import { useInertialScroll } from '@/src/shared/hooks/useInertialScroll';
+export const revalidate = 60;
 
-export default function AboutPage() {
-	useInertialScroll();
+export default async function AboutPage() {
+	const queryClient = new QueryClient();
+	// settings (имя, тексты, картинки) уже предзагружены в layout.tsx
+	await Promise.all([
+		queryClient.prefetchQuery({ queryKey: QueryKeys.qualities(), queryFn: getQualities }),
+		queryClient.prefetchQuery({ queryKey: QueryKeys.awards(), queryFn: getAwards }),
+		queryClient.prefetchQuery({ queryKey: QueryKeys.gear(), queryFn: getGear }),
+	]);
 
 	return (
-		<>
-			<Hero />
-			<About />
-			<Quality />
-			<Awards />
-			<Gears />
-		</>
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<AboutView />
+		</HydrationBoundary>
 	);
 }
