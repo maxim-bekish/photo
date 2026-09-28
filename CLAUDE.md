@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Обзор
 
-Сайт-портфолио фотографа (альбомы, видео, блог, отзывы, бренды, экспертиза) + простая админ-панель. Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, TanStack Query, данные — Vercel Postgres (Neon).
+Сайт-портфолио фотографа (альбомы, видео, блог, отзывы, бренды, экспертиза) + простая админ-панель. Next.js 16.3 (App Router), React 19, TypeScript, Tailwind CSS v4, TanStack Query, данные — Vercel Postgres (Neon).
 
 ## Команды
 
@@ -59,7 +59,7 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 - Компоненты: `src/shared/components/{home,about,video,ui}`; `ui/` — shadcn (new-york), алиасы в `components.json` ведут в `@/src/shared/...`. Утилита `cn` — `src/shared/lib/utils.ts`.
 - Типы доменных сущностей — `src/shared/types.ts`.
 - Стили: Tailwind v4 без конфиг-файла, токены и кастомные цвета (`deep-orange`, `light-orange`, `creamy-white`, `matt-black`) и шрифты (`font-display`, `font-satoshi`) объявлены в `@theme` в `src/app/globals.css`. Тёмная тема через класс `.dark` на `<html>`.
-- Анимации: `gsap` и `motion`; инерционный скролл — `useInertialScroll`, в `next.config.ts` включён `experimental.viewTransition`.
+- Анимации: `gsap` и `motion`; инерционный скролл — `useInertialScroll`.
 
 ## Соглашения
 
