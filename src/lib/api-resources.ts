@@ -1,5 +1,5 @@
 // src/lib/api-resources.ts
-import { AlbumItem, ArticlesItem, Brand, Expertise, Reviews } from '@/src/shared/types';
+import { AlbumItem, ArticlesItem } from '@/src/shared/types';
 import { createApiClient } from '@/src/app/api/http/createApiClient';
 import { createQueryHook } from '@/src/hooks/queries/createQueryHook';
 import { QueryKeys } from '@/src/utils/queryKeys';

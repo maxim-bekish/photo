@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
 	const token = request.cookies.get('admin_token');
 
 	// Если запрос к админке (кроме страницы логина)

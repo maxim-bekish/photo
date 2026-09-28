@@ -27,7 +27,7 @@ export const WorksTab = () => {
 
 	return (
 		<div className='p-2 border border-white/30 w-min border-solid flex gap-1'>
-			{filters.map((el, i) => (
+			{filters.map((el) => (
 				<a
 					key={el.id}
 					href={el.href}

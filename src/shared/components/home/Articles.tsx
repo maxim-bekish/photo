@@ -9,7 +9,6 @@ import { Observer } from 'gsap/Observer';
 import { useMemo, useRef } from 'react';
 import { Button } from '../ui/button';
 import { ArticlesCard } from '../ui/Articles-card';
-import { ArticlesItem } from '../../types';
 import { apiResources } from '@/src/lib/api-resources';
 
 gsap.registerPlugin(Observer);

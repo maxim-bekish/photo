@@ -21,7 +21,7 @@ export const Characteristics = ({
 			</div>
 			<div className='p-5 bg-white/10 flex flex-col gap-6 max-w-[600px] w-full'>
 				<ul className='flex flex-col gap-2.5'>
-					{characteristics.map((characteristic, i) => {
+					{characteristics.map((characteristic) => {
 						return (
 							<li key={characteristic.code} className='flex py-2.5  justify-between'>
 								<div className='flex-1 flex gap-2 items-center'>

@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { BlogsAPI } from '@/src/app/api/endpoints/blogs.api';
 import { QueryKeys } from '@/src/utils/queryKeys';
 import { ArticlesItem } from '@/src/shared/types';
 import { api } from '@/src/app/api/http/axiosInstance';

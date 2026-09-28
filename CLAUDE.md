@@ -53,7 +53,7 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 
 **Админка:**
 - `/admin-login` → `POST /api/admin/login` ставит httpOnly-cookie `admin_token=authenticated` (`src/lib/admin-auth.ts`).
-- `src/middleware.ts` защищает `/admin/*` (редирект) и `/api/admin/*` (401).
+- `src/proxy.ts` (бывший `middleware.ts`, переименован в Next 16) защищает `/admin/*` (редирект) и `/api/admin/*` (401).
 - **Важно:** CRUD-роуты `src/app/api/admin/{albums,blogs}/route.ts` всё ещё читают/пишут JSON-файлы `src/data/*.json`, которых в репозитории нет, тогда как публичная часть уже читает из Postgres (миграция в коммите «перенос в vercel bd» не завершена). Изменения из админки не попадают на сайт. `ADMIN_README.md` частично устарел по той же причине.
 
 **Лейаут и UI:**

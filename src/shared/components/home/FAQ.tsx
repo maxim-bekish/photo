@@ -17,13 +17,12 @@ interface FAQItemComponentProps {
 	item: FAQItem;
 	isOpen: boolean;
 	onToggle: () => void;
-	isLast: boolean;
 }
 
 const ANIMATION_DURATION = 0.5;
 const ICON_DURATION = 0.3;
 
-const FAQItemComponent = memo(({ item, isOpen, onToggle, isLast }: FAQItemComponentProps) => {
+const FAQItemComponent = memo(({ item, isOpen, onToggle }: FAQItemComponentProps) => {
 	const contentRef = useRef<HTMLDivElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const iconRef = useRef<SVGSVGElement>(null);
@@ -37,8 +36,9 @@ const FAQItemComponent = memo(({ item, isOpen, onToggle, isLast }: FAQItemCompon
 		if (!container || !content || !icon) return;
 
 		// Остановка предыдущих анимаций
-		animationsRef.current.container?.kill();
-		animationsRef.current.icon?.kill();
+		const animations = animationsRef.current;
+		animations.container?.kill();
+		animations.icon?.kill();
 
 		if (isOpen) {
 			const fullHeight = content.scrollHeight;
@@ -77,8 +77,8 @@ const FAQItemComponent = memo(({ item, isOpen, onToggle, isLast }: FAQItemCompon
 		}
 
 		return () => {
-			animationsRef.current.container?.kill();
-			animationsRef.current.icon?.kill();
+			animations.container?.kill();
+			animations.icon?.kill();
 		};
 	}, [isOpen]);
 
@@ -174,13 +174,12 @@ export const FAQ = () => {
 				</div>
 				<div className='w-full overflow-hidden'>
 					<div className='flex flex-col'>
-						{items.map((item, index) => (
+						{items.map((item) => (
 							<FAQItemComponent
 								key={item.id}
 								item={item}
 								isOpen={openItems.has(item.id)}
 								onToggle={() => toggleItem(item.id)}
-								isLast={index === items.length - 1}
 							/>
 						))}
 					</div>
