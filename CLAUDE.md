@@ -63,7 +63,8 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 - Компоненты: `src/shared/components/{home,about,video,ui}`; `ui/` — shadcn (new-york), алиасы в `components.json` ведут в `@/src/shared/...`. Утилита `cn` — `src/shared/lib/utils.ts`.
 - Типы доменных сущностей — `src/shared/types.ts`.
 - Стили: Tailwind v4 без конфиг-файла, токены и кастомные цвета (`deep-orange`, `light-orange`, `creamy-white`, `matt-black`) и шрифты (`font-display`, `font-satoshi`) объявлены в `@theme` в `src/app/globals.css`. Тёмная тема через класс `.dark` на `<html>`.
-- Анимации: `gsap` и `motion`; инерционный скролл — `useInertialScroll`.
+- Анимации: `gsap` и `motion`. Плавный скролл — `useSmoothScroll` (Lenis, синхронизирован с ScrollTrigger через тикер GSAP; на тач-экранах нативная прокрутка; блокируется при открытом меню через `data-menu-open` на `body`).
+- Кастомный курсор — `useCustomCursor`: работает только на устройствах с мышью (`hover: hover`), слежение за мышью одно на весь сайт (`gsap.quickTo`), сколько бы компонентов ни вызывали хук.
 
 ## Соглашения
 

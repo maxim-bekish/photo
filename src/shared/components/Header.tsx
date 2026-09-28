@@ -3,12 +3,12 @@
 import { gsap } from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
 import { Logo } from './Logo';
-import { ThemeToggle } from './ThemeToggle';
+// import { ThemeToggle } from './ThemeToggle';
 import { Button } from './ui/button';
 
 import { usePathname } from 'next/navigation';
 import { navItems } from '../config/nav';
- 
+
 import { cn } from '../lib/utils';
 import { useSocials } from '@/src/hooks/queries/useSocials';
 
@@ -75,7 +75,7 @@ export function Header() {
 			<header className='mix-blend-exclusion z-60 w-full fixed top-0 [&>.xxx]:z-70 [&>.xxx]:relative '>
 				<div className='flex xxx justify-between items-center h-16 mx-auto px-(--px)  '>
 					<Logo />
-					<ThemeToggle />
+					{/* <ThemeToggle /> */}
 
 					<button
 						onClick={() => setMenuOpen(!menuOpen)}

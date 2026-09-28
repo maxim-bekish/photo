@@ -19,6 +19,43 @@ interface UseCustomCursorOptions {
 	text?: string;
 }
 
+// Насколько «лениво» курсор догоняет мышь
+const FOLLOW_DURATION = 0.8;
+
+/** Курсор имеет смысл только там, где есть наведение мышью (не телефоны и планшеты) */
+const canHover = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+// Слежение за мышью — одно на весь сайт, сколько бы компонентов ни использовали хук
+let followers = 0;
+let stopFollowing: (() => void) | null = null;
+
+const startFollowing = (cursor: HTMLElement) => {
+	followers += 1;
+	if (followers > 1) return;
+
+	// quickTo создаёт анимацию один раз и дальше только меняет её цель — без новой анимации на каждый кадр
+	const xTo = gsap.quickTo(cursor, 'x', { duration: FOLLOW_DURATION, ease: 'power3.out' });
+	const yTo = gsap.quickTo(cursor, 'y', { duration: FOLLOW_DURATION, ease: 'power3.out' });
+
+	const moveCursor = (e: MouseEvent) => {
+		xTo(e.clientX - cursor.offsetWidth / 2);
+		yTo(e.clientY - cursor.offsetHeight / 2);
+	};
+	window.addEventListener('mousemove', moveCursor);
+
+	stopFollowing = () => {
+		window.removeEventListener('mousemove', moveCursor);
+		gsap.killTweensOf(cursor, 'x,y');
+	};
+};
+
+const releaseFollowing = () => {
+	followers -= 1;
+	if (followers > 0) return;
+	stopFollowing?.();
+	stopFollowing = null;
+};
+
 /**
  * Хук для управления кастомным курсором, который следует за мышью
  * и показывается при наведении на указанные элементы
@@ -30,32 +67,12 @@ export const useCustomCursor = ({
 }: UseCustomCursorOptions) => {
 	useEffect(() => {
 		const cursor = document.getElementById(cursorId);
-		if (!cursor) return;
+		// На тач-устройствах тап эмулирует наведение, и рамка курсора зависала бы на экране
+		if (!cursor || !canHover()) return;
 
 		const customText = cursor.querySelector('.custom-text');
 
-		let posX = 0;
-		let posY = 0;
-		let animationFrameId: number;
-
-		const moveCursor = (e: MouseEvent) => {
-			posX = e.clientX - cursor.offsetWidth / 2;
-			posY = e.clientY - cursor.offsetHeight / 2;
-		};
-
-		// Слушаем глобально движение мыши
-		window.addEventListener('mousemove', moveCursor);
-
-		const animate = () => {
-			gsap.to(cursor, {
-				x: posX,
-				y: posY,
-				duration: 2,
-				ease: 'power3.out',
-			});
-			animationFrameId = requestAnimationFrame(animate);
-		};
-		animate();
+		startFollowing(cursor);
 
 		// Обновляем текст при наведении на элемент
 		const showCursor = () => {
@@ -73,7 +90,7 @@ export const useCustomCursor = ({
 			// Получаем реальные DOM элементы из refs
 			const elementsArray = typeof elements === 'function' ? elements() : elements;
 			const domElements = elementsArray
-				.map(el => {
+				.map((el) => {
 					if (!el) return null;
 					return el instanceof HTMLElement ? el : el.current;
 				})
@@ -89,7 +106,7 @@ export const useCustomCursor = ({
 			});
 
 			// Добавляем обработчики на новые элементы
-			domElements.forEach(item => {
+			domElements.forEach((item) => {
 				if (!handlers.has(item)) {
 					handlers.set(item, { show: showCursor, hide: hideCursor });
 					item.addEventListener('mouseenter', showCursor);
@@ -105,11 +122,8 @@ export const useCustomCursor = ({
 		const intervalId = setInterval(updateHandlers, 150);
 
 		return () => {
-			window.removeEventListener('mousemove', moveCursor);
-			if (animationFrameId) {
-				cancelAnimationFrame(animationFrameId);
-			}
 			clearInterval(intervalId);
+			releaseFollowing();
 
 			// Удаляем все обработчики
 			handlers.forEach((handler, element) => {
@@ -120,5 +134,3 @@ export const useCustomCursor = ({
 		};
 	}, [elements, cursorId, text]);
 };
-
-
