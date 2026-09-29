@@ -67,8 +67,18 @@ export async function getAlbums(): Promise<AlbumItem[]> {
 			) AS gallery,
 			COALESCE(
 				(
-					SELECT json_agg(json_build_object('code', c.code, 'icon', c.icon, 'value', c.value) ORDER BY c.code)
+					-- подпись и иконка — из типа характеристики; если тип не найден, показываем код как есть
+					SELECT json_agg(
+						json_build_object(
+							'code', c.code,
+							'label', COALESCE(t.label, c.code),
+							'icon', COALESCE(t.icon, c.icon),
+							'value', c.value
+						)
+						ORDER BY COALESCE(t.sort_order, 1000), c.code
+					)
 					FROM characteristics c
+					LEFT JOIN characteristic_types t ON t.code = c.code
 					WHERE c.album_id = a.id
 				),
 				'[]'::json
@@ -96,8 +106,18 @@ export async function getAlbumById(id: string): Promise<AlbumItem | null> {
 			) AS gallery,
 			COALESCE(
 				(
-					SELECT json_agg(json_build_object('code', c.code, 'icon', c.icon, 'value', c.value) ORDER BY c.code)
+					-- подпись и иконка — из типа характеристики; если тип не найден, показываем код как есть
+					SELECT json_agg(
+						json_build_object(
+							'code', c.code,
+							'label', COALESCE(t.label, c.code),
+							'icon', COALESCE(t.icon, c.icon),
+							'value', c.value
+						)
+						ORDER BY COALESCE(t.sort_order, 1000), c.code
+					)
 					FROM characteristics c
+					LEFT JOIN characteristic_types t ON t.code = c.code
 					WHERE c.album_id = a.id
 				),
 				'[]'::json

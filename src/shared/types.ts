@@ -20,8 +20,20 @@ export interface Brand {
 
 export interface Characteristics {
 	icon: IconName;
+	/** Ключ типа из characteristic_types (camera, lenses, … или свой из админки) */
 	code: string;
+	/** Подпись типа для сайта; приходит из characteristic_types, без типа — равна code */
+	label?: string;
 	value: string[];
+}
+
+/** Тип характеристики альбома: готовый (is_system) или добавленный в админке */
+export interface CharacteristicType {
+	code: string;
+	label: string;
+	icon: IconName;
+	sort_order: number;
+	is_system: boolean;
 }
 
 export interface VideoItem {

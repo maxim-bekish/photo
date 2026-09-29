@@ -94,6 +94,29 @@ const migrations = [
 		)`,
 	},
 	{
+		name: 'characteristic_types — типы характеристик альбомов (готовые + свои из админки)',
+		sql: `CREATE TABLE IF NOT EXISTS characteristic_types (
+			code text PRIMARY KEY,
+			label text NOT NULL,
+			icon text NOT NULL DEFAULT 'circle',
+			sort_order int NOT NULL DEFAULT 0,
+			is_system boolean NOT NULL DEFAULT false
+		)`,
+	},
+	{
+		name: 'characteristic_types — готовый список (свои типы и правки подписей не затираются)',
+		sql: `INSERT INTO characteristic_types (code, label, icon, sort_order, is_system) VALUES
+			('camera', 'Камера', 'camera', 10, true),
+			('lenses', 'Объективы', 'aperture', 20, true),
+			('otherDevices', 'Доп. техника', 'monitor-smartphone', 30, true),
+			('category', 'Категория', 'focus', 40, true),
+			('projectType', 'Тип проекта', 'triangle', 50, true),
+			('client', 'Клиент', 'user', 60, true),
+			('location', 'Локация', 'map-pin', 70, true),
+			('time', 'Сроки', 'calendar', 80, true)
+		ON CONFLICT (code) DO NOTHING`,
+	},
+	{
 		name: 'qualities — «Что вы найдёте во мне»',
 		sql: `CREATE TABLE IF NOT EXISTS qualities (
 			id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

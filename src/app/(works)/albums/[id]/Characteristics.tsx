@@ -26,7 +26,7 @@ export const Characteristics = ({
 							<li key={characteristic.code} className='flex py-2.5  justify-between'>
 								<div className='flex-1 flex gap-2 items-center'>
 									<DynamicIcon name={characteristic.icon} size={16} strokeWidth={1} />
-									<p className='body3 text-creamy-white'>{characteristic.code}</p>
+									<p className='body3 text-creamy-white'>{characteristic.label ?? characteristic.code}</p>
 								</div>
 								<div className='flex-1'>
 									<p className='p-s text-creamy-white text-right'>
