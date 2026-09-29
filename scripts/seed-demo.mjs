@@ -4,8 +4,8 @@ import { resolve } from 'node:path';
 import { createPool } from '@vercel/postgres';
 
 // Демо-контент вымышленного фотографа. ВНИМАНИЕ: скрипт ПЕРЕЗАПИСЫВАЕТ
-// site_settings, stats, faq, awards, gear, qualities, blogs, reviews и socials.
-// Альбомы, бренды, направления и видео не трогает.
+// site_settings, stats, faq, awards, gear, qualities, blogs, reviews, socials
+// и альбомы (albums + gallery + characteristics). Бренды, направления и видео не трогает.
 // id генерируем сами: у импортированных из бэкапа таблиц нет DEFAULT для id.
 
 const PROJECT_ROOT = process.cwd();
@@ -223,6 +223,108 @@ const reviews = [
 	},
 ];
 
+// Альбомы. id прежние: к ним по album_id привязаны видео, и старые ссылки на альбомы продолжат работать.
+// Требует выполненной миграции (npm run db:migrate): иконки характеристик берутся из characteristic_types.
+// Фото — из public/assets (своих пока мало, поэтому в галереях они повторяются).
+// Характеристики — коды из characteristic_types (подписи и иконки берутся оттуда).
+const A = '/assets/albums';
+const E = '/assets/expertise';
+const B = '/assets/about/about';
+
+const albums = [
+	{
+		id: 'd2b9c8f1-7e5a-4f3d-b8c2-6f1a9b3d5e8c',
+		href: 'bright-india',
+		src: `${A}/img-1.avif`,
+		title: 'Яркая Индия',
+		description:
+			'Три недели по Раджастхану и Агре: рынки, храмы и люди, для которых цвет — часть повседневной жизни. Тревел-серия об уличном свете и случайных встречах.',
+		gallery: [`${A}/img-1.avif`, `${E}/img-3.avif`, `${B}/img-2.avif`, `${A}/img-2.avif`],
+		characteristics: [
+			['camera', 'Fujifilm X-T4'],
+			['lenses', 'Fujinon XF 23mm f/1.4 R, Fujinon XF 56mm f/1.2 R'],
+			['category', 'Тревел'],
+			['projectType', 'Личный проект'],
+			['location', 'Индия: Раджастхан и Агра'],
+			['time', 'Март 2024'],
+		],
+	},
+	{
+		id: 'e9d6f3b8-7c5a-4d2e-9a7f-6b4e8c1d5f2a',
+		href: 'wild-wonders',
+		src: `${A}/img-5.avif`,
+		title: 'Дикие чудеса',
+		description:
+			'Серия о дикой природе Карелии: долгие часы в укрытии ради нескольких секунд, когда зверь выходит к воде. Работа с естественным светом и терпением.',
+		gallery: [`${A}/img-5.avif`, `${E}/img-2.avif`, `${A}/img-3.avif`, `${B}/img-1.avif`],
+		characteristics: [
+			['camera', 'Sony Alpha a7 III'],
+			['lenses', 'Sony FE 200–600mm f/5.6–6.3 G OSS'],
+			['otherDevices', 'Дрон DJI Mavic Air 2'],
+			['category', 'Дикая природа'],
+			['projectType', 'Личный проект'],
+			['location', 'Карелия'],
+			['time', 'Июнь — август 2024'],
+		],
+	},
+	{
+		id: 'a4f7c9b2-8d6e-4a5c-9b3d-7e2f8a4c6d9b',
+		href: 'echo-of-dreams',
+		src: `${A}/img-2.avif`,
+		title: 'Эхо снов',
+		description:
+			'Концептуальная портретная серия на грани сна и реальности: мягкий свет, дым и длинные выдержки. Снята для выставки в арт-пространстве.',
+		gallery: [`${A}/img-2.avif`, `${B}/img-3.avif`, `${E}/img-1.avif`, `${A}/img-4.avif`],
+		characteristics: [
+			['camera', 'Canon EOS R5'],
+			['lenses', 'Canon RF 50mm f/1.2L USM'],
+			['otherDevices', 'Godox AD200 Pro, генератор дыма'],
+			['category', 'Концептуальный портрет'],
+			['projectType', 'Коммерческий'],
+			['client', 'Арт-пространство «Точка»'],
+			['location', 'Москва, студия'],
+			['time', 'Октябрь 2024'],
+		],
+	},
+	{
+		id: 'c5e8d3a1-9f7b-4c2d-8a6e-5d3f9b2c7e4a',
+		href: 'wings-of-freedom',
+		src: `${A}/img-3.avif`,
+		title: 'Крылья свободы',
+		description:
+			'Северное побережье с воздуха и с земли: птичьи колонии, скалы и ветер, который не даёт стоять на месте. Пейзажная серия о просторе.',
+		gallery: [`${A}/img-3.avif`, `${E}/img-4.avif`, `${A}/img-5.avif`, `${B}/img-2.avif`],
+		characteristics: [
+			['camera', 'Canon EOS R5'],
+			['lenses', 'Canon RF 100–500mm f/4.5–7.1L IS USM'],
+			['otherDevices', 'Дрон DJI Mavic Air 2'],
+			['category', 'Пейзаж'],
+			['projectType', 'Личный проект'],
+			['location', 'Кольский полуостров, Териберка'],
+			['time', 'Июль 2023'],
+		],
+	},
+	{
+		id: 'b7f2e9c4-6a8d-5b3e-9c1f-8e4a7d2f6b5c',
+		href: 'perfection-in-details',
+		src: `${A}/img-4.avif`,
+		title: 'Совершенство в деталях',
+		description:
+			'Предметная съёмка ювелирной коллекции: макро, работа со светом и отражениями, единый стиль для каталога, сайта и соцсетей.',
+		gallery: [`${A}/img-4.avif`, `${E}/img-1.avif`, `${A}/img-1.avif`, `${B}/img-3.avif`],
+		characteristics: [
+			['camera', 'Canon EOS R5'],
+			['lenses', 'Canon RF 100mm f/2.8L Macro IS USM'],
+			['otherDevices', 'Profoto B10, лайтбокс'],
+			['category', 'Предметная съёмка'],
+			['projectType', 'Коммерческий'],
+			['client', 'Ювелирная мастерская «Грань»'],
+			['location', 'Москва, студия'],
+			['time', 'Февраль 2025'],
+		],
+	},
+];
+
 // Ссылки-заглушки: фотограф подставит свои аккаунты в админке.
 // icon — имя файла в public/assets/network/
 const socials = [
@@ -344,6 +446,41 @@ async function main() {
 				 VALUES ($1, $2, $3, $4, $5, true, true, true)`,
 				[so.id, so.href, so.icon, so.text, so.mob],
 			);
+		}
+
+		// Альбомы обновляем по id, а не удаляем: на них ссылаются видео (внешний ключ videos.album_id).
+		// Галерею и характеристики этих альбомов пересоздаём.
+		const albumIds = albums.map((al) => al.id);
+		await client.query('DELETE FROM characteristics WHERE album_id = ANY($1)', [albumIds]);
+		await client.query('DELETE FROM gallery WHERE album_id = ANY($1)', [albumIds]);
+		let galleryN = 1;
+		let characteristicId = 1;
+		for (const al of albums) {
+			await client.query(
+				`INSERT INTO albums (id, src, alt, title, "videoSrc", "videoPreview", description, href)
+				 VALUES ($1, $2, $3, $4, NULL, NULL, $5, $6)
+				 ON CONFLICT (id) DO UPDATE SET
+					src = EXCLUDED.src, alt = EXCLUDED.alt, title = EXCLUDED.title,
+					"videoSrc" = NULL, "videoPreview" = NULL,
+					description = EXCLUDED.description, href = EXCLUDED.href`,
+				[al.id, al.src, al.title, al.title, al.description, al.href],
+			);
+			// gallery_id в базе text и по нему сортируется галерея — ведущие нули держат порядок ('010' после '009')
+			for (const src of al.gallery) {
+				await client.query('INSERT INTO gallery (gallery_id, album_id, src) VALUES ($1, $2, $3)', [
+					String(galleryN++).padStart(3, '0'),
+					al.id,
+					src,
+				]);
+			}
+			// icon в characteristics обязателен — берём из типа характеристики
+			for (const [code, value] of al.characteristics) {
+				await client.query(
+					`INSERT INTO characteristics (characteristic_id, album_id, code, icon, value)
+					 VALUES ($1, $2, $3, COALESCE((SELECT icon FROM characteristic_types WHERE code = $3), 'circle'), $4)`,
+					[characteristicId++, al.id, code, value],
+				);
+			}
 		}
 
 		await client.query('COMMIT');

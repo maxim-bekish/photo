@@ -15,7 +15,7 @@ npm run lint               # eslint (flat config, eslint-config-next)
 npm run db:migrate         # идемпотентные ALTER-миграции схемы (scripts/migrate.mjs) — новые изменения схемы добавлять туда
 npm run db:import-backup   # залить db_cluster-*.backup.gz в Postgres (scripts/import-backup-to-neon.mjs)
 npm run db:seed-socials    # заполнить таблицу socials
-npm run db:seed-demo       # демо-контент вымышленного фотографа (ПЕРЕЗАПИСЫВАЕТ settings/stats/faq/awards/gear/qualities/blogs/reviews/socials)
+npm run db:seed-demo       # демо-контент вымышленного фотографа (ПЕРЕЗАПИСЫВАЕТ settings/stats/faq/awards/gear/qualities/blogs/reviews/socials; 5 альбомов обновляет по id вместе с галереей и характеристиками; нужен выполненный db:migrate)
 ```
 
 Тестов в проекте нет. Скрипты в `scripts/` сами читают `.env.local` из корня.
