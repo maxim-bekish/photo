@@ -28,11 +28,11 @@ export const CardReviews = ({ el, className }: { el: Reviews; className?: string
 						<div className='absolute bg-white w-px h-2 bottom-0 right-0'></div>
 					</div>
 				</div>
-				<p className='p-s text-creamy-white text-satoshi select-none'>{el.message}</p>
+				<p className='p-s text-creamy-white select-none'>{el.message}</p>
 			</div>
 			<div className='flex flex-col gap-1 pt-5 mt-auto border-t border-white/10'>
 				<p className='body3 text-creamy-white font-display select-none'>{el.name}</p>
-				<p className='font-satoshi text-creamy-white text-[13px] leading-[150%] tracking-[-0.02em] select-none'>
+				<p className='font-text text-creamy-white text-[13px] leading-[150%] tracking-[-0.02em] select-none'>
 					{el.role}
 				</p>
 

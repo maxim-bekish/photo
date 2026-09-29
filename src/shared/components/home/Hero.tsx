@@ -49,7 +49,7 @@ export default function Hero() {
 			{/* Overlay с текстом и кнопками */}
 			<div className='absolute mix-blend-exclusion py-[100px]  md:pt-32.5 md:pb-12.5 px-(--px) h-screen w-full flex justify-between z-10 flex-col-reverse md:flex-col'>
 				<div className='max-w-[400px] ml-auto flex flex-col items-end gap-5'>
-					<p className='text-right font-satoshi p-s whitespace-pre-line'>{settings?.hero_text}</p>
+					<p className='text-right font-text p-s whitespace-pre-line'>{settings?.hero_text}</p>
 					<Button variant={'outline'} href='/contacts' label={texts.common.contactMe} />
 				</div>
 				<div className='flex flex-col gap-8'>
@@ -100,8 +100,8 @@ export default function Hero() {
 						<h2 className='h2-l text-deep-orange'>{texts.home.aboutTitle}</h2>
 					</div>
 					<div className='ml-auto flex flex-col gap-11'>
-						<p className='p-l font-satoshi font-light text-left w-full md:w-[700px] text-creamy-white whitespace-pre-wrap leading-normal'>
-							{highlight(settings?.about_short ?? '', 'text-deep-orange font-satoshi')}
+						<p className='p-l font-text font-light text-left w-full md:w-[700px] text-creamy-white whitespace-pre-wrap leading-normal'>
+							{highlight(settings?.about_short ?? '', 'text-deep-orange font-text')}
 						</p>
 						<Button variant={'outline'} href='/about' label={texts.home.moreAboutMe} />
 					</div>

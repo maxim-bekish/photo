@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Providers } from './providers';
-import { Inter, Montserrat } from 'next/font/google';
+import { Inter, Manrope, Montserrat } from 'next/font/google';
 import localFont from 'next/font/local';
 import { SiteLayout } from '../shared/components/SiteLayout';
 import { getSettings, getSocials } from '../lib/vercel-loader';
@@ -69,15 +69,11 @@ const clashDisplay = localFont({
 	],
 	variable: '--font-clash-display',
 });
-const satoshi = localFont({
-	src: [
-		{
-			path: './fonts/Satoshi-Variable.woff2',
-			style: 'normal',
-			weight: '100 900', // диапазон variable-font
-		},
-	],
-	variable: '--font-satoshi',
+// Шрифт основного текста: в отличие от прежнего Satoshi, в нём есть кириллица
+const manrope = Manrope({
+	subsets: ['latin', 'cyrillic'],
+	variable: '--font-manrope',
+	display: 'swap',
 });
 
 export default async function RootLayout({
@@ -95,7 +91,7 @@ export default async function RootLayout({
 	return (
 		<html lang='ru' className='dark'>
 			<body
-				className={`${clashDisplay.variable} ${satoshi.variable} ${inter.variable} ${montserrat.variable} scrollBar  antialiased`}>
+				className={`${clashDisplay.variable} ${manrope.variable} ${inter.variable} ${montserrat.variable} scrollBar  antialiased`}>
 				<Providers>
 					<HydrationBoundary state={dehydrate(queryClient)}>
 						<SiteLayout>{children}</SiteLayout>
