@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ArrowRight } from 'lucide-react';
 import clsx from 'clsx';
@@ -29,11 +30,9 @@ interface ButtonProps extends VariantProps<typeof buttonVariants> {
 }
 
 function Button({ className = '', variant, children, href, label, external }: ButtonProps) {
-	const Btn = href ? 'a' : 'button';
-	const externalProps = href && external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
-
-	return (
-		<Btn href={href} {...externalProps} className={clsx(buttonVariants({ variant }), className)}>
+	const classes = clsx(buttonVariants({ variant }), className);
+	const content = (
+		<>
 			<p className='h-full duration-300 flex items-center uppercase border-inherit  text-btn'>
 				{children ? children : label}
 			</p>
@@ -44,8 +43,28 @@ function Button({ className = '', variant, children, href, label, external }: Bu
 					className='h-full icon transition-transform duration-300  group-hover:-rotate-45'
 				/>
 			</div>
-		</Btn>
+		</>
 	);
+
+	// Внешняя ссылка — обычный <a> в новой вкладке
+	if (href && external) {
+		return (
+			<a href={href} target='_blank' rel='noopener noreferrer' className={classes}>
+				{content}
+			</a>
+		);
+	}
+
+	// Внутренняя — Link: переход без перезагрузки страницы и с предзагрузкой
+	if (href) {
+		return (
+			<Link href={href} className={classes}>
+				{content}
+			</Link>
+		);
+	}
+
+	return <button className={classes}>{content}</button>;
 }
 
 export { Button, buttonVariants };

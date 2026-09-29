@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '../../lib/utils';
 import { ArticlesItem } from '../../types';
@@ -18,7 +19,7 @@ export const ArticlesCard = ({
 }) => {
 	return (
 		<div ref={setItemRef} >
-			<a
+			<Link
 				href={'/blogs/' + el.id}
 				className={cn(
 					'flex cursor-pointer group gap-1 flex-col ',
@@ -66,7 +67,7 @@ export const ArticlesCard = ({
 						<Badge variant='secondary'>{el.date}</Badge>
 					</div>
 				</div>
-			</a>
+			</Link>
 		</div>
 	);
 };

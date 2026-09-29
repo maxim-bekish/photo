@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { texts } from '@/src/shared/config/texts';
 import { ArrowDown } from 'lucide-react';
 import { useLayoutEffect, useRef } from 'react';
@@ -41,9 +42,9 @@ export const ScrollIndicator = () => {
 				<ArrowDown size={12} className='animate-bounce' />
 				{texts.scrollIndicator.scroll}
 			</p>
-			<a className='body1 link' href='/contacts'>
+			<Link className='body1 link' href='/contacts'>
 				{texts.scrollIndicator.cooperate}
-			</a>
+			</Link>
 		</div>
 	);
 };

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
 import { Logo } from './Logo';
@@ -127,12 +128,13 @@ export function Header() {
 							el.href === '/' ? pathname === '/' : pathname.startsWith(el.href);
 
 						return (
-							<a
+							<Link
 								ref={(el) => {
 									if (el) navRefs.current[i] = el;
 								}}
 								key={i}
 								href={el.href}
+								onClick={() => setMenuOpen(false)}
 								className={cn(
 									'transition-colors w-min text-7xl leading-14 tracking-[-3.2] font-display nav-menu whitespace-nowrap',
 									{
@@ -141,7 +143,7 @@ export function Header() {
 									},
 								)}>
 								{el.text}
-							</a>
+							</Link>
 						);
 					})}
 				</nav>

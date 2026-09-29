@@ -124,6 +124,10 @@ export const useCustomCursor = ({
 		return () => {
 			clearInterval(intervalId);
 			releaseFollowing();
+			// При переходе по клику карточка исчезает раньше, чем сработает mouseleave, —
+			// без этого рамка курсора зависла бы видимой на новой странице
+			gsap.killTweensOf(cursor, 'opacity,scale');
+			gsap.set(cursor, { opacity: 0, scale: 0.6 });
 
 			// Удаляем все обработчики
 			handlers.forEach((handler, element) => {

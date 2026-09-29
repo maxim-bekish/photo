@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { texts } from '@/src/shared/config/texts';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -83,7 +84,7 @@ export function FooterUp() {
 	return (
 		<div className='p-3 md:py-0 md:px-(--px)'>
 			<div className='bg-light-orange pt-[230px] pb-[150px] relative flex flex-col  items-center gap-12'>
-				<a
+				<Link
 					href='/contacts'
 					className='camera group'
 					onMouseEnter={() => setIsHovered(true)}
@@ -121,7 +122,7 @@ export function FooterUp() {
 							</p>
 						</div>
 					</div>
-				</a>
+				</Link>
 				<div className='flex flex-col gap-8 md:gap-2 items-center'>
 					{settings?.email && (
 						<a

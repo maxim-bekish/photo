@@ -3,10 +3,14 @@
 import { usePathname } from 'next/navigation';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { useSmoothScroll } from '../hooks/useSmoothScroll';
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname();
 	const isAdminPage = pathname?.startsWith('/admin') || pathname === '/admin-login';
+
+	// Плавный скролл на всех публичных страницах; в админке — обычная прокрутка
+	useSmoothScroll(!isAdminPage);
 
 	if (isAdminPage) {
 		return <>{children}</>;

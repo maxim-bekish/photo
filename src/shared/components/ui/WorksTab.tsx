@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { texts } from '@/src/shared/config/texts';
 import { Clapperboard, Image } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -28,7 +29,7 @@ export const WorksTab = () => {
 	return (
 		<div className='p-2 border border-white/30 w-min border-solid flex gap-1'>
 			{filters.map((el) => (
-				<a
+				<Link
 					key={el.id}
 					href={el.href}
 					className={cn(
@@ -40,7 +41,7 @@ export const WorksTab = () => {
 					)}>
 					<el.icon />
 					<p className='p-s'>{el.label}</p>
-				</a>
+				</Link>
 			))}
 		</div>
 	);

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { forwardRef } from 'react';
@@ -14,7 +15,7 @@ interface Props {
 export const AlbumCard = forwardRef<HTMLAnchorElement, Props>(({ item, className }, ref) => {
 	
 	return (
-		<a
+		<Link
 			ref={ref}
 			href={'/albums/' + item.id}
 			className={`album-item relative flex flex-col gap-3 group [--corner-offset:-1.5rem] ${className}`}>
@@ -71,7 +72,7 @@ export const AlbumCard = forwardRef<HTMLAnchorElement, Props>(({ item, className
 					<div className='bg-white w-[60px] h-px absolute right-0'></div>
 				</div>
 			</div>
-		</a>
+		</Link>
 	);
 });
 

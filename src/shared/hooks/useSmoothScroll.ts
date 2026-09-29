@@ -12,10 +12,19 @@ gsap.registerPlugin(ScrollTrigger);
  * Плавный скролл колесом мыши (Lenis), синхронизированный с GSAP ScrollTrigger.
  * Из коробки: тач — нативная прокрутка, Ctrl + колесо (зум) не перехватывается,
  * при «уменьшить движение» в системе сглаживание отключается.
+ * Подключается один раз в SiteLayout для всех публичных страниц.
  */
-export const useSmoothScroll = () => {
+export const useSmoothScroll = (enabled = true) => {
 	useEffect(() => {
-		const lenis = new Lenis({ lerp: 0.1 });
+		if (!enabled) return;
+
+		const lenis = new Lenis({
+			lerp: 0.1,
+			// колесо над элементом со своей прокруткой (textarea, длинные блоки) крутит его, а не страницу
+			allowNestedScroll: true,
+			// клик по ссылке сразу гасит инерцию, чтобы она не «доезжала» на новой странице
+			stopInertiaOnNavigate: true,
+		});
 
 		// ScrollTrigger пересчитывает анимации на каждом шаге Lenis, а Lenis крутится в тикере GSAP —
 		// так анимации на скролле и сам скролл идут в одном кадре
@@ -39,5 +48,5 @@ export const useSmoothScroll = () => {
 			gsap.ticker.lagSmoothing(500, 33); // значения GSAP по умолчанию
 			lenis.destroy();
 		};
-	}, []);
+	}, [enabled]);
 };

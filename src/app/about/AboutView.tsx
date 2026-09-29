@@ -6,11 +6,8 @@ import Quality from '@/src/shared/components/about/Quality';
 import Awards from '@/src/shared/components/about/Awards';
 import Gears from '@/src/shared/components/about/Gears';
 
-import { useSmoothScroll } from '@/src/shared/hooks/useSmoothScroll';
 
 export default function AboutView() {
-	useSmoothScroll();
-
 	return (
 		<>
 			<Hero />
