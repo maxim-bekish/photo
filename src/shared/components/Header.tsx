@@ -69,9 +69,32 @@ export function Header() {
 
 	const { data: socials } = useSocials();
 
+	// Шапка прячется при прокрутке вниз и возвращается при прокрутке вверх —
+	// так прозрачная шапка с mix-blend не накладывается на текст, пока его читают
+	const [hiddenOnScroll, setHiddenOnScroll] = useState(false);
+
+	useEffect(() => {
+		let lastY = window.scrollY;
+		const onScroll = () => {
+			const y = window.scrollY;
+			// порог 5px гасит дрожание; наверху страницы (до 120px) шапка видна всегда
+			if (Math.abs(y - lastY) > 5) {
+				setHiddenOnScroll(y > lastY && y > 120);
+				lastY = y;
+			}
+		};
+		window.addEventListener('scroll', onScroll, { passive: true });
+		return () => window.removeEventListener('scroll', onScroll);
+	}, []);
+
 	return (
 		<>
-			<header className='mix-blend-exclusion z-60 w-full fixed top-0 [&>.xxx]:z-70 [&>.xxx]:relative '>
+			<header
+				className={cn(
+					'mix-blend-exclusion z-60 w-full fixed top-0 [&>.xxx]:z-70 [&>.xxx]:relative transition-[translate] duration-300',
+					// при открытом меню шапка (с кнопкой закрытия) видна всегда
+					hiddenOnScroll && !menuOpen && '-translate-y-full',
+				)}>
 				<div className='flex xxx justify-between items-center h-16 mx-auto px-(--px)  '>
 					<Logo />
 

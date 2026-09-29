@@ -37,6 +37,7 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 **Контент сайта** (всё, что должно редактироваться из админки):
 - `site_settings` — одна строка (`id = 1`): имя, город, контакты, тексты Hero и «Обо мне», картинки/видео, SEO. Читается через `useSettings()` на клиенте и `getSettings()` в `generateMetadata` (`layout.tsx`).
 - Списки с `sort_order`: `stats`, `faq`, `awards`, `gear_categories` + `gear`, `qualities`. Хуки — `src/hooks/queries/useSiteContent.ts`.
+- Характеристики альбома: `characteristics` хранит `code` + `value`, а подпись и иконка берутся из `characteristic_types` (`code`, `label`, `icon` lucide, `sort_order`, `is_system`). Миграция заводит 8 готовых типов (`is_system = true`, в админке не удалять); свои типы админка добавляет в ту же таблицу. Лоадер делает `LEFT JOIN`: без типа выводится сам `code`.
 - В текстах `**фрагмент**` — акцент, рендерится через `highlight()` из `src/shared/lib/highlight.tsx`; переносы строк — `\n` + `whitespace-pre-line`. Многострочный ответ FAQ выводится списком.
 - Заголовки секций и подписи интерфейса — в коде, не в БД: все строки в `src/shared/config/texts.ts` (заготовка под RU/EN). Новые подписи добавлять туда, не писать текст прямо в JSX.
 - Секции, которые подгружают контент после монтирования и используют GSAP ScrollTrigger, должны вызывать `ScrollTrigger.refresh()` после загрузки данных.
@@ -57,12 +58,15 @@ npm run db:seed-demo       # демо-контент вымышленного ф
 - **Важно:** CRUD-роуты `src/app/api/admin/{albums,blogs}/route.ts` всё ещё читают/пишут JSON-файлы `src/data/*.json`, которых в репозитории нет, тогда как публичная часть уже читает из Postgres (миграция в коммите «перенос в vercel bd» не завершена). Изменения из админки не попадают на сайт. `ADMIN_README.md` частично устарел по той же причине.
 
 **Лейаут и UI:**
-- `src/app/layout.tsx` — шрифты (ClashDisplay, Satoshi — локальные; Inter, Montserrat — Google), `Providers` (QueryClient), `SiteLayout`.
+- `src/app/layout.tsx` — шрифты, `Providers` (QueryClient), `SiteLayout`. Шрифты:
+  - заголовки и цифры — `font-display`: ClashDisplay (локальный, **без кириллицы**), кириллица подхватывается запасным Montserrat — так задумано;
+  - основной текст — `font-text`: Manrope (Google, с кириллицей);
+  - Inter — поля форм.
 - `SiteLayout` добавляет Header/Footer и DOM-элемент кастомного курсора (`#cursor-custom`, управляется `useCustomCursor`); для `/admin*` и `/admin-login` рендерит только children.
 - Группа роутов `(works)` — альбомы и видео с общим `layoutWorks.tsx`.
 - Компоненты: `src/shared/components/{home,about,video,ui}`; `ui/` — shadcn (new-york), алиасы в `components.json` ведут в `@/src/shared/...`. Утилита `cn` — `src/shared/lib/utils.ts`.
 - Типы доменных сущностей — `src/shared/types.ts`.
-- Стили: Tailwind v4 без конфиг-файла, токены и кастомные цвета (`deep-orange`, `light-orange`, `creamy-white`, `matt-black`) и шрифты (`font-display`, `font-satoshi`) объявлены в `@theme` в `src/app/globals.css`. Тёмная тема через класс `.dark` на `<html>`.
+- Стили: Tailwind v4 без конфиг-файла, токены и кастомные цвета (`deep-orange`, `light-orange`, `creamy-white`, `matt-black`) и шрифты (`font-display`, `font-text`) объявлены в `@theme` в `src/app/globals.css`. Тёмная тема через класс `.dark` на `<html>`.
 - Анимации: `gsap` и `motion`. Плавный скролл — `useSmoothScroll` (Lenis, синхронизирован с ScrollTrigger через тикер GSAP; на тач-экранах нативная прокрутка; блокируется при открытом меню через `data-menu-open` на `body`).
 - Кастомный курсор — `useCustomCursor`: работает только на устройствах с мышью (`hover: hover`), слежение за мышью одно на весь сайт (`gsap.quickTo`), сколько бы компонентов ни вызывали хук.
 
