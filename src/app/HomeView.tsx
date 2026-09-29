@@ -11,13 +11,14 @@ import Hero from '../shared/components/home/Hero';
 export default function HomeView() {
 	return (
 		<>
+			{/* Сначала работы (альбомы, направления), потом доверие (бренды, отзывы), статьи — в конце */}
 			<Hero />
-			<Brands />
 			<Albums />
 			<Expertise />
+			<Brands />
 			<Clients />
-			<Articles />
 			<FAQ />
+			<Articles />
 		</>
 	);
 }

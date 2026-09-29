@@ -4,6 +4,10 @@ import { usePathname } from 'next/navigation';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { useSmoothScroll } from '../hooks/useSmoothScroll';
+import { DesignTweaks } from './DesignTweaks';
+
+const SHOW_STYLE_PANEL =
+	process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_STYLE_PANEL === 'true';
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname();
@@ -21,6 +25,8 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
 			<Header />
 			{children}
 			<Footer />
+			{/* Панель подбора стиля: в dev и на демо-сайте (NEXT_PUBLIC_STYLE_PANEL=true), у покупателя скрыта */}
+			{SHOW_STYLE_PANEL && <DesignTweaks />}
 			<div
 				id='cursor-custom'
 				className='fixed  top-0 left-0 w-14.5 h-14.5 pointer-events-none  opacity-0 z-9999'>
